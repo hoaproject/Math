@@ -59,7 +59,7 @@ class Util {
      */
     public static function δ ( $i, $j ) {
 
-        return (int) $i == $j;
+        return (int) ($i == $j);
     }
 }
 
