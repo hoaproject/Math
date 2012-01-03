@@ -72,6 +72,9 @@ class Combination {
      */
     public static function Γ ( $n, $k ) {
 
+        if(0 === $n)
+            return array();
+
         $out  = array();
         $tmp  = null;
         $i    = 0;
