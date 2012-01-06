@@ -66,11 +66,13 @@ class Combination {
      *     0 0 2
      *
      * @access  public
-     * @param   int  $n    n.
-     * @param   int  $k    k.
+     * @param   int   $n              n.
+     * @param   int   $k              k.
+     * @param   bool  $withoutZero    Do not produce solutions with a zero
+     *                                inside.
      * @return  array
      */
-    public static function Γ ( $n, $k ) {
+    public static function Γ ( $n, $k, $withoutZero = false ) {
 
         if(0 === $n)
             return array();
@@ -83,7 +85,9 @@ class Combination {
 
         while($k != $o[$i = $n - 1]) {
 
-            $out[] = $o;
+            if(false === $withoutZero || !in_array(0, $o))
+                $out[] = $o;
+
             $tmp   = $o[$i];
             $o[$i] = 0;
 
@@ -93,7 +97,8 @@ class Combination {
             $o[$i + 1] = $tmp + 1;
         }
 
-        $out[] = $o;
+        if(false === $withoutZero || !in_array(0, $o))
+            $out[] = $o;
 
         return $out;
     }
