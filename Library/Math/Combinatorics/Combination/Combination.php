@@ -34,7 +34,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math\Combinatorics {
+namespace Hoa\Math\Combinatorics\Combination {
 
 /**
  * Class \Hoa\Math\Combinatorics\Combination.
@@ -49,21 +49,10 @@ namespace Hoa\Math\Combinatorics {
 class Combination {
 
     /**
-     * Let E a finite set of cardinality n (n ∈ ℕ*), then the set K_k(E) of the
-     * k-combination with repetition of E is finite and its cardinality is equal
-     * to:
-     *     Γ_n^k = C_{n + k - 1}^k
-     * which is the number of k-combination of n + k - 1 elements.
-     * Example:
-     *     foreach(Hoa\Math\Combinatorics\Combination::Γ(3, 2) as $solution)
-     *         echo implode($solution, ' '), "\n";
-     * Will output:
-     *     2 0 0
-     *     1 1 0
-     *     1 0 1
-     *     0 2 0
-     *     0 1 1
-     *     0 0 2
+     * Γ^n_k denotes the set of k-uples whose sum of elements is n. For example:
+     * Γ^2_3 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0,
+     * 2)}. For any k-uple γ and any α in {1, …, k}, γ_α denotes the α-th
+     * element of γ.
      *
      * @access  public
      * @param   int   $n              n.
