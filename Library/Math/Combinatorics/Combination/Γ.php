@@ -183,7 +183,7 @@ class Γ implements \Hoa\Iterator {
         $this->_tmp     = null;
         $this->_i       = 0;
         $this->_o       = 0 === $this->_n
-                              ? null
+                              ? array(0)
                               : array_fill(0, $this->_n, 0);
         $this->_o[0]    = $this->_k;
         $this->_last    = false;
