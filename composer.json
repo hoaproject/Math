@@ -3,7 +3,7 @@
     "description": "The Hoa\\Math library.",
     "type"       : "library",
     "keywords"   : ["library", "math", "combinatorics", "arrangement",
-                    "combination", "counting", "set", "permutation"],
+                    "combination", "counting", "set", "permutation", "sampler"],
     "homepage"   : "http://hoa-project.net/",
     "license"    : "BSD-3-Clause",
     "authors"    : [
