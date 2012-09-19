@@ -39,11 +39,6 @@ namespace {
 from('Hoa')
 
 /**
- * \Hoa\Visitor\Visit
- */
--> import('Visitor.Visit')
-
-/**
  * \Hoa\Math\Exception\UnknownFunction
  */
 -> import('Math.Exception.UnknownFunction')
@@ -56,7 +51,12 @@ from('Hoa')
 /**
  * \Hoa\Math\Exception\DivisionByZero
  */
--> import('Math.Exception.DivisionByZero');
+-> import('Math.Exception.DivisionByZero')
+
+/**
+ * \Hoa\Visitor\Visit
+ */
+-> import('Visitor.Visit');
 
 }
 
@@ -65,7 +65,7 @@ namespace Hoa\Math\Visitor {
 /**
  * Class \Hoa\Math\Visitor\Arithmetic.
  *
- * Evaluate arithmetical expressions
+ * Evaluate arithmetical expressions.
  *
  * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
  * @author     Stéphane Py <py.stephane1@gmail.com>
@@ -90,6 +90,8 @@ class Arithmetic implements \Hoa\Visitor\Visit {
      */
     protected $_constants = null;
 
+
+
     /**
      * Visit an element.
      *
@@ -102,64 +104,34 @@ class Arithmetic implements \Hoa\Visitor\Visit {
     public function visit ( \Hoa\Visitor\Element $element,
                             &$handle = null, $eldnah = null ) {
 
-        $type = $element->getId();
-
-        if('token' === $type) {
-
-            // replace spaces coz (float) '+ 1'; = 0
-            $value = str_replace(' ', '', $element->getValueValue());
-
-            if('constant' === $element->getValueToken()) {
-
-                if(defined($value))
-                    return constant($value);
-                else {
-
-                    if(null === $this->_constants)
-                        $this->initializeConstants();
-
-                    return $this->getConstant($value);
-                }
-            }
-
-           return (float) $value;
-        }
-
+        $type     = $element->getId();
         $children = $element->getChildren();
 
-        // In #function token, first elements is the name of function to execute.
-        if('#function' === $type)
-            $functionChildren = array_shift($children);
-
-        // Evaluate children.
         foreach($children as &$child)
             $child = $child->accept($this, $handle, $eldnah);
 
         switch($type) {
 
             case '#function':
-                if(null === $this->_functions)
-                    $this->initializeFunctions();
-
-                $callable = $this->getFunction($functionChildren->getValueValue());
-
-                return $callable->distributesArguments($children);
+                return $this->getFunction(array_shift($children))
+                            ->distributesArguments($children);
               break;
 
             case '#negative':
-                return $children[0] * -1;
+                return -$children[0];
               break;
 
             case '#addition':
             case '#substraction':
-                if ('#substraction' === $type) {
+                if(        '#substraction' === $type
+                   &&                 null !== ($parent = $element->getParent())
+                   &&      '#substraction' === $parent->getId()
+                   && $parent->getChild(1) === $element)
+                    $type = '#addition';
 
-                    $parent = $element->getParent();
-                    if(null !== $parent && '#substraction' === $parent->getId() && $parent->getChild(1) === $element)
-                        $type = ('#addition' === $type) ? '#substraction' : '#addition';
-                }
-
-                return '#addition' === $type ? $children[0] + $children[1] : $children[0] - $children[1];
+                return '#addition' === $type
+                           ? $children[0] + $children[1]
+                           : $children[0] - $children[1];
               break;
 
             case '#power':
@@ -167,139 +139,213 @@ class Arithmetic implements \Hoa\Visitor\Visit {
               break;
 
             case '#modulo':
-                return ($children[0] % $children[1]);
+                return $children[0] % $children[1];
               break;
 
             case '#multiplication':
-                return ($children[0] * $children[1]);
+                return $children[0] * $children[1];
               break;
 
             case '#division':
                 if(0 == $children[1])
-                    throw new \Hoa\Math\Exception\DivisionByZero('Division by zero', 0);
-                return ($children[0] / $children[1]);
+                    throw new \Hoa\Math\Exception\DivisionByZero(
+                        'Tried to divide %f by zero, impossible.',
+                        0, $children[0]);
+
+                return $children[0] / $children[1];
               break;
 
-            default:
-                throw new \Hoa\Core\Exception('Type %s is not supported', 1, $type);
-              break;
+            case 'token':
+                $value = $element->getValueValue();
 
+                if('constant' === $element->getValueToken()) {
+
+                    if(defined($value))
+                        return constant($value);
+
+                    return $this->getConstant($value);
+                }
+
+                if('id' === $element->getValueToken())
+                    return $value;
+
+                return (float) $value;
         }
     }
 
     /**
-     * Get a function on mapping list
+     * Get a function.
      *
      * @access  public
-     * @param string $id Ident of function.
-     * @return xcallable
+     * @param   string  $name    Function name.
+     * @return  \Hoa\Core\Consistency\Xcallable
+     * @throw   \Hoa\Math\Exception\UnknownFunction
      */
-    public function getFunction ( $id ) {
-        if(!$this->_functions->offsetExists($id))
-            throw new \Hoa\Math\Exception\UnknownFunction('Function "%s" is not yet implemented', 2, $id);
+    public function getFunction ( $name ) {
 
-        return $this->_functions[$id];
+        if(null === $this->_functions)
+            $this->initializeFunctions();
+
+        if(false === $this->_functions->offsetExists($name))
+            throw new \Hoa\Math\Exception\UnknownFunction(
+                'Function %s does not exist.', 1, $name);
+
+        return $this->_functions[$name];
     }
 
     /**
-     * Get a constant on mapping list
+     * Get a constant.
      *
      * @access  public
-     * @param string $ident Ident of constant.
-     * @return mixed
+     * @param   string  $name    Constant name.
+     * @return  mixed
+     * @throw   \Hoa\Math\Exception\UnknownFunction
      */
-    public function getConstant ( $ident ) {
-        if(!$this->_constants->offsetExists($ident))
-            throw new \Hoa\Math\Exception\UnknownConstant('Constant "%s" is not yet implemented', 3, $ident);
+    public function getConstant ( $name ) {
 
-        return $this->_constants[$ident];
+        if(null === $this->_constants)
+            $this->initializeConstants();
+
+        if(false === $this->_constants->offsetExists($name))
+            throw new \Hoa\Math\Exception\UnknownConstant(
+                'Constant %s does not exist', 2, $name);
+
+        return $this->_constants[$name];
     }
 
     /**
-     * Initialize functions mapping
+     * Initialize functions mapping.
      *
      * @access protected
+     * @return void
      */
-    protected function initializeFunctions () {
-        $average = function () {
+    protected function initializeFunctions ( ) {
 
-            $arguments = func_get_args();
+        static $_functions = null;
 
-            return array_sum($arguments) / count($arguments);
-        };
+        if(null === $_functions) {
 
-        $this->_functions = new \ArrayObject(array(
-            'abs'     => xcallable('abs'),
-            'acos'    => xcallable(function( $value ) { return acos(deg2rad($value)); }),
-            'asin'    => xcallable(function( $value ) { return asin(deg2rad($value)); }),
-            'atan'    => xcallable(function( $value ) { return atan(deg2rad($value)); }),
-            'average' => xcallable($average),
-            'avg'     => xcallable($average),
-            'ceil'    => xcallable('ceil'),
-            'cos'     => xcallable(function( $value ) { return cos(deg2rad($value)); }),
-            'count'   => xcallable(function() { return count(func_get_args()); }),
-            'deg2rad' => xcallable('deg2rad'),
-            'exp'     => xcallable('exp'),
-            'floor'   => xcallable('floor'),
-            'ln'      => xcallable('log'),
-            'log'     => xcallable(function( $value, $base = 10 ) { return log($value, $base); }),
-            'log10'   => xcallable('log10'),
-            'max'     => xcallable('max'),
-            'min'     => xcallable('min'),
-            'pow'     => xcallable('pow'),
-            'rad2deg' => xcallable('rad2deg'),
-            'sin'     => xcallable(function( $value ) { return sin(deg2rad($value)); }),
-            'sqrt'    => xcallable('sqrt'),
-            'sum'     => xcallable(function() { return array_sum(func_get_args()); }),
-            'tan'     => xcallable(function( $value ) { return tan(deg2rad($value)); }),
-        ));
+            $average = function ( ) {
+
+                $arguments = func_get_args();
+
+                return array_sum($arguments) / count($arguments);
+            };
+
+            $_functions = new \ArrayObject(array(
+                'abs'     => xcallable('abs'),
+                'acos'    => xcallable(function ( $value ) {
+                                 return acos(deg2rad($value));
+                             }),
+                'asin'    => xcallable(function ( $value ) {
+                                 return asin(deg2rad($value));
+                             }),
+                'atan'    => xcallable(function ( $value ) {
+                                 return atan(deg2rad($value));
+                             }),
+                'average' => xcallable($average),
+                'avg'     => xcallable($average),
+                'ceil'    => xcallable('ceil'),
+                'cos'     => xcallable(function ( $value ) {
+                                 return cos(deg2rad($value));
+                             }),
+                'count'   => xcallable(function ( ) {
+                                 return count(func_get_args());
+                             }),
+                'deg2rad' => xcallable('deg2rad'),
+                'exp'     => xcallable('exp'),
+                'floor'   => xcallable('floor'),
+                'ln'      => xcallable('log'),
+                'log'     => xcallable(function ( $value, $base = 10 ) {
+                                 return log($value, $base);
+                             }),
+                'max'     => xcallable('max'),
+                'min'     => xcallable('min'),
+                'pow'     => xcallable('pow'),
+                'rad2deg' => xcallable('rad2deg'),
+                'sin'     => xcallable(function ( $value ) {
+                                 return sin(deg2rad($value));
+                             }),
+                'sqrt'    => xcallable('sqrt'),
+                'sum'     => xcallable(function ( ) {
+                                 return array_sum(func_get_args());
+                             }),
+                'tan'     => xcallable(function ( $value ) {
+                                 return tan(deg2rad($value));
+                             }),
+            ));
+        }
+
+        $this->_functions = $_functions;
+
+        return;
     }
 
     /**
-     * Initialize constants mapping
+     * Initialize constants mapping.
      *
      * @access protected
+     * @return void
      */
-    protected function initializeConstants () {
-        $this->_constants = new \ArrayObject(array(
-            'PI'      => M_PI,
-            'π'       => M_PI,
-            'PI_2'    => M_PI_2,
-            'PI_4'    => M_PI_4,
-            'E'       => M_E,
-            'SQRT_PI' => M_SQRTPI,
-            'SQRT_2'  => M_SQRT2,
-            'SQRT_3'  => M_SQRT3,
-            'LN_PI'   => M_LNPI,
-        ));
+    protected function initializeConstants ( ) {
+
+        static $_constants = null;
+
+        if(null === $_constants)
+            $_constants = new \ArrayObject(array(
+                'PI'      => M_PI,
+                'π'       => M_PI,
+                'PI_2'    => M_PI_2,
+                'PI_4'    => M_PI_4,
+                'E'       => M_E,
+                'SQRT_PI' => M_SQRTPI,
+                'SQRT_2'  => M_SQRT2,
+                'SQRT_3'  => M_SQRT3,
+                'LN_PI'   => M_LNPI,
+            ));
+
+        $this->_constants = $_constants;
+
+        return;
     }
 
     /**
-     * Add a function to the mapping
+     * Add a function.
      *
-     * @param string $ident    ident of function
-     * @param mixed  $callable callback
+     * @access  public
+     * @param   string  $name        Function name.
+     * @param   mixed   $callable    Callable.
+     * @return  void
      */
-    public function addFunction ( $ident, $callable = null ) {
+    public function addFunction ( $name, $callable = null ) {
+
         if(null === $callable) {
 
-            if(false === function_exists($ident))
-                throw new \Hoa\Core\Exception('Function %s does not exists', 4, $ident);
+            if(false === function_exists($name))
+                throw new \Hoa\Math\UnknownFunction(
+                    'Function %s does not exist, cannot add it.', 3, $name);
 
-            $callable = $ident;
+            $callable = $name;
         }
 
-        $this->_functions[$ident] = xcallable($callable);
+        $this->_functions[$name] = xcallable($callable);
+
+        return;
     }
 
     /**
-     * Add a constant to the mapping
+     * Add a constant.
      *
-     * @param string $ident ident of constant
-     * @param mixed  $value value of constant
+     * @access  public
+     * @param   string  $name     Constant name.
+     * @param   mixed   $value    Value.
+     * @return  void
      */
-    public function addConstant ( $ident, $value ) {
-        $this->_constants[$ident] = $value;
+    public function addConstant ( $name, $value ) {
+
+        $this->_constants[$name] = $value;
+
+        return;
     }
 }
 

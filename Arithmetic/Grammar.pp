@@ -33,14 +33,12 @@
 //
 // Grammar \Hoa\Math\Arithmetic\Grammar.
 //
-// Provide a mathematical grammar for the Hoa LL(k) compiler.
-// This way you can safely & easily evaluate mathematical expressions
-// (limited to decimal arithmetic at the moment)
+// Provide a grammar for arithmetic expressions.
 //
 // @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
-// @author     Stéphane PY <py.stephane1@gmail.com>
+// @author     Stéphane Py <py.stephane1@gmail.com>
 // @author     Sébastien Houze <s@verylastroom.com>
-// @copyright  Copyright © 2007-2012 Ivan Enderlin, Stéphane PY, Sébastien Houze.
+// @copyright  Copyright © 2007-2012 Ivan Enderlin, Stéphane Py, Sébastien Houze.
 // @license    New BSD License
 //
 
