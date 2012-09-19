@@ -191,7 +191,7 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
                   break;
             }
 
-        } while('quit' !== $expression = $this->readline('> '));
+        } while('quit' !== $expression = $this->readLine('> '));
 
         return;
     }
