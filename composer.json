@@ -24,6 +24,10 @@
     },
     "require": {
         "hoa/core"    : "master",
-        "hoa/iterator": "master"
+        "hoa/iterator": "master",
+        "hoa/compiler": "master"
+    },
+    "replace": {
+        "hoa/math": "self.version"
     }
 }
