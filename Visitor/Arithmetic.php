@@ -242,7 +242,6 @@ class Arithmetic implements \Hoa\Visitor\Visit {
             'floor'   => xcallable('floor'),
             'ln'      => xcallable('log'),
             'log'     => xcallable(function( $value, $base = 10 ) { return log($value, $base); }),
-            'log10'   => xcallable('log10'),
             'max'     => xcallable('max'),
             'min'     => xcallable('min'),
             'pow'     => xcallable('pow'),
