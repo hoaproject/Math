@@ -156,7 +156,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
                     $parent = $element->getParent();
                     if(null !== $parent && '#substraction' === $parent->getId() && $parent->getChild(1) === $element)
-                        $type = ('#addition' === $type) ? '#substraction' : '#addition';
+                        $type = '#addition';
                 }
 
                 return '#addition' === $type ? $children[0] + $children[1] : $children[0] - $children[1];
