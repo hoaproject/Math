@@ -31,7 +31,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 //
-// Grammar \Hoa\Math\Arithmetic\Grammar.
+// Grammar \Hoa\Math\Arithmetic.
 //
 // Provide a grammar for arithmetic expressions.
 //
