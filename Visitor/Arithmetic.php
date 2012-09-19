@@ -174,6 +174,20 @@ class Arithmetic implements \Hoa\Visitor\Visit {
     }
 
     /**
+     * Get functions.
+     *
+     * @access  public
+     * @return  \ArrayObject
+     */
+    public function getFunctions ( ) {
+
+        if(null === $this->_functions)
+            $this->initializeFunctions();
+
+        return $this->_functions;
+    }
+
+    /**
      * Get a function.
      *
      * @access  public
@@ -191,6 +205,20 @@ class Arithmetic implements \Hoa\Visitor\Visit {
                 'Function %s does not exist.', 1, $name);
 
         return $this->_functions[$name];
+    }
+
+    /**
+     * Get constants.
+     *
+     * @access  public
+     * @return  \ArrayObject
+     */
+    public function getConstants ( ) {
+
+        if(null === $this->_constants)
+            $this->initializeConstants();
+
+        return $this->_constants;
     }
 
     /**
