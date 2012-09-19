@@ -106,8 +106,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
         if('token' === $type) {
 
-            // replace spaces coz (float) '+ 1'; = 0
-            $value = str_replace(' ', '', $element->getValueValue());
+            $value = $element->getValueValue();
 
             if('constant' === $element->getValueToken()) {
 
