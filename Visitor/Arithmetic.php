@@ -322,7 +322,6 @@ class Arithmetic implements \Hoa\Visitor\Visit {
         if(null === $_constants)
             $_constants = new \ArrayObject(array(
                 'PI'      => M_PI,
-                'π'       => M_PI,
                 'PI_2'    => M_PI_2,
                 'PI_4'    => M_PI_4,
                 'E'       => M_E,
