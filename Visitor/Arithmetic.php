@@ -133,7 +133,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
             case '#substraction':
                 $parent = $element->getParent();
 
-                if(   null !== $parent
+                if(   null            !== $parent
                    && '#substraction' === $parent->getId()
                    && $element        === $parent->getChild(1))
                     return $children[0] - -$children[1];
