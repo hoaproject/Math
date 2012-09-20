@@ -122,16 +122,23 @@ class Arithmetic implements \Hoa\Visitor\Visit {
               break;
 
             case '#addition':
-            case '#substraction':
-                if(        '#substraction' === $type
-                   &&                 null !== ($parent = $element->getParent())
-                   &&      '#substraction' === $parent->getId()
-                   && $parent->getChild(1) === $element)
-                    $type = '#addition';
+                $parent = $element->getParent();
 
-                return '#addition' === $type
-                           ? $children[0] + $children[1]
-                           : $children[0] - $children[1];
+                if(null !== $parent && '#substraction' === $parent->getId())
+                    return $children[0] - $children[1];
+
+                return $children[0] + $children[1];
+              break;
+
+            case '#substraction':
+                $parent = $element->getParent();
+
+                if(   null !== $parent
+                   && '#substraction' === $parent->getId()
+                   && $element        === $parent->getChild(1))
+                    return $children[0] - -$children[1];
+
+                return $children[0] - $children[1];
               break;
 
             case '#power':
