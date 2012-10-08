@@ -48,12 +48,12 @@ from('Hoa')
 namespace Hoa\Math\Combinatorics\Combination {
 
 /**
- * Class \Hoa\Math\Combinatorics\Combination\Γ.
+ * Class \Hoa\Math\Combinatorics\Combination\Gamma.
  *
- * Γ^n_k denotes the set of k-uples whose sum of elements is n. For example:
- * Γ^2_3 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0, 2)}.
+ * Gamma^n_k denotes the set of k-uples whose sum of elements is n. For example:
+ * Gamma^2_3 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0, 2)}.
  * For any k-uple γ and any α in {1, …, k}, γ_α denotes the α-th element of γ.
- * This class is identical to \Hoa\Math\Combinatorics\Combination::Γ with a
+ * This class is identical to \Hoa\Math\Combinatorics\Combination::Gamma with a
  * “yield” keyword.
  *
  * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
@@ -61,54 +61,54 @@ namespace Hoa\Math\Combinatorics\Combination {
  * @license    New BSD License
  */
 
-class Γ implements \Hoa\Iterator {
+class Gamma implements \Hoa\Iterator {
 
     /**
      * n.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ int
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
      */
     protected $_n       = 0;
 
     /**
      * k.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ int
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
      */
     protected $_k       = 0;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ int
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
      */
     protected $_current = null;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ int
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
      */
     protected $_key     = -1;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ array
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma array
      */
     protected $_tmp     = null;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ int
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
      */
     protected $_i       = 0;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ int
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
      */
     protected $_o       = 0;
 
@@ -116,7 +116,7 @@ class Γ implements \Hoa\Iterator {
      * For iterator.
      *
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Γ bool
+     * @var \Hoa\Math\Combinatorics\Combination\Gamma bool
      */
     protected $_last    = false;
 
