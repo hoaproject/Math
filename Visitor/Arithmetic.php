@@ -114,7 +114,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
             case '#function':
                 return $this->getFunction(array_shift($children))
-                            ->distributesArguments($children);
+                            ->distributeArguments($children);
               break;
 
             case '#negative':
