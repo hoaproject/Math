@@ -108,7 +108,7 @@ class Random extends Sampler {
      */
     protected function _getFloat ( $lower, $upper ) {
 
-        return $lower + lcg_value() * ($upper - $lower);
+        return $lower + lcg_value() * abs($upper - $lower);
     }
 }
 
