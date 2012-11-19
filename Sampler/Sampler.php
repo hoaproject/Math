@@ -79,16 +79,29 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
         $this->_parameters->setParameters($parameters);
 
         if(null === $this->_parameters->getParameter('integer.min'))
-            $this->_parameters->setParameter('integer.min', ~PHP_INT_MAX);
+            $this->_parameters->setParameter('integer.min', PHP_INT_MIN);
 
         if(null === $this->_parameters->getParameter('integer.max'))
             $this->_parameters->setParameter('integer.max', PHP_INT_MAX);
 
         if(null === $this->_parameters->getParameter('float.min'))
-            $this->_parameters->setParameter('float.min', (float) ~PHP_INT_MAX);
+            $this->_parameters->setParameter('float.min', PHP_INT_MIN);
 
         if(null === $this->_parameters->getParameter('float.max'))
-            $this->_parameters->setParameter('float.max', (float) PHP_INT_MAX);
+            $this->_parameters->setParameter('float.max', PHP_INT_MAX);
+
+        $this->construct();
+
+        return;
+    }
+
+    /**
+     * Construct.
+     *
+     * @access  public
+     * @return  void
+     */
+    public function construct ( ) {
 
         return;
     }
@@ -103,6 +116,7 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
 
         return $this->_parameters;
     }
+
     /**
      * Generate a discrete uniform distribution.
      *

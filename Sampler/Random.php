@@ -60,6 +60,32 @@ namespace Hoa\Math\Sampler {
 class Random extends Sampler {
 
     /**
+     * Construct.
+     *
+     * @access  public
+     * @return  void
+     */
+    public function construct ( ) {
+
+        $this->_parameters->setParameter(
+            'integer.min',
+            max(
+                -mt_getrandmax(),
+                $this->_parameters->getParameter('integer.min')
+            )
+        );
+        $this->_parameters->setParameter(
+            'integer.max',
+            min(
+                mt_getrandmax(),
+                $this->_parameters->getParameter('integer.max')
+            )
+        );
+
+        return;
+    }
+
+    /**
      * Generate a discrete uniform distribution.
      *
      * @access  protected
