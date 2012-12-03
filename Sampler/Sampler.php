@@ -121,11 +121,13 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
      * Generate a discrete uniform distribution.
      *
      * @access  public
-     * @param   int     $lower    Lower bound value.
-     * @param   int     $upper    Upper bound value.
+     * @param   int    $lower      Lower bound value.
+     * @param   int    $upper      Upper bound value.
+     * @param   array  $exclude    Excluded values.
      * @return  int
      */
-    public function getInteger ( $lower = null, $upper = null ) {
+    public function getInteger ( $lower = null, $upper = null,
+                                 Array &$exclude = null ) {
 
         if(null === $lower)
             $lower = $this->_parameters->getParameter('integer.min');
@@ -133,7 +135,19 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
         if(null === $upper)
             $upper = $this->_parameters->getParameter('integer.max');
 
-        return $this->_getInteger($lower, $upper);
+        if(null === $exclude)
+            return $this->_getInteger($lower, $upper);
+
+        sort($exclude);
+        $sampled = $this->_getInteger($lower, $upper - count($exclude));
+
+        foreach($exclude as $e)
+            if($sampled >= $e)
+                ++$sampled;
+            else
+                break;
+
+        return $sampled;
     }
 
     /**
@@ -184,6 +198,17 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
      * @return  float
      */
     abstract protected function _getFloat ( $lower, $upper );
+
+    /**
+     * Get an exclude set.
+     *
+     * @access  public
+     * @return  array
+     */
+    public function getExcludeSet ( ) {
+
+        return array();
+    }
 }
 
 }
