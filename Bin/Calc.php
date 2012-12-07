@@ -117,7 +117,7 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
         if(null !== $expression) {
 
             $ast = $compiler->parse($expression);
-            cout($expression . ' = ' . $visitor->visit($ast));
+            echo $expression . ' = ' . $visitor->visit($ast), "\n";
 
             return;
         }
@@ -131,45 +131,45 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
 
                 case 'h':
                 case 'help':
-                    cout('Usage:');
-                    cout('    h[elp]       to print this help;');
-                    cout('    c[onstants]  to print available constants;');
-                    cout('    f[unctions]  to print available functions;');
-                    cout('    e[xpression] to print the current expression;');
-                    cout('    d[ump]       to dump the tree of the expression;');
-                    cout('    q[uit]       to quit.');
+                    echo 'Usage:', "\n",
+                         '    h[elp]       to print this help;', "\n",
+                         '    c[onstants]  to print available constants;', "\n",
+                         '    f[unctions]  to print available functions;', "\n",
+                         '    e[xpression] to print the current expression;', "\n",
+                         '    d[ump]       to dump the tree of the expression;', "\n",
+                         '    q[uit]       to quit.', "\n";
                   break;
 
                 case 'c':
                 case 'constants':
-                    cout(implode(', ', array_keys(
+                    echo implode(', ', array_keys(
                         $visitor->getConstants()->getArrayCopy()
-                    )));
+                    )), "\n";
                   break;
 
                 case 'f':
                 case 'functions':
-                    cout(implode(', ', array_keys(
+                    echo implode(', ', array_keys(
                         $visitor->getFunctions()->getArrayCopy()
-                    )));
+                    )), "\n";
                   break;
 
                 case 'e':
                 case 'expression':
-                    cout($handle);
+                    echo $handle, "\n";
                   break;
 
                 case 'd':
                 case 'dump':
                     if(null === $handle)
-                        cout('Type a valid expression before (“> 39 + 3”).');
+                        echo 'Type a valid expression before (“> 39 + 3”).', "\n";
                     else
-                        cout($dump->visit($compiler->parse($handle)));
+                        echo $dump->visit($compiler->parse($handle)), "\n";
                   break;
 
                 case 'q':
                 case 'quit':
-                    cout('Bye bye!');
+                    echo 'Bye bye!', "\n";
                   break 2;
 
                 default:
@@ -178,11 +178,11 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
 
                     try {
 
-                        cout($visitor->visit($compiler->parse($expression)));
+                        echo $visitor->visit($compiler->parse($expression)), "\n";
                     }
                     catch ( \Hoa\Compiler\Exception $e ) {
 
-                        cout($e->getFormattedMessage());
+                        echo $e->getFormattedMessage(), "\n";
 
                         break;
                     }
@@ -204,11 +204,11 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
      */
     public function usage ( ) {
 
-        cout('Usage   : math:calc <options> [expression]');
-        cout('Options :');
-        cout($this->makeUsageOptionsList(array(
-            'help' => 'This help.'
-        )));
+        echo 'Usage   : math:calc <options> [expression]', "\n",
+             'Options :', "\n",
+             $this->makeUsageOptionsList(array(
+                 'help' => 'This help.'
+             )), "\n";
 
         return;
     }
