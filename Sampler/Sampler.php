@@ -121,9 +121,9 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
      * Generate a discrete uniform distribution.
      *
      * @access  public
-     * @param   int    $lower      Lower bound value.
-     * @param   int    $upper      Upper bound value.
-     * @param   array  $exclude    Excluded values.
+     * @param   int    $lower       Lower bound value.
+     * @param   int    $upper       Upper bound value.
+     * @param   array  &$exclude    Excluded values.
      * @return  int
      */
     public function getInteger ( $lower = null, $upper = null,
