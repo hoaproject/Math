@@ -56,7 +56,17 @@ from('Hoa')
 /**
  * \Hoa\Compiler\Visitor\Dump
  */
--> import('Compiler.Visitor.Dump');
+-> import('Compiler.Visitor.Dump')
+
+/**
+ * \Hoa\Console\Readline
+ */
+-> import('Console.Readline.~')
+
+/**
+ * \Hoa\Console\Readline\Autocompleter\Word
+ */
+-> import('Console.Readline.Autocompleter.Word');
 
 }
 
@@ -122,6 +132,15 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
             return;
         }
 
+        $readline   = new \Hoa\Console\Readline();
+        $readline->setAutocompleter(
+            new \Hoa\Console\Readline\Autocompleter\Word(
+                array_merge(
+                    array_keys($visitor->getConstants()->getArrayCopy()),
+                    array_keys($visitor->getFunctions()->getArrayCopy())
+                )
+            )
+        );
         $handle     = null;
         $expression = 'h';
 
@@ -191,7 +210,7 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
                   break;
             }
 
-        } while('quit' !== $expression = $this->readLine('> '));
+        } while('quit' !== $expression = $readline->readLine('> '));
 
         return;
     }
