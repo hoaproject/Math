@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2012, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2013, Ivan Enderlin. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -53,7 +53,7 @@ namespace Hoa\Math\Exception {
  *
  * @author     Stéphane Py <py.stephane1@gmail.com>
  * @author     Sébastien Houze <s@verylastroom.com>
- * @copyright  Copyright © 2007-2012 Stéphane Py, Sébastien Houze.
+ * @copyright  Copyright © 2007-2013 Stéphane Py, Sébastien Houze.
  * @license    New BSD License
  */
 
