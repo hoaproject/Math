@@ -74,7 +74,7 @@ primary:
     )?
 
 term:
-    ( ::bracket_:: expression() ::_bracket::)
+    ( ::bracket_:: expression() ::_bracket:: )
   | number()
   | constant()
   | variable()
