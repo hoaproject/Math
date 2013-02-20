@@ -35,10 +35,10 @@
 //
 // Provide a grammar for arithmetic expressions.
 //
-// @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
 // @author     Stéphane Py <py.stephane1@gmail.com>
 // @author     Sébastien Houze <s@verylastroom.com>
-// @copyright  Copyright © 2007-2012 Ivan Enderlin, Stéphane Py, Sébastien Houze.
+// @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
+// @copyright  Copyright © 2007-2012 Stéphane Py, Sébastien Houze, Ivan Enderlin.
 // @license    New BSD License
 //
 
