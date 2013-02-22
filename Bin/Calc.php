@@ -188,7 +188,6 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
 
                 case 'q':
                 case 'quit':
-                    echo 'Bye bye!', "\n";
                   break 2;
 
                 default:
@@ -210,7 +209,7 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
                   break;
             }
 
-        } while('quit' !== $expression = $readline->readLine('> '));
+        } while(false !== $expression = $readline->readLine('> '));
 
         return;
     }
