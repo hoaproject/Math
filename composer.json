@@ -23,8 +23,8 @@
         "source": "http://git.hoa-project.net/"
     },
     "require": {
-        "hoa/core"    : "master",
-        "hoa/iterator": "master",
-        "hoa/compiler": "master"
+        "hoa/core"    : "dev-master",
+        "hoa/iterator": "dev-master",
+        "hoa/compiler": "dev-master"
     }
 }
