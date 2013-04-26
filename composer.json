@@ -26,5 +26,6 @@
         "hoa/core"    : "dev-master",
         "hoa/iterator": "dev-master",
         "hoa/compiler": "dev-master"
-    }
+    },
+    "minimum-stability": "dev"
 }
