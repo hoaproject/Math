@@ -200,7 +200,7 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
                     }
                     catch ( \Hoa\Compiler\Exception $e ) {
 
-                        echo $e->getFormattedMessage(), "\n";
+                        echo $e->getMessage(), "\n";
 
                         break;
                     }
