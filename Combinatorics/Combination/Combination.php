@@ -94,3 +94,12 @@ class Combination {
 }
 
 }
+
+namespace {
+
+/**
+ * Flex entity.
+ */
+Hoa\Core\Consistency::flexEntity('Hoa\Math\Combinatorics\Combination\Combination');
+
+}

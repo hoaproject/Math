@@ -212,3 +212,12 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
 }
 
 }
+
+namespace {
+
+/**
+ * Flex entity.
+ */
+Hoa\Core\Consistency::flexEntity('Hoa\Math\Sampler\Sampler');
+
+}
