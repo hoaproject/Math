@@ -70,7 +70,9 @@ namespace Hoa\Math\Visitor {
  * @author     Stéphane Py <py.stephane1@gmail.com>
  * @author     Sébastien Houze <s@verylastroom.com>
  * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2013 Stéphane Py, Sébastien Houze, Ivan Enderlin.
+ * @author     Cédric Dugat <cedric@dugat.me>
+ * @copyright  Copyright © 2007-2013 Stéphane Py, Sébastien Houze,
+ *             Ivan Enderlin, Cédric Dugat.
  * @license    New BSD License
  */
 
@@ -93,11 +95,12 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
 
     /**
-     * Construct.
+     * Initialize constants and functions.
      *
-     * @access public
+     * @access  public
+     * @return  void
      */
-    public function __construct () {
+    public function __construct ( ) {
 
         $this->initializeConstants();
         $this->initializeFunctions();
