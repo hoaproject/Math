@@ -93,6 +93,19 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
 
     /**
+     * Construct.
+     *
+     * @access public
+     */
+    public function __construct () {
+
+        $this->initializeConstants();
+        $this->initializeFunctions();
+
+        return;
+    }
+
+    /**
      * Visit an element.
      *
      * @access  public
@@ -188,9 +201,6 @@ class Arithmetic implements \Hoa\Visitor\Visit {
      */
     public function getFunctions ( ) {
 
-        if(null === $this->_functions)
-            $this->initializeFunctions();
-
         return $this->_functions;
     }
 
@@ -203,9 +213,6 @@ class Arithmetic implements \Hoa\Visitor\Visit {
      * @throw   \Hoa\Math\Exception\UnknownFunction
      */
     public function getFunction ( $name ) {
-
-        if(null === $this->_functions)
-            $this->initializeFunctions();
 
         if(false === $this->_functions->offsetExists($name))
             throw new \Hoa\Math\Exception\UnknownFunction(
@@ -222,9 +229,6 @@ class Arithmetic implements \Hoa\Visitor\Visit {
      */
     public function getConstants ( ) {
 
-        if(null === $this->_constants)
-            $this->initializeConstants();
-
         return $this->_constants;
     }
 
@@ -237,9 +241,6 @@ class Arithmetic implements \Hoa\Visitor\Visit {
      * @throw   \Hoa\Math\Exception\UnknownFunction
      */
     public function getConstant ( $name ) {
-
-        if(null === $this->_constants)
-            $this->initializeConstants();
 
         if(false === $this->_constants->offsetExists($name))
             throw new \Hoa\Math\Exception\UnknownConstant(
