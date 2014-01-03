@@ -27,10 +27,6 @@
         "hoa/compiler": "dev-master"
     },
     "minimum-stability": "dev",
-    "target-dir": "Hoa/Math",
-    "autoload": {
-        "psr-0": {
-            "Hoa\\Math": "."
-        }
-    }
+    "target-dir"       : "Hoa/Math",
+    "autoload"         : { "psr-0": { "Hoa\\Math": "." } }
 }
