@@ -67,20 +67,23 @@ class Random extends Sampler {
      */
     public function construct ( ) {
 
-        $this->_parameters->setParameter(
-            'integer.min',
-            max(
-                -mt_getrandmax(),
-                $this->_parameters->getParameter('integer.min')
-            )
-        );
-        $this->_parameters->setParameter(
-            'integer.max',
-            min(
-                mt_getrandmax(),
-                $this->_parameters->getParameter('integer.max')
-            )
-        );
+        if(null === $this->_parameters->getParameter('integer.min'))
+            $this->_parameters->setParameter(
+                'integer.min',
+                max(
+                    -mt_getrandmax(),
+                    $this->_parameters->getParameter('integer.min')
+                )
+            );
+
+        if(null === $this->_parameters->getParameter('integer.max'))
+            $this->_parameters->setParameter(
+                'integer.max',
+                min(
+                    mt_getrandmax(),
+                    $this->_parameters->getParameter('integer.max')
+                )
+            );
 
         return;
     }

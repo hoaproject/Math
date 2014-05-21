@@ -70,10 +70,10 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
             __CLASS__,
             array(),
             array(
-                'integer.min' => null,
-                'integer.max' => null,
-                'float.min'   => null,
-                'float.max'   => null
+                'integer.min' => -16,
+                'integer.max' => 15,
+                'float.min'   => -128.0,
+                'float.max'   => 127.0
             )
         );
         $this->_parameters->setParameters($parameters);
