@@ -76,7 +76,7 @@ class Random extends \Hoa\Test\Unit\Suite {
                     ->isLessThanOrEqualTo(5)
 
                 ->integer($sampler->getInteger(42, 42))
-                    ->isEqualTo(42)
+                    ->isIdenticalTo(42)
         ;
     }
 
@@ -89,7 +89,7 @@ class Random extends \Hoa\Test\Unit\Suite {
             )))
             ->then
                 ->integer($sampler->getInteger())
-                    ->isEqualTo(42)
+                    ->isIdenticalTo(42)
         ;
     }
 
@@ -112,7 +112,7 @@ class Random extends \Hoa\Test\Unit\Suite {
             ->if($exclude[] = 0)
             ->then
                 ->integer($sampler->getInteger(0, 2, $exclude))
-                    ->isEqualTo(1)
+                    ->isIdenticalTo(1)
         ;
     }
 
@@ -153,7 +153,7 @@ class Random extends \Hoa\Test\Unit\Suite {
                     ->isLessThanOrEqualTo(5.5)
 
                 ->float($sampler->getFloat(4.2, 4.2))
-                    ->isEqualTo(4.2)
+                    ->isIdenticalTo(4.2)
         ;
     }
 
@@ -166,7 +166,7 @@ class Random extends \Hoa\Test\Unit\Suite {
             )))
             ->then
                 ->float($sampler->getFloat())
-                    ->isEqualTo(4.2)
+                    ->isIdenticalTo(4.2)
         ;
     }
 
