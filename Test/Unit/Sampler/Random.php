@@ -58,7 +58,7 @@ namespace Hoa\Math\Test\Unit\Sampler {
 
 class Random extends \Hoa\Test\Unit\Suite {
 
-    public function case integer ( ) {
+    public function case_integer ( ) {
 
         $this
             ->if($sampler = new \Hoa\Math\Sampler\Random())
@@ -66,7 +66,7 @@ class Random extends \Hoa\Test\Unit\Suite {
                 ->integer($sampler->getInteger());
     }
 
-    public function case bounded integer ( ) {
+    public function case_bounded_integer ( ) {
 
         $this
             ->if($sampler = new \Hoa\Math\Sampler\Random())
@@ -80,7 +80,7 @@ class Random extends \Hoa\Test\Unit\Suite {
         ;
     }
 
-    public function case optional bounds integer ( ) {
+    public function case_optional_bounds_integer ( ) {
 
         $this
             ->if($sampler = new \Hoa\Math\Sampler\Random(array(
@@ -93,7 +93,7 @@ class Random extends \Hoa\Test\Unit\Suite {
         ;
     }
 
-    public function case excluded integers ( ) {
+    public function case_excluded_integers ( ) {
 
         $this
             ->if($sampler = new \Hoa\Math\Sampler\Random(),
@@ -116,7 +116,7 @@ class Random extends \Hoa\Test\Unit\Suite {
         ;
     }
 
-    public function case uniformity integer ( ) {
+    public function case_uniformity_integer ( ) {
 
         $max     = $this->sample($this->realdom()->boundinteger(1 << 18, 1 << 20));
         $sum     = 0;
@@ -131,11 +131,11 @@ class Random extends \Hoa\Test\Unit\Suite {
 
         $this
             ->float($sum / $max)
-                ->isGreaterThanOrEqualTo(-1.0)
-                ->isLessThanOrEqualTo(1.0);
+                ->isGreaterThanOrEqualTo(-1.5)
+                ->isLessThanOrEqualTo(1.5);
     }
 
-    public function case float ( ) {
+    public function case_float ( ) {
 
         $this
             ->if($sampler = new \Hoa\Math\Sampler\Random())
@@ -143,7 +143,7 @@ class Random extends \Hoa\Test\Unit\Suite {
                 ->float($sampler->getFloat());
     }
 
-    public function case bounded float ( ) {
+    public function case_bounded_float ( ) {
 
         $this
             ->if($sampler = new \Hoa\Math\Sampler\Random())
@@ -157,7 +157,7 @@ class Random extends \Hoa\Test\Unit\Suite {
         ;
     }
 
-    public function case optional bounds float ( ) {
+    public function case_optional_bounds_float ( ) {
 
         $this
             ->if($sampler = new \Hoa\Math\Sampler\Random(array(
@@ -170,7 +170,7 @@ class Random extends \Hoa\Test\Unit\Suite {
         ;
     }
 
-    public function case uniformity float ( ) {
+    public function case_uniformity_float ( ) {
 
         $max     = $this->sample($this->realdom()->boundinteger(1 << 18, 1 << 20));
         $sum     = 0;
@@ -185,8 +185,8 @@ class Random extends \Hoa\Test\Unit\Suite {
 
         $this
             ->float($sum / $max)
-                ->isGreaterThanOrEqualTo(-1.0)
-                ->isLessThanOrEqualTo(1.0);
+                ->isGreaterThanOrEqualTo(-1.5)
+                ->isLessThanOrEqualTo(1.5);
     }
 }
 

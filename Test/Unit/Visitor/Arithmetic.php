@@ -66,7 +66,7 @@ namespace Hoa\Math\Test\Unit\Visitor {
 
 class Arithmetic extends \Hoa\Test\Unit\Suite {
 
-    public function case visitor exhaustively ( ) {
+    public function case_visitor_exhaustively ( ) {
 
         $sampler  = new \Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
             \Hoa\Compiler\Llk\Llk::load(
