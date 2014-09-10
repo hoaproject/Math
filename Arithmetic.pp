@@ -62,16 +62,24 @@ expression:
     ( ( ::plus:: #addition | ::minus:: #substraction ) expression() )?
 
 primary:
-    term()
+    secondary()
     (
         (
             ::times::   #multiplication
-          | ::div::     #division
           | ::pow::     #power
           | ::percent:: #modulo
         )
         expression()
     )?
+
+secondary:
+   term()
+   (
+      (
+          ::div:: #division
+      )
+      expression()
+   )?
 
 term:
     ( ::bracket_:: expression() ::_bracket:: )
