@@ -299,7 +299,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
                 'sum'     => xcallable(function ( ) {
                                  return array_sum(func_get_args());
                              }),
-                'tan'     => xcallable('tan'),
+                'tan'     => xcallable('tan')
             ));
         }
 
@@ -327,7 +327,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
                 'SQRT_PI' => M_SQRTPI,
                 'SQRT_2'  => M_SQRT2,
                 'SQRT_3'  => M_SQRT3,
-                'LN_PI'   => M_LNPI,
+                'LN_PI'   => M_LNPI
             ));
 
         $this->_constants = $_constants;
