@@ -49,11 +49,6 @@ from('Hoa')
 -> import('Math.Exception.UnknownConstant')
 
 /**
- * \Hoa\Math\Exception\DivisionByZero
- */
--> import('Math.Exception.DivisionByZero')
-
-/**
  * \Hoa\Visitor\Visit
  */
 -> import('Visitor.Visit');
@@ -123,77 +118,156 @@ class Arithmetic implements \Hoa\Visitor\Visit {
         $type     = $element->getId();
         $children = $element->getChildren();
 
-        foreach($children as &$child)
-            $child = $child->accept($this, $handle, $eldnah);
+        if(null === $handle)
+            $handle = function ( $x ) {
+
+                return $x;
+            };
+
+        $acc = &$handle;
 
         switch($type) {
 
             case '#function':
-                return $this->getFunction(array_shift($children))
-                            ->distributeArguments($children);
+                $name      = array_shift($children)->accept($this, $_, $eldnah);
+                $function  = $this->getFunction($name);
+                $arguments = array();
+
+                foreach($children as $child) {
+
+                    $child->accept($this, $_, $eldnah);
+                    $arguments[] = $_();
+                    unset($_);
+                }
+
+                $acc = function ( ) use ( $function, $arguments, $acc ) {
+
+                    return $acc($function->distributeArguments($arguments));
+                };
               break;
 
             case '#negative':
-                return -$children[0];
+                $children[0]->accept($this, $a, $eldnah);
+
+                $acc = function ( ) use ( $a, $acc ) {
+
+                    return $acc(-$a());
+                };
               break;
 
             case '#addition':
-                $parent = $element->getParent();
+                $children[0]->accept($this, $a, $eldnah);
 
-                if(null !== $parent && '#substraction' === $parent->getId())
-                    return $children[0] - $children[1];
+                $acc = function ( $b ) use ( $a, $acc ) {
 
-                return $children[0] + $children[1];
+                    return $acc($a() + $b);
+                };
+
+                $children[1]->accept($this, $acc, $eldnah);
               break;
 
             case '#substraction':
-                $parent = $element->getParent();
+                $children[0]->accept($this, $a, $eldnah);
 
-                if(   null            !== $parent
-                   && '#substraction' === $parent->getId()
-                   && $element        === $parent->getChild(1))
-                    return $children[0] - -$children[1];
+                $acc = function ( $b ) use ( $a, $acc ) {
 
-                return $children[0] - $children[1];
-              break;
+                    return $acc($a()) - $b;
+                };
 
-            case '#power':
-                return pow($children[0], $children[1]);
-              break;
-
-            case '#modulo':
-                return $children[0] % $children[1];
+                $children[1]->accept($this, $acc, $eldnah);
               break;
 
             case '#multiplication':
-                return $children[0] * $children[1];
+                $children[0]->accept($this, $a, $eldnah);
+
+                $acc = function ( $b ) use ( $a, $acc ) {
+
+                    return $acc($a() * $b);
+                };
+
+                $children[1]->accept($this, $acc, $eldnah);
               break;
 
             case '#division':
-                if(0 == $children[1])
-                    throw new \Hoa\Math\Exception\DivisionByZero(
-                        'Tried to divide %f by zero, impossible.',
-                        0, $children[0]);
+                $children[0]->accept($this, $a, $eldnah);
 
-                return $children[0] / $children[1];
+                $parent = $element->getParent();
+
+                if(    null === $parent
+                   || $type === $parent->getId())
+                    $acc = function ( $b ) use ( $a, $acc ) {
+
+                        if(0 === $b)
+                            throw new \RuntimeException(
+                                'Division by zero is not possible.');
+
+                        return $acc($a()) / $b;
+                    };
+                else {
+
+                    if('#fakegroup' !== $parent->getId()) {
+
+                        $classname = get_class($element);
+                        $group     = new $classname(
+                            '#fakegroup',
+                            null,
+                            array($element),
+                            $parent
+                        );
+                        $element->setParent($group);
+
+                        $this->visit($group, $acc, $eldnah);
+
+                        break;
+                    }
+                    else
+                        $acc = function ( $b ) use ( $a, $acc ) {
+
+                            if(0 === $b)
+                                throw new \RuntimeException(
+                                    'Division by zero is not possible.');
+
+                            return $acc($a() / $b);
+                        };
+                }
+
+                $children[1]->accept($this, $acc, $eldnah);
+              break;
+
+            case '#fakegroup':
+            case '#group':
+                $children[0]->accept($this, $a, $eldnah);
+
+                $acc = function ( ) use ( $a, $acc ) {
+
+                    return $acc($a());
+                };
               break;
 
             case 'token':
                 $value = $element->getValueValue();
+                $out   = null;
 
                 if('constant' === $element->getValueToken()) {
 
                     if(defined($value))
-                        return constant($value);
-
-                    return $this->getConstant($value);
+                        $out = constant($value);
+                    else
+                        $out = $this->getConstant($value);
                 }
-
-                if('id' === $element->getValueToken())
+                elseif('id' === $element->getValueToken())
                     return $value;
+                else
+                    $out = (float) $value;
 
-                return (float) $value;
+                $acc = function ( ) use ( $out, $acc ) {
+
+                    return $acc($out);
+                };
         }
+
+        if(null === $element->getParent())
+            return $acc();
     }
 
     /**
@@ -219,7 +293,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
         if(false === $this->_functions->offsetExists($name))
             throw new \Hoa\Math\Exception\UnknownFunction(
-                'Function %s does not exist.', 1, $name);
+                'Function %s does not exist.', 0, $name);
 
         return $this->_functions[$name];
     }
@@ -247,7 +321,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
         if(false === $this->_constants->offsetExists($name))
             throw new \Hoa\Math\Exception\UnknownConstant(
-                'Constant %s does not exist', 2, $name);
+                'Constant %s does not exist', 1, $name);
 
         return $this->_constants[$name];
     }
@@ -349,7 +423,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
             if(false === function_exists($name))
                 throw new \Hoa\Math\UnknownFunction(
-                    'Function %s does not exist, cannot add it.', 3, $name);
+                    'Function %s does not exist, cannot add it.', 2, $name);
 
             $callable = $name;
         }

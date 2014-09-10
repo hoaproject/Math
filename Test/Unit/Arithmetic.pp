@@ -46,32 +46,28 @@
 %token  bracket_  \(
 %token _bracket   \)
 %token  comma     ,
-%token  number    (0|[1-9]\d*)(\.\d+)?
+%token  number    ([1-9]\d*)(\.\d+)?
 %token  plus      \+
 %token  minus     \-
-%token  pow       \*\*
 %token  times     \*
 %token  div       /
-%token  percent   %
 %token  constant  [A-Z_]+[A-Z0-9_]+
 %token  id        \w+
 
 expression:
-    primary()
-    ( ( ::plus:: #addition | ::minus:: #substraction ) expression() )?
+    primary() ( ::plus:: #addition expression() )?
 
 primary:
-    term()
-    (
-        (
-            ::times::   #multiplication
-          | ::div::     #division
-        )
-        expression()
-    )?
+    secondary() ( ::minus:: #substraction expression() )?
+
+secondary:
+    ternary() ( ::times:: #multiplication expression() )?
+
+ternary:
+    term() ( ::div:: #division expression() )?
 
 term:
-    ( ::bracket_:: expression() ::_bracket:: )
+    ( ::bracket_:: expression() ::_bracket:: #group )
   | number()
   | ( ::minus:: #negative | ::plus:: ) term()
 
