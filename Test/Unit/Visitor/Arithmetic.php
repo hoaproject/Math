@@ -75,7 +75,7 @@ class Arithmetic extends \Hoa\Test\Unit\Suite {
             new \Hoa\Regex\Visitor\Isotropic(
                 new \Hoa\Math\Sampler\Random()
             ),
-            10
+            9
         );
         $compiler = \Hoa\Compiler\Llk\Llk::load(
             new \Hoa\File\Read('hoa://Library/Math/Arithmetic.pp')

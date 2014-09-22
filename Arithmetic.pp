@@ -50,31 +50,25 @@
 %token  number    (0|[1-9]\d*)(\.\d+)?([eE][\+\-]?\d+)?
 %token  plus      \+
 %token  minus     \-|−
-%token  pow       \*\*
 %token  times     \*|×
 %token  div       /|÷
-%token  percent   %
 %token  constant  [A-Z_]+[A-Z0-9_]+
 %token  id        \w+
 
 expression:
-    primary()
-    ( ( ::plus:: #addition | ::minus:: #substraction ) expression() )?
+    primary() ( ::plus:: #addition expression() )?
 
 primary:
-    term()
-    (
-        (
-            ::times::   #multiplication
-          | ::div::     #division
-          | ::pow::     #power
-          | ::percent:: #modulo
-        )
-        expression()
-    )?
+    secondary() ( ::minus:: #substraction expression() )?
+
+secondary:
+    ternary() ( ::times:: #multiplication expression() )?
+
+ternary:
+    term() ( ::div:: #division expression() )?
 
 term:
-    ( ::bracket_:: expression() ::_bracket:: )
+    ( ::bracket_:: expression() ::_bracket:: #group )
   | number()
   | constant()
   | variable()
