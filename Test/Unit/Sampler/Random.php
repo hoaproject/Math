@@ -34,17 +34,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
+namespace Hoa\Math\Test\Unit\Sampler;
 
-from('Hoa')
-
-/**
- * \Hoa\Math\Sampler\Random
- */
--> import('Math.Sampler.Random');
-}
-
-namespace Hoa\Math\Test\Unit\Sampler {
+use Hoa\Math as LUT;
+use Hoa\Test;
 
 /**
  * Class \Hoa\Math\Test\Unit\Sampler\Random.
@@ -56,138 +49,155 @@ namespace Hoa\Math\Test\Unit\Sampler {
  * @license    New BSD License
  */
 
-class Random extends \Hoa\Test\Unit\Suite {
+class Random extends Test\Unit\Suite {
 
     public function case_integer ( ) {
 
         $this
-            ->if($sampler = new \Hoa\Math\Sampler\Random())
+            ->given($sampler = new LUT\Sampler\Random())
+            ->when($x = $sampler->getInteger())
             ->then
-                ->integer($sampler->getInteger());
+                ->integer($x);
     }
 
     public function case_bounded_integer ( ) {
 
         $this
-            ->if($sampler = new \Hoa\Math\Sampler\Random())
+            ->given($sampler = new LUT\Sampler\Random())
+            ->when($x = $sampler->getInteger(-5, 5))
             ->then
-                ->integer($sampler->getInteger(-5, 5))
+                ->integer($x)
                     ->isGreaterThanOrEqualTo(-5)
                     ->isLessThanOrEqualTo(5)
-
-                ->integer($sampler->getInteger(42, 42))
-                    ->isIdenticalTo(42)
-        ;
+            ->when($y = $sampler->getInteger(42, 42))
+            ->then
+                ->integer($y)
+                    ->isIdenticalTo(42);
     }
 
     public function case_optional_bounds_integer ( ) {
 
         $this
-            ->if($sampler = new \Hoa\Math\Sampler\Random(array(
+            ->given($sampler = new LUT\Sampler\Random([
                 'integer.min' => 42,
                 'integer.max' => 42
-            )))
+            ]))
+            ->when($x = $sampler->getInteger())
             ->then
-                ->integer($sampler->getInteger())
-                    ->isIdenticalTo(42)
-        ;
+                ->integer($x)
+                    ->isIdenticalTo(42);
     }
 
     public function case_excluded_integers ( ) {
 
         $this
-            ->if($sampler = new \Hoa\Math\Sampler\Random(),
-                 $exclude = array())
+            ->given(
+                $exclude = [],
+                $sampler = new LUT\Sampler\Random()
+            )
+            ->when($x = $sampler->getInteger(0, 2, $exclude))
             ->then
-                ->integer($sampler->getInteger(0, 2, $exclude))
+                ->integer($x)
                     ->isGreaterThanOrEqualTo(0)
                     ->isLessThanOrEqualTo(2)
 
-            ->if($exclude[] = 2)
+            ->given($exclude[] = 2)
+            ->when($y = $sampler->getInteger(0, 2, $exclude))
             ->then
-                ->integer($sampler->getInteger(0, 2, $exclude))
+                ->integer($y)
                     ->isGreaterThanOrEqualTo(0)
                     ->isLessThanOrEqualTo(1)
 
-            ->if($exclude[] = 0)
+            ->given($exclude[] = 0)
+            ->when($z = $sampler->getInteger(0, 2, $exclude))
             ->then
-                ->integer($sampler->getInteger(0, 2, $exclude))
-                    ->isIdenticalTo(1)
-        ;
+                ->integer($z)
+                    ->isIdenticalTo(1);
     }
 
     public function case_uniformity_integer ( ) {
 
-        $max     = $this->sample($this->realdom()->boundinteger(1 << 18, 1 << 20));
-        $sum     = 0;
-        $upper   = 1 << 10;
-        $sampler = new \Hoa\Math\Sampler\Random(array(
-            'integer.min' => -$upper,
-            'integer.max' =>  $upper
-        ));
-
-        for($i = 0; $i  < $max; ++$i)
-            $sum += $sampler->getInteger();
-
         $this
-            ->float($sum / $max)
-                ->isGreaterThanOrEqualTo(-1.5)
-                ->isLessThanOrEqualTo(1.5);
+            ->given(
+                $max     = $this->sample(
+                    $this->realdom()->boundinteger(1 << 18, 1 << 20)
+                ),
+                $sum     = 0,
+                $upper   = 1 << 10,
+                $sampler = new LUT\Sampler\Random([
+                    'integer.min' => -$upper,
+                    'integer.max' =>  $upper
+                ])
+            )
+            ->when(function ( ) use ( $max, &$sum, &$sampler ) {
+
+                for($i = 0; $i  < $max; ++$i)
+                    $sum += $sampler->getInteger();
+            })
+            ->then
+                ->float($sum / $max)
+                    ->isGreaterThanOrEqualTo(-1.5)
+                    ->isLessThanOrEqualTo(1.5);
     }
 
     public function case_float ( ) {
 
         $this
-            ->if($sampler = new \Hoa\Math\Sampler\Random())
+            ->given($sampler = new LUT\Sampler\Random())
+            ->when($x = $sampler->getFloat())
             ->then
-                ->float($sampler->getFloat());
+                ->float($x);
     }
 
     public function case_bounded_float ( ) {
 
         $this
-            ->if($sampler = new \Hoa\Math\Sampler\Random())
+            ->given($sampler = new LUT\Sampler\Random())
+            ->when($x = $sampler->getFloat(-5.5, 5.5))
             ->then
-                ->float($sampler->getFloat(-5.5, 5.5))
+                ->float($x)
                     ->isGreaterThanOrEqualTo(-5.5)
                     ->isLessThanOrEqualTo(5.5)
-
-                ->float($sampler->getFloat(4.2, 4.2))
-                    ->isIdenticalTo(4.2)
-        ;
+            ->when($y = $sampler->getFloat(4.2, 4.2))
+                ->float($y)
+                    ->isIdenticalTo(4.2);
     }
 
     public function case_optional_bounds_float ( ) {
 
         $this
-            ->if($sampler = new \Hoa\Math\Sampler\Random(array(
+            ->given($sampler = new \Hoa\Math\Sampler\Random([
                 'float.min' => 4.2,
                 'float.max' => 4.2
-            )))
+            ]))
+            ->when($x = $sampler->getFloat())
             ->then
-                ->float($sampler->getFloat())
-                    ->isIdenticalTo(4.2)
-        ;
+                ->float($x)
+                    ->isIdenticalTo(4.2);
     }
 
     public function case_uniformity_float ( ) {
 
-        $max     = $this->sample($this->realdom()->boundinteger(1 << 18, 1 << 20));
-        $sum     = 0;
-        $upper   = 1 << 10;
-        $sampler = new \Hoa\Math\Sampler\Random(array(
-            'float.min' => -$upper,
-            'float.max' =>  $upper
-        ));
-
-        for($i = 0; $i  < $max; ++$i)
-            $sum += $sampler->getFloat();
-
         $this
-            ->float($sum / $max)
-                ->isGreaterThanOrEqualTo(-1.5)
-                ->isLessThanOrEqualTo(1.5);
-    }
-}
+            ->given(
+                $max     = $this->sample(
+                    $this->realdom()->boundinteger(1 << 18, 1 << 20)
+                ),
+                $sum     = 0,
+                $upper   = 1 << 10,
+                $sampler = new LUT\Sampler\Random([
+                    'float.min' => -$upper,
+                    'float.max' =>  $upper
+                ])
+            )
+            ->when(function ( ) use ( $max, &$sum, &$sampler ) {
 
+                for($i = 0; $i  < $max; ++$i)
+                    $sum += $sampler->getFloat();
+            })
+            ->then
+                ->float($sum / $max)
+                    ->isGreaterThanOrEqualTo(-1.5)
+                    ->isLessThanOrEqualTo(1.5);
+    }
 }

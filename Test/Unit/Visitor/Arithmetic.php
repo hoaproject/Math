@@ -34,24 +34,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
+namespace Hoa\Math\Test\Unit\Visitor;
 
-from('Hoa')
-
--> import('Math.Visitor.Arithmetic')
-
--> import('Compiler.Llk.~')
-
--> import('Compiler.Llk.Sampler.BoundedExhaustive')
-
--> import('Regex.Visotor.Isotropic')
-
--> import('Math.Sampler.Random')
-
--> import('File.Read');
-}
-
-namespace Hoa\Math\Test\Unit\Visitor {
+use Hoa\Compiler;
+use Hoa\File;
+use Hoa\Math as LUT;
+use Hoa\Regex;
+use Hoa\Test;
 
 /**
  * Class \Hoa\Math\Test\Unit\Visitor\Arithmetic.
@@ -64,56 +53,60 @@ namespace Hoa\Math\Test\Unit\Visitor {
  * @license    New BSD License
  */
 
-class Arithmetic extends \Hoa\Test\Unit\Suite {
+class Arithmetic extends Test\Unit\Suite {
 
     public function case_visitor_exhaustively ( ) {
 
-        $sampler  = new \Hoa\Compiler\Llk\Sampler\BoundedExhaustive(
-            \Hoa\Compiler\Llk\Llk::load(
-                new \Hoa\File\Read('hoa://Library/Math/Test/Unit/Arithmetic.pp')
-            ),
-            new \Hoa\Regex\Visitor\Isotropic(
-                new \Hoa\Math\Sampler\Random()
-            ),
-            9
-        );
-        $compiler = \Hoa\Compiler\Llk\Llk::load(
-            new \Hoa\File\Read('hoa://Library/Math/Arithmetic.pp')
-        );
-        $visitor  = new \Hoa\Math\Visitor\Arithmetic();
+        $this
+            ->given(
+                $sampler  = new Compiler\Llk\Sampler\BoundedExhaustive(
+                    Compiler\Llk\Llk::load(
+                        new File\Read('hoa://Library/Math/Test/Unit/Arithmetic.pp')
+                    ),
+                    new Regex\Visitor\Isotropic(
+                        new LUT\Sampler\Random()
+                    ),
+                    9
+                ),
+                $compiler = Compiler\Llk\Llk::load(
+                    new File\Read('hoa://Library/Math/Arithmetic.pp')
+                ),
+                $visitor  = new LUT\Visitor\Arithmetic()
+            )
+            ->executeOnFailure(function ( ) use ( &$expression ) {
 
-        $this->executeOnFailure(function ( ) use ( &$expression ) {
+                echo 'Failed expression: ', $expression, '.', "\n";
+            })
+            ->when(function ( ) use ( &$sampler, &$compiler, &$visitor ) {
 
-            echo 'Failed expression: ', $expression, '.', "\n";
-        });
+                foreach($sampler as $expression) {
 
-        foreach($sampler as $expression) {
+                    $dump = $expression;
 
-            $dump = $expression;
+                    try {
 
-            try {
+                        $x = (float) $visitor->visit(
+                            $compiler->parse($expression)
+                        );
+                    }
+                    catch ( \Exception $e ) {
 
-                $x = (float) $visitor->visit($compiler->parse($expression));
-            }
-            catch ( \Exception $e ) {
+                        continue;
+                    }
 
-                continue;
-            }
+                    eval('$y = (float) ' . $expression . ';');
 
-            eval('$y = (float) ' . $expression . ';');
+                    if(is_nan($x) || is_nan($y)) {
 
-            if(is_nan($x) || is_nan($y)) {
+                        $this->boolean(true);
 
-                $this->boolean(true);
+                        continue;
+                    }
 
-                continue;
-            }
-
-            $this
-                ->float($x)
-                    ->isNearlyEqualTo($y);
-        }
+                    $this
+                        ->float($x)
+                            ->isNearlyEqualTo($y);
+                }
+            });
     }
-}
-
 }
