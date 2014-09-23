@@ -39,6 +39,7 @@ namespace Hoa\Math\Test\Unit\Visitor;
 use Hoa\Compiler;
 use Hoa\File;
 use Hoa\Math as LUT;
+use Hoa\Math\Visitor\Arithmetic as CUT;
 use Hoa\Regex;
 use Hoa\Test;
 
@@ -71,7 +72,7 @@ class Arithmetic extends Test\Unit\Suite {
                 $compiler = Compiler\Llk\Llk::load(
                     new File\Read('hoa://Library/Math/Arithmetic.pp')
                 ),
-                $visitor  = new LUT\Visitor\Arithmetic()
+                $visitor  = new CUT()
             )
             ->executeOnFailure(function ( ) use ( &$expression ) {
 

@@ -36,7 +36,7 @@
 
 namespace Hoa\Math\Test\Unit\Sampler;
 
-use Hoa\Math as LUT;
+use Hoa\Math\Sampler\Random as CUT;
 use Hoa\Test;
 
 /**
@@ -54,7 +54,7 @@ class Random extends Test\Unit\Suite {
     public function case_integer ( ) {
 
         $this
-            ->given($sampler = new LUT\Sampler\Random())
+            ->given($sampler = new CUT())
             ->when($x = $sampler->getInteger())
             ->then
                 ->integer($x);
@@ -63,7 +63,7 @@ class Random extends Test\Unit\Suite {
     public function case_bounded_integer ( ) {
 
         $this
-            ->given($sampler = new LUT\Sampler\Random())
+            ->given($sampler = new CUT())
             ->when($x = $sampler->getInteger(-5, 5))
             ->then
                 ->integer($x)
@@ -78,7 +78,7 @@ class Random extends Test\Unit\Suite {
     public function case_optional_bounds_integer ( ) {
 
         $this
-            ->given($sampler = new LUT\Sampler\Random([
+            ->given($sampler = new CUT([
                 'integer.min' => 42,
                 'integer.max' => 42
             ]))
@@ -93,7 +93,7 @@ class Random extends Test\Unit\Suite {
         $this
             ->given(
                 $exclude = [],
-                $sampler = new LUT\Sampler\Random()
+                $sampler = new CUT()
             )
             ->when($x = $sampler->getInteger(0, 2, $exclude))
             ->then
@@ -124,7 +124,7 @@ class Random extends Test\Unit\Suite {
                 ),
                 $sum     = 0,
                 $upper   = 1 << 10,
-                $sampler = new LUT\Sampler\Random([
+                $sampler = new CUT([
                     'integer.min' => -$upper,
                     'integer.max' =>  $upper
                 ])
@@ -143,7 +143,7 @@ class Random extends Test\Unit\Suite {
     public function case_float ( ) {
 
         $this
-            ->given($sampler = new LUT\Sampler\Random())
+            ->given($sampler = new CUT())
             ->when($x = $sampler->getFloat())
             ->then
                 ->float($x);
@@ -152,7 +152,7 @@ class Random extends Test\Unit\Suite {
     public function case_bounded_float ( ) {
 
         $this
-            ->given($sampler = new LUT\Sampler\Random())
+            ->given($sampler = new CUT())
             ->when($x = $sampler->getFloat(-5.5, 5.5))
             ->then
                 ->float($x)
@@ -185,7 +185,7 @@ class Random extends Test\Unit\Suite {
                 ),
                 $sum     = 0,
                 $upper   = 1 << 10,
-                $sampler = new LUT\Sampler\Random([
+                $sampler = new CUT([
                     'float.min' => -$upper,
                     'float.max' =>  $upper
                 ])
