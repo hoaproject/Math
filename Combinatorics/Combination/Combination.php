@@ -52,7 +52,7 @@ class Combination {
 
     /**
      * Γ^n_k denotes the set of k-uples whose sum of elements is n. For example:
-     * Γ^2_3 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0,
+     * Γ^3_2 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0,
      * 2)}. For any k-uple γ and any α in {1, …, k}, γ_α denotes the α-th
      * element of γ.
      *
