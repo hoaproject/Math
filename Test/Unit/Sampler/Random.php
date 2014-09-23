@@ -166,7 +166,7 @@ class Random extends Test\Unit\Suite {
     public function case_optional_bounds_float ( ) {
 
         $this
-            ->given($sampler = new \Hoa\Math\Sampler\Random([
+            ->given($sampler = new CUT([
                 'float.min' => 4.2,
                 'float.max' => 4.2
             ]))
