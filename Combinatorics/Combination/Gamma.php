@@ -34,18 +34,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
+namespace Hoa\Math\Combinatorics\Combination;
 
-from('Hoa')
-
-/**
- * \Hoa\Iterator
- */
--> import('Iterator.~');
-
-}
-
-namespace Hoa\Math\Combinatorics\Combination {
+use Hoa\Iterator;
 
 /**
  * Class \Hoa\Math\Combinatorics\Combination\Gamma.
@@ -61,7 +52,7 @@ namespace Hoa\Math\Combinatorics\Combination {
  * @license    New BSD License
  */
 
-class Gamma implements \Hoa\Iterator {
+class Gamma implements Iterator {
 
     /**
      * n.
@@ -179,11 +170,11 @@ class Gamma implements \Hoa\Iterator {
      */
     public function rewind ( ) {
 
-        $this->_current = array();
+        $this->_current = [];
         $this->_tmp     = null;
         $this->_i       = 0;
         $this->_o       = 0 === $this->_n
-                              ? array(0)
+                              ? [0]
                               : array_fill(0, $this->_n, 0);
         $this->_o[0]    = $this->_k;
         $this->_last    = false;
@@ -227,6 +218,4 @@ class Gamma implements \Hoa\Iterator {
 
         return true;
     }
-}
-
 }

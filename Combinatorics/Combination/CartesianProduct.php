@@ -34,28 +34,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
+namespace Hoa\Math\Combinatorics\Combination;
 
-from('Hoa')
-
-/**
- * \Hoa\Iterator
- */
--> import('Iterator.~')
-
-/**
- * \Hoa\Iterator\Map
- */
--> import('Iterator.Map')
-
-/**
- * \Hoa\Iterator\IteratorIterator
- */
--> import('Iterator.~~');
-
-}
-
-namespace Hoa\Math\Combinatorics\Combination {
+use Hoa\Iterator;
 
 /**
  * Class \Hoa\Math\Combinatorics\Combination\CartesianProduct.
@@ -73,42 +54,42 @@ namespace Hoa\Math\Combinatorics\Combination {
  * @license    New BSD License
  */
 
-class CartesianProduct implements \Hoa\Iterator {
+class CartesianProduct implements Iterator {
 
     /**
      * All sets.
      *
      * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct array
      */
-    protected $_sets = array();
+    protected $_sets    = [];
 
     /**
      * Number of sets.
      *
      * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct int
      */
-    protected $_max       = 0;
+    protected $_max     = 0;
 
     /**
      * Key.
      *
      * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct int
      */
-    protected $_key       = 0;
+    protected $_key     = 0;
 
     /**
      * Current (contains the current t-uple).
      *
      * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct array
      */
-    protected $_current   = null;
+    protected $_current = null;
 
     /**
      * Whether the iterator has reached the end or not.
      *
      * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct bool
      */
-    protected $_break     = true;
+    protected $_break   = true;
 
 
 
@@ -125,9 +106,9 @@ class CartesianProduct implements \Hoa\Iterator {
         foreach(func_get_args() as $s) {
 
             if(is_array($s))
-                $s = new \Hoa\Iterator\Map($s);
+                $s = new Iterator\Map($s);
             else
-                $s = new \Hoa\Iterator\IteratorIterator($s);
+                $s = new Iterator\IteratorIterator($s);
 
             $this->_sets[] = $s;
         }
@@ -157,7 +138,7 @@ class CartesianProduct implements \Hoa\Iterator {
      */
     protected function _current ( ) {
 
-        $this->_current = array();
+        $this->_current = [];
 
         foreach($this->_sets as $set)
             $this->_current[] = $set->current();
@@ -236,6 +217,4 @@ class CartesianProduct implements \Hoa\Iterator {
 
         return false === $this->_break;
     }
-}
-
 }

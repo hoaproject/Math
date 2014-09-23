@@ -34,43 +34,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
+namespace Hoa\Math\Bin;
 
-from('Hoa')
-
-/**
- * \Hoa\File\Read
- */
--> import('File.Read')
-
-/**
- * \Hoa\Compiler\Llk
- */
--> import('Compiler.Llk.~')
-
-/**
- * \Hoa\Math\Visitor\Arithmetic
- */
--> import('Math.Visitor.Arithmetic')
-
-/**
- * \Hoa\Compiler\Visitor\Dump
- */
--> import('Compiler.Visitor.Dump')
-
-/**
- * \Hoa\Console\Readline
- */
--> import('Console.Readline.~')
-
-/**
- * \Hoa\Console\Readline\Autocompleter\Word
- */
--> import('Console.Readline.Autocompleter.Word');
-
-}
-
-namespace Hoa\Math\Bin {
+use Hoa\Compiler;
+use Hoa\Console;
+use Hoa\File;
+use Hoa\Math;
 
 /**
  * Class \Hoa\Math\Bin\Calc.
@@ -82,17 +51,17 @@ namespace Hoa\Math\Bin {
  * @license    New BSD License
  */
 
-class Calc extends \Hoa\Console\Dispatcher\Kit {
+class Calc extends Console\Dispatcher\Kit {
 
     /**
      * Options description.
      *
      * @var \Hoa\Math\Bin\Calc array
      */
-    protected $options = array(
-        array('help', \Hoa\Console\GetOption::NO_ARGUMENT, 'h'),
-        array('help', \Hoa\Console\GetOption::NO_ARGUMENT, '?')
-    );
+    protected $options = [
+        ['help', Console\GetOption::NO_ARGUMENT, 'h'],
+        ['help', Console\GetOption::NO_ARGUMENT, '?']
+    ];
 
 
 
@@ -118,11 +87,11 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
 
         $this->parser->listInputs($expression);
 
-        $compiler = \Hoa\Compiler\Llk::load(
-            new \Hoa\File\Read('hoa://Library/Math/Arithmetic.pp')
+        $compiler = Compiler\Llk::load(
+            new File\Read('hoa://Library/Math/Arithmetic.pp')
         );
-        $visitor  = new \Hoa\Math\Visitor\Arithmetic();
-        $dump     = new \Hoa\Compiler\Visitor\Dump();
+        $visitor  = new Math\Visitor\Arithmetic();
+        $dump     = new Compiler\Visitor\Dump();
 
         if(null !== $expression) {
 
@@ -132,9 +101,9 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
             return;
         }
 
-        $readline   = new \Hoa\Console\Readline();
+        $readline   = new Console\Readline();
         $readline->setAutocompleter(
-            new \Hoa\Console\Readline\Autocompleter\Word(
+            new Console\Readline\Autocompleter\Word(
                 array_merge(
                     array_keys($visitor->getConstants()->getArrayCopy()),
                     array_keys($visitor->getFunctions()->getArrayCopy())
@@ -198,7 +167,7 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
 
                         echo $visitor->visit($compiler->parse($expression)), "\n";
                     }
-                    catch ( \Hoa\Compiler\Exception $e ) {
+                    catch ( Compiler\Exception $e ) {
 
                         echo $e->getMessage(), "\n";
 
@@ -224,14 +193,12 @@ class Calc extends \Hoa\Console\Dispatcher\Kit {
 
         echo 'Usage   : math:calc <options> [expression]', "\n",
              'Options :', "\n",
-             $this->makeUsageOptionsList(array(
+             $this->makeUsageOptionsList([
                  'help' => 'This help.'
-             )), "\n";
+             ]), "\n";
 
         return;
     }
-}
-
 }
 
 __halt_compiler();

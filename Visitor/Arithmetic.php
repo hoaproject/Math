@@ -34,28 +34,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
+namespace Hoa\Math\Visitor;
 
-from('Hoa')
-
-/**
- * \Hoa\Math\Exception\UnknownFunction
- */
--> import('Math.Exception.UnknownFunction')
-
-/**
- * \Hoa\Math\Exception\UnknownConstant
- */
--> import('Math.Exception.UnknownConstant')
-
-/**
- * \Hoa\Visitor\Visit
- */
--> import('Visitor.Visit');
-
-}
-
-namespace Hoa\Math\Visitor {
+use Hoa\Math;
+use Hoa\Visitor;
 
 /**
  * Class \Hoa\Math\Visitor\Arithmetic.
@@ -71,7 +53,7 @@ namespace Hoa\Math\Visitor {
  * @license    New BSD License
  */
 
-class Arithmetic implements \Hoa\Visitor\Visit {
+class Arithmetic implements Visitor\Visit {
 
     /**
      * List of supported functions: identifier => values as callable
@@ -112,7 +94,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
      * @param   mixed                 $eldnah     Handle (not reference).
      * @return  float
      */
-    public function visit ( \Hoa\Visitor\Element $element,
+    public function visit ( Visitor\Element $element,
                             &$handle = null, $eldnah = null ) {
 
         $type     = $element->getId();
@@ -131,7 +113,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
             case '#function':
                 $name      = array_shift($children)->accept($this, $_, $eldnah);
                 $function  = $this->getFunction($name);
-                $arguments = array();
+                $arguments = [];
 
                 foreach($children as $child) {
 
@@ -211,7 +193,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
                         $group     = new $classname(
                             '#fakegroup',
                             null,
-                            array($element),
+                            [$element],
                             $parent
                         );
                         $element->setParent($group);
@@ -292,7 +274,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
     public function getFunction ( $name ) {
 
         if(false === $this->_functions->offsetExists($name))
-            throw new \Hoa\Math\Exception\UnknownFunction(
+            throw new Math\Exception\UnknownFunction(
                 'Function %s does not exist.', 0, $name);
 
         return $this->_functions[$name];
@@ -320,7 +302,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
     public function getConstant ( $name ) {
 
         if(false === $this->_constants->offsetExists($name))
-            throw new \Hoa\Math\Exception\UnknownConstant(
+            throw new Math\Exception\UnknownConstant(
                 'Constant %s does not exist', 1, $name);
 
         return $this->_constants[$name];
@@ -345,7 +327,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
                 return array_sum($arguments) / count($arguments);
             };
 
-            $_functions = new \ArrayObject(array(
+            $_functions = new \ArrayObject([
                 'abs'     => xcallable('abs'),
                 'acos'    => xcallable('acos'),
                 'asin'    => xcallable('asin'),
@@ -374,7 +356,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
                                  return array_sum(func_get_args());
                              }),
                 'tan'     => xcallable('tan')
-            ));
+            ]);
         }
 
         $this->_functions = $_functions;
@@ -393,7 +375,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
         static $_constants = null;
 
         if(null === $_constants)
-            $_constants = new \ArrayObject(array(
+            $_constants = new \ArrayObject([
                 'PI'      => M_PI,
                 'PI_2'    => M_PI_2,
                 'PI_4'    => M_PI_4,
@@ -402,7 +384,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
                 'SQRT_2'  => M_SQRT2,
                 'SQRT_3'  => M_SQRT3,
                 'LN_PI'   => M_LNPI
-            ));
+            ]);
 
         $this->_constants = $_constants;
 
@@ -422,7 +404,7 @@ class Arithmetic implements \Hoa\Visitor\Visit {
         if(null === $callable) {
 
             if(false === function_exists($name))
-                throw new \Hoa\Math\UnknownFunction(
+                throw new Math\UnknownFunction(
                     'Function %s does not exist, cannot add it.', 2, $name);
 
             $callable = $name;
@@ -447,6 +429,4 @@ class Arithmetic implements \Hoa\Visitor\Visit {
 
         return;
     }
-}
-
 }

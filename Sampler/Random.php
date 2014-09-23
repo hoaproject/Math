@@ -34,18 +34,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
-
-from('Hoa')
-
-/**
- * \Hoa\Math\Sampler
- */
--> import('Math.Sampler.~');
-
-}
-
-namespace Hoa\Math\Sampler {
+namespace Hoa\Math\Sampler;
 
 /**
  * Class \Hoa\Math\Sampler\Random.
@@ -113,6 +102,4 @@ class Random extends Sampler {
 
         return $lower + lcg_value() * abs($upper - $lower);
     }
-}
-
 }

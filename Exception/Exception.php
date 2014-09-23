@@ -34,10 +34,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math\Exception {
+namespace Hoa\Math\Exception;
+
+use Hoa\Core;
 
 /**
  * Class \Hoa\Math\Exception.
+ *
+ * Extending the \Hoa\Core\Exception class.
  *
  * @author     Stéphane Py <py.stephane1@gmail.com>
  * @author     Sébastien Houze <s@verylastroom.com>
@@ -45,15 +49,9 @@ namespace Hoa\Math\Exception {
  * @license    New BSD License
  */
 
-class Exception extends \Hoa\Core\Exception { }
-
-}
-
-namespace {
+class Exception extends Core\Exception { }
 
 /**
  * Flex entity.
  */
-Hoa\Core\Consistency::flexEntity('Hoa\Math\Exception\Exception');
-
-}
+Core\Consistency::flexEntity('Hoa\Math\Exception\Exception');

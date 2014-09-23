@@ -34,22 +34,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace {
-
-from('Hoa')
-
-/**
- * \Hoa\Math\Exception
- */
--> import('Math.Exception.Exception');
-
-}
-
-
-namespace Hoa\Math\Exception {
+namespace Hoa\Math\Exception;
 
 /**
  * Class \Hoa\Math\Exception\UnknownConstant.
+ *
+ * Extending the \Hoa\Math\Exception class.
  *
  * @author     Stéphane Py <py.stephane1@gmail.com>
  * @author     Sébastien Houze <s@verylastroom.com>
@@ -58,5 +48,3 @@ namespace Hoa\Math\Exception {
  */
 
 class UnknownConstant extends Exception { }
-
-}

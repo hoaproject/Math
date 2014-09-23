@@ -34,7 +34,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math\Sampler {
+namespace Hoa\Math\Sampler;
+
+use Hoa\Core;
 
 /**
  * Class \Hoa\Math\Sampler.
@@ -46,7 +48,7 @@ namespace Hoa\Math\Sampler {
  * @license    New BSD License
  */
 
-abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
+abstract class Sampler implements Core\Parameter\Parameterizable {
 
     /**
      * Parameters.
@@ -64,17 +66,17 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
      * @param   array  $parameters    Parameters.
      * @return  void
      */
-    public function __construct ( Array $parameters = array() ) {
+    public function __construct ( Array $parameters = [] ) {
 
-        $this->_parameters = new \Hoa\Core\Parameter(
+        $this->_parameters = new Core\Parameter(
             __CLASS__,
-            array(),
-            array(
+            [],
+            [
                 'integer.min' => -16,
                 'integer.max' => 15,
                 'float.min'   => -128.0,
                 'float.max'   => 127.0
-            )
+            ]
         );
         $this->_parameters->setParameters($parameters);
 
@@ -207,17 +209,11 @@ abstract class Sampler implements \Hoa\Core\Parameter\Parameterizable {
      */
     public function getExcludeSet ( ) {
 
-        return array();
+        return [];
     }
 }
-
-}
-
-namespace {
 
 /**
  * Flex entity.
  */
-Hoa\Core\Consistency::flexEntity('Hoa\Math\Sampler\Sampler');
-
-}
+Core\Consistency::flexEntity('Hoa\Math\Sampler\Sampler');

@@ -34,7 +34,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math {
+namespace Hoa\Math;
 
 /**
  * Class \Hoa\Math\Util.
@@ -58,6 +58,4 @@ class Util {
 
         return (int) ($i === $j);
     }
-}
-
 }

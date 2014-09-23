@@ -34,7 +34,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math\Combinatorics\Combination {
+namespace Hoa\Math\Combinatorics\Combination;
+
+use Hoa\Core;
 
 /**
  * Class \Hoa\Math\Combinatorics\Combination.
@@ -64,9 +66,9 @@ class Combination {
     public static function Γ ( $n, $k, $withoutZero = false ) {
 
         if(0 === $n)
-            return array();
+            return [];
 
-        $out  = array();
+        $out  = [];
         $tmp  = null;
         $i    = 0;
         $o    = array_fill(0, $n, 0);
@@ -93,13 +95,7 @@ class Combination {
     }
 }
 
-}
-
-namespace {
-
 /**
  * Flex entity.
  */
-Hoa\Core\Consistency::flexEntity('Hoa\Math\Combinatorics\Combination\Combination');
-
-}
+Core\Consistency::flexEntity('Hoa\Math\Combinatorics\Combination\Combination');
