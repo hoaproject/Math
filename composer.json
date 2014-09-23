@@ -27,5 +27,10 @@
         "hoa/compiler": "~2.0"
     },
     "target-dir": "Hoa/Math",
-    "autoload"  : { "psr-0": { "Hoa\\Math": "." } }
+    "autoload"  : { "psr-0": { "Hoa\\Math": "." } },
+    "extra"     : {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
+    }
 }
