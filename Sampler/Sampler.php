@@ -137,10 +137,20 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
         if(null === $upper)
             $upper = $this->_parameters->getParameter('integer.max');
 
-        if(null === $exclude)
+        if(null === $exclude) {
+            if ($lower > $upper)
+                throw new \Hoa\Math\Exception\Exception(
+                    'Unexpected values, integer %d should be lower than %d', 1, array($lower, $upper));
             return $this->_getInteger($lower, $upper);
+        }
+
 
         sort($exclude);
+
+        if($lower > $upper - count($exclude))
+            throw new \Hoa\Math\Exception\Exception(
+                'Unexpected values, integer %d should be lower than %d', 1, array($lower, $upper - count($exclude)));
+
         $sampled = $this->_getInteger($lower, $upper - count($exclude));
 
         foreach($exclude as $e)
@@ -187,6 +197,10 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
                          ? 3.4028235e38 - 1
                          : 1.7976931348623157e308 - 1;
             */
+
+        if($lower > $upper)
+            throw new \Hoa\Math\Exception\Exception(
+                'Unexpected values, float %f should be lower than %f', 1, array($lower, $upper));
 
         return $this->_getFloat($lower, $upper);
     }
