@@ -6,7 +6,7 @@
 //
 // New BSD License
 //
-// Copyright © 2007-2014, Ivan Enderlin. All rights reserved.
+// Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
@@ -38,7 +38,7 @@
 // @author     Stéphane Py <py.stephane1@gmail.com>
 // @author     Sébastien Houze <s@verylastroom.com>
 // @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
-// @copyright  Copyright © 2007-2014 Stéphane Py, Sébastien Houze, Ivan Enderlin.
+// @copyright  Copyright © 2007-2015 Stéphane Py, Sébastien Houze, Ivan Enderlin.
 // @license    New BSD License
 //
 
