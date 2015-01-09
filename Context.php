@@ -246,14 +246,23 @@ class Context
 
         if (null === $_constants) {
             $_constants = new \ArrayObject([
-                'PI'      => M_PI,
-                'PI_2'    => M_PI_2,
-                'PI_4'    => M_PI_4,
-                'E'       => M_E,
-                'SQRT_PI' => M_SQRTPI,
-                'SQRT_2'  => M_SQRT2,
-                'SQRT_3'  => M_SQRT3,
-                'LN_PI'   => M_LNPI
+                'PI'               => M_PI,
+                'PI_2'             => M_PI_2,
+                'PI_4'             => M_PI_4,
+                'E'                => M_E,
+                'SQRT_PI'          => M_SQRTPI,
+                'SQRT_2'           => M_SQRT2,
+                'SQRT_3'           => M_SQRT3,
+                'LN_PI'            => M_LNPI,
+                'LOG_2E'           => M_LOG2E,
+                'LOG_10E'          => M_LOG10E,
+                'LN_2'             => M_LN2,
+                'LN_10'            => M_LN10,
+                'ONE_OVER_PI'      => M_1_PI,
+                'TWO_OVER_PI'      => M_2_PI,
+                'TWO_OVER_SQRT_PI' => M_2_SQRTPI,
+                'ONE_OVER_SQRT_2'  => M_SQRT1_2,
+                'EULER'            => M_EULER
             ]);
         }
 
