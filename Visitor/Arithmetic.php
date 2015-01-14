@@ -387,9 +387,9 @@ class Arithmetic implements Visitor\Visit {
                 'LOG2E'   => M_LOG2E,
                 'LOG10E'  => M_LOG10E,
                 'LN2'     => M_LN2,
-                '1_PI'    => M_1_PI,
-                '2_SQRTPI' => M_2_SQRTPI,
-                '1_SQRT2'  => M_SQRT1_2,
+                'INVERSEPI' => M_1_PI,
+                'TWODIVSQRTPI' => M_2_SQRTPI,
+                'INVERSE'  => M_SQRT1_2,
                 'EULER'    => M_EULER
             ]);
 
