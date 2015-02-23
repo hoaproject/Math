@@ -1,3 +1,9 @@
+# 0.15.02.23
+
+  * Add the `CHANGELOG.md` file. (Ivan Enderlin, 2015-02-23T09:26:08+01:00)
+  * Add `require-dev` with `hoa/test`. (Ivan Enderlin, 2015-01-29T14:53:44+01:00)
+  * Happy new year! (Ivan Enderlin, 2015-01-05T14:41:11+01:00)
+
 # 0.14.12.22
 
   * Format code. (Ivan Enderlin, 2014-12-22T08:54:44+01:00)
