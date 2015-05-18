@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,22 +41,19 @@ namespace Hoa\Math\Sampler;
  *
  * Random sampler.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class Random extends Sampler {
-
+class Random extends Sampler
+{
     /**
      * Construct.
      *
-     * @access  public
      * @return  void
      */
-    public function construct ( ) {
-
-        if(null === $this->_parameters->getParameter('integer.min'))
+    public function construct()
+    {
+        if (null === $this->_parameters->getParameter('integer.min')) {
             $this->_parameters->setParameter(
                 'integer.min',
                 max(
@@ -64,8 +61,9 @@ class Random extends Sampler {
                     $this->_parameters->getParameter('integer.min')
                 )
             );
+        }
 
-        if(null === $this->_parameters->getParameter('integer.max'))
+        if (null === $this->_parameters->getParameter('integer.max')) {
             $this->_parameters->setParameter(
                 'integer.max',
                 min(
@@ -73,6 +71,7 @@ class Random extends Sampler {
                     $this->_parameters->getParameter('integer.max')
                 )
             );
+        }
 
         return;
     }
@@ -80,26 +79,24 @@ class Random extends Sampler {
     /**
      * Generate a discrete uniform distribution.
      *
-     * @access  protected
      * @param   int  $lower    Lower bound value.
      * @param   int  $upper    Upper bound value.
      * @return  int
      */
-    protected function _getInteger ( $lower, $upper ) {
-
+    protected function _getInteger($lower, $upper)
+    {
         return mt_rand($lower, $upper);
     }
 
     /**
      * Generate a continuous uniform distribution.
      *
-     * @access  protected
      * @param   float      $lower    Lower bound value.
      * @param   float      $upper    Upper bound value.
      * @return  float
      */
-    protected function _getFloat ( $lower, $upper ) {
-
+    protected function _getFloat($lower, $upper)
+    {
         return $lower + lcg_value() * abs($upper - $lower);
     }
 }

@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,15 +44,13 @@ use Hoa\Test;
  *
  * Test suite of the random sampler.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class Random extends Test\Unit\Suite {
-
-    public function case_integer ( ) {
-
+class Random extends Test\Unit\Suite
+{
+    public function case_integer()
+    {
         $this
             ->given($sampler = new CUT())
             ->when($x = $sampler->getInteger())
@@ -60,8 +58,8 @@ class Random extends Test\Unit\Suite {
                 ->integer($x);
     }
 
-    public function case_bounded_integer ( ) {
-
+    public function case_bounded_integer()
+    {
         $this
             ->given($sampler = new CUT())
             ->when($x = $sampler->getInteger(-5, 5))
@@ -75,8 +73,8 @@ class Random extends Test\Unit\Suite {
                     ->isIdenticalTo(42);
     }
 
-    public function case_optional_bounds_integer ( ) {
-
+    public function case_optional_bounds_integer()
+    {
         $this
             ->given($sampler = new CUT([
                 'integer.min' => 42,
@@ -88,8 +86,8 @@ class Random extends Test\Unit\Suite {
                     ->isIdenticalTo(42);
     }
 
-    public function case_excluded_integers ( ) {
-
+    public function case_excluded_integers()
+    {
         $this
             ->given(
                 $exclude = [],
@@ -115,8 +113,8 @@ class Random extends Test\Unit\Suite {
                     ->isIdenticalTo(1);
     }
 
-    public function case_uniformity_integer ( ) {
-
+    public function case_uniformity_integer()
+    {
         $this
             ->given(
                 $max     = $this->sample(
@@ -126,13 +124,13 @@ class Random extends Test\Unit\Suite {
                 $upper   = 1 << 10,
                 $sampler = new CUT([
                     'integer.min' => -$upper,
-                    'integer.max' =>  $upper
+                    'integer.max' => $upper
                 ])
             )
-            ->when(function ( ) use ( $max, &$sum, &$sampler ) {
-
-                for($i = 0; $i  < $max; ++$i)
+            ->when(function () use ($max, &$sum, &$sampler) {
+                for ($i = 0; $i  < $max; ++$i) {
                     $sum += $sampler->getInteger();
+                }
             })
             ->then
                 ->float($sum / $max)
@@ -140,8 +138,8 @@ class Random extends Test\Unit\Suite {
                     ->isLessThanOrEqualTo(1.5);
     }
 
-    public function case_float ( ) {
-
+    public function case_float()
+    {
         $this
             ->given($sampler = new CUT())
             ->when($x = $sampler->getFloat())
@@ -149,8 +147,8 @@ class Random extends Test\Unit\Suite {
                 ->float($x);
     }
 
-    public function case_bounded_float ( ) {
-
+    public function case_bounded_float()
+    {
         $this
             ->given($sampler = new CUT())
             ->when($x = $sampler->getFloat(-5.5, 5.5))
@@ -163,8 +161,8 @@ class Random extends Test\Unit\Suite {
                     ->isIdenticalTo(4.2);
     }
 
-    public function case_optional_bounds_float ( ) {
-
+    public function case_optional_bounds_float()
+    {
         $this
             ->given($sampler = new CUT([
                 'float.min' => 4.2,
@@ -176,8 +174,8 @@ class Random extends Test\Unit\Suite {
                     ->isIdenticalTo(4.2);
     }
 
-    public function case_uniformity_float ( ) {
-
+    public function case_uniformity_float()
+    {
         $this
             ->given(
                 $max     = $this->sample(
@@ -187,13 +185,13 @@ class Random extends Test\Unit\Suite {
                 $upper   = 1 << 10,
                 $sampler = new CUT([
                     'float.min' => -$upper,
-                    'float.max' =>  $upper
+                    'float.max' => $upper
                 ])
             )
-            ->when(function ( ) use ( $max, &$sum, &$sampler ) {
-
-                for($i = 0; $i  < $max; ++$i)
+            ->when(function () use ($max, &$sum, &$sampler) {
+                for ($i = 0; $i  < $max; ++$i) {
                     $sum += $sampler->getFloat();
+                }
             })
             ->then
                 ->float($sum / $max)

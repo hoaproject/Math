@@ -39,7 +39,7 @@ library](http://central.hoa-project.net/Resource/Library/Compiler) and the
 
 ```php
 // 1. Load the compiler.
-$compiler   = Hoa\Compiler\Llk::load(
+$compiler = Hoa\Compiler\Llk::load(
     new Hoa\File\Read('hoa://Library/Math/Arithmetic.pp')
 );
 
@@ -98,8 +98,7 @@ and `addConstant` methods. Thus, we will add the `rand` function (with 2
 parameters) and the `ANSWER` constant, set to 42:
 
 ```php
-$visitor->addFunction('rand', function ( $min, $max ) {
-
+$visitor->addFunction('rand', function ($min, $max) {
     return mt_rand($min, $max);
 });
 $visitor->addConstant('ANSWER', 42);

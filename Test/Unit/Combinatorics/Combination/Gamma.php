@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,15 +44,13 @@ use Hoa\Test;
  *
  * Test suite of the Γ iterator.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class Gamma extends Test\Unit\Suite {
-
-    public function case_empty ( ) {
-
+class Gamma extends Test\Unit\Suite
+{
+    public function case_empty()
+    {
         $this
             ->given(
                 $n        = 0,
@@ -65,8 +63,8 @@ class Gamma extends Test\Unit\Suite {
                     ->isEmpty();
     }
 
-    public function case_n2_k3 ( ) {
-
+    public function case_n2_k3()
+    {
         $this
             ->given(
                 $n        = 2,
@@ -84,8 +82,8 @@ class Gamma extends Test\Unit\Suite {
                     ]);
     }
 
-    public function case_n3_k2 ( ) {
-
+    public function case_n3_k2()
+    {
         $this
             ->given(
                 $n        = 3,

@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -47,59 +47,57 @@ use Hoa\Iterator;
  * This class is identical to \Hoa\Math\Combinatorics\Combination::Gamma with a
  * “yield” keyword.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class Gamma implements Iterator {
-
+class Gamma implements Iterator
+{
     /**
      * n.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
+     * @var int
      */
     protected $_n       = 0;
 
     /**
      * k.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
+     * @var int
      */
     protected $_k       = 0;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
+     * @var int
      */
     protected $_current = null;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
+     * @var int
      */
     protected $_key     = -1;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma array
+     * @var array
      */
     protected $_tmp     = null;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
+     * @var int
      */
     protected $_i       = 0;
 
     /**
      * For iterator.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma int
+     * @var int
      */
     protected $_o       = 0;
 
@@ -107,7 +105,7 @@ class Gamma implements Iterator {
      * For iterator.
      *
      *
-     * @var \Hoa\Math\Combinatorics\Combination\Gamma bool
+     * @var bool
      */
     protected $_last    = false;
 
@@ -116,13 +114,12 @@ class Gamma implements Iterator {
     /**
      * Constructor.
      *
-     * @access  public
      * @param   int  $n    n.
      * @param   int  $k    k.
      * @return  void
      */
-    public function __construct ( $n, $k ) {
-
+    public function __construct($n, $k)
+    {
         $this->_n = $n;
         $this->_k = $k;
 
@@ -132,44 +129,40 @@ class Gamma implements Iterator {
     /**
      * Get current γ.
      *
-     * @access  public
      * @return  array
      */
-    public function current ( ) {
-
+    public function current()
+    {
         return $this->_current;
     }
 
     /**
      * Get current α.
      *
-     * @access  public
      * @return  int
      */
-    public function key ( ) {
-
+    public function key()
+    {
         return $this->_key;
     }
 
     /**
      * Compute γ_{α + 1}.
      *
-     * @access  public
      * @return  void
      */
-    public function next ( ) {
-
+    public function next()
+    {
         return;
     }
 
     /**
      * Rewind iterator.
      *
-     * @access  public
      * @return  void
      */
-    public function rewind ( ) {
-
+    public function rewind()
+    {
         $this->_current = [];
         $this->_tmp     = null;
         $this->_i       = 0;
@@ -185,19 +178,19 @@ class Gamma implements Iterator {
     /**
      * Compute γ_α.
      *
-     * @access  public
      * @return  bool
      */
-    public function valid ( ) {
-
-        if(true === $this->_last)
+    public function valid()
+    {
+        if (true === $this->_last) {
             return false;
+        }
 
-        if(0 === $this->_n)
+        if (0 === $this->_n) {
             return false;
+        }
 
-        if($this->_k == $this->_o[$this->_i = $this->_n - 1]) {
-
+        if ($this->_k == $this->_o[$this->_i = $this->_n - 1]) {
             $this->_last    = true;
             $this->_current = $this->_o;
             ++$this->_key;
@@ -211,7 +204,9 @@ class Gamma implements Iterator {
         $this->_tmp          = $this->_o[$this->_i];
         $this->_o[$this->_i] = 0;
 
-        while($this->_o[$this->_i] == 0) --$this->_i;
+        while ($this->_o[$this->_i] == 0) {
+            --$this->_i;
+        }
 
         --$this->_o[$this->_i];
         $this->_o[$this->_i + 1] = $this->_tmp + 1;

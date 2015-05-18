@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,21 +41,19 @@ namespace Hoa\Math;
  *
  * Some Math functions.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class Util {
-
+class Util
+{
     /**
      * @description 'Kronecker delta: δ_i^j = 1 if i = j, 0 if i ≠ j';
      * @requires    i: integer() and
      *              j: integer();
      * @ensures     \pred('\\result === (int) ($i === $j)');
      */
-    public static function δ ( $i, $j ) {
-
+    public static function δ($i, $j)
+    {
         return (int) ($i === $j);
     }
 }

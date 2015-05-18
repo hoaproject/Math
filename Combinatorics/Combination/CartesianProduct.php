@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,45 +49,43 @@ use Hoa\Iterator;
  *                   (1, a, B), (2, a, B), (1, b, B), (2, b, B)
  *                   (1, a, C), (2, a, C), (1, b, C), (2, b, C) }
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class CartesianProduct implements Iterator {
-
+class CartesianProduct implements Iterator
+{
     /**
      * All sets.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct array
+     * @var array
      */
     protected $_sets    = [];
 
     /**
      * Number of sets.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct int
+     * @var int
      */
     protected $_max     = 0;
 
     /**
      * Key.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct int
+     * @var int
      */
     protected $_key     = 0;
 
     /**
      * Current (contains the current t-uple).
      *
-     * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct array
+     * @var array
      */
     protected $_current = null;
 
     /**
      * Whether the iterator has reached the end or not.
      *
-     * @var \Hoa\Math\Combinatorics\Combination\CartesianProduct bool
+     * @var bool
      */
     protected $_break   = true;
 
@@ -96,19 +94,18 @@ class CartesianProduct implements Iterator {
     /**
      * Constructor.
      *
-     * @access  public
      * @param   \Traversable  $set    Set.
      * @param   …             …       …
      * @return  void
      */
-    public function __construct ( $set ) {
-
-        foreach(func_get_args() as $s) {
-
-            if(is_array($s))
+    public function __construct($set)
+    {
+        foreach (func_get_args() as $s) {
+            if (is_array($s)) {
                 $s = new Iterator\Map($s);
-            else
+            } else {
                 $s = new Iterator\IteratorIterator($s);
+            }
 
             $this->_sets[] = $s;
         }
@@ -122,26 +119,25 @@ class CartesianProduct implements Iterator {
     /**
      * Get the current value.
      *
-     * @access  public
      * @return  array
      */
-    public function current ( ) {
-
+    public function current()
+    {
         return $this->_current;
     }
 
     /**
      * Prepare the current value.
      *
-     * @access  protected
      * @return  void
      */
-    protected function _current ( ) {
-
+    protected function _current()
+    {
         $this->_current = [];
 
-        foreach($this->_sets as $set)
+        foreach ($this->_sets as $set) {
             $this->_current[] = $set->current();
+        }
 
         return;
     }
@@ -149,34 +145,32 @@ class CartesianProduct implements Iterator {
     /**
      * Get the current key.
      *
-     * @access  public
      * @return  int
      */
-    public function key ( ) {
-
+    public function key()
+    {
         return $this->_key;
     }
 
     /**
      * Advance the internal collection pointer, and return the current value.
      *
-     * @access  public
      * @return  array
      */
-    public function next ( ) {
-
-        for($i = 0; $i <= $this->_max; ++$i) {
-
+    public function next()
+    {
+        for ($i = 0; $i <= $this->_max; ++$i) {
             $this->_sets[$i]->next();
 
-            if(false !== $this->_sets[$i]->valid())
+            if (false !== $this->_sets[$i]->valid()) {
                 break;
+            }
 
             $this->_sets[$i]->rewind();
 
-            if($i === $this->_max) {
-
+            if ($i === $this->_max) {
                 $this->_break = true;
+
                 break;
             }
         }
@@ -190,16 +184,16 @@ class CartesianProduct implements Iterator {
     /**
      * Rewind the internal collection pointer, and return the first collection.
      *
-     * @access  public
      * @return  array
      */
-    public function rewind ( ) {
-
+    public function rewind()
+    {
         $this->_break = empty($this->_sets);
         $this->_key   = 0;
 
-        foreach($this->_sets as $set)
+        foreach ($this->_sets as $set) {
             $set->rewind();
+        }
 
         $this->_current();
 
@@ -210,11 +204,10 @@ class CartesianProduct implements Iterator {
      * Check if there is a current element after calls to the rewind() or the
      * next() methods.
      *
-     * @access  public
      * @return  bool
      */
-    public function valid ( ) {
-
+    public function valid()
+    {
         return false === $this->_break;
     }
 }

@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -46,17 +46,15 @@ use Hoa\Math;
  *
  * A simple calculator.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class Calc extends Console\Dispatcher\Kit {
-
+class Calc extends Console\Dispatcher\Kit
+{
     /**
      * Options description.
      *
-     * @var \Hoa\Math\Bin\Calc array
+     * @var array
      */
     protected $options = [
         ['help', Console\GetOption::NO_ARGUMENT, 'h'],
@@ -68,21 +66,21 @@ class Calc extends Console\Dispatcher\Kit {
     /**
      * The entry method.
      *
-     * @access  public
      * @return  int
      */
-    public function main ( ) {
+    public function main()
+    {
+        while (false !== $c = $this->getOption($v)) {
+            switch ($c) {
+                case 'h':
+                case '?':
+                    return $this->usage();
 
-        while(false !== $c = $this->getOption($v)) switch($c) {
+                case '__ambiguous':
+                    $this->resolveOptionAmbiguity($v);
 
-            case 'h':
-            case '?':
-                return $this->usage();
-              break;
-
-            case '__ambiguous':
-                $this->resolveOptionAmbiguity($v);
-              break;
+                    break;
+            }
         }
 
         $this->parser->listInputs($expression);
@@ -93,8 +91,7 @@ class Calc extends Console\Dispatcher\Kit {
         $visitor  = new Math\Visitor\Arithmetic();
         $dump     = new Compiler\Visitor\Dump();
 
-        if(null !== $expression) {
-
+        if (null !== $expression) {
             $ast = $compiler->parse($expression);
             echo $expression . ' = ' . $visitor->visit($ast), "\n";
 
@@ -114,71 +111,84 @@ class Calc extends Console\Dispatcher\Kit {
         $expression = 'h';
 
         do {
-
-            switch($expression) {
-
+            switch ($expression) {
                 case 'h':
                 case 'help':
-                    echo 'Usage:', "\n",
-                         '    h[elp]       to print this help;', "\n",
-                         '    c[onstants]  to print available constants;', "\n",
-                         '    f[unctions]  to print available functions;', "\n",
-                         '    e[xpression] to print the current expression;', "\n",
-                         '    d[ump]       to dump the tree of the expression;', "\n",
-                         '    q[uit]       to quit.', "\n";
-                  break;
+                    echo
+                        'Usage:', "\n",
+                        '    h[elp]       to print this help;', "\n",
+                        '    c[onstants]  to print available constants;', "\n",
+                        '    f[unctions]  to print available functions;', "\n",
+                        '    e[xpression] to print the current expression;', "\n",
+                        '    d[ump]       to dump the tree of the expression;', "\n",
+                        '    q[uit]       to quit.', "\n";
+
+                    break;
 
                 case 'c':
                 case 'constants':
-                    echo implode(', ', array_keys(
-                        $visitor->getConstants()->getArrayCopy()
-                    )), "\n";
-                  break;
+                    echo
+                        implode(
+                            ', ',
+                            array_keys(
+                                $visitor->getConstants()->getArrayCopy()
+                            )
+                        ),
+                        "\n";
+
+                    break;
 
                 case 'f':
                 case 'functions':
-                    echo implode(', ', array_keys(
-                        $visitor->getFunctions()->getArrayCopy()
-                    )), "\n";
-                  break;
+                    echo
+                        implode(
+                            ', ',
+                            array_keys(
+                                $visitor->getFunctions()->getArrayCopy()
+                            )
+                        ),
+                        "\n";
+
+                    break;
 
                 case 'e':
                 case 'expression':
                     echo $handle, "\n";
-                  break;
+
+                    break;
 
                 case 'd':
                 case 'dump':
-                    if(null === $handle)
+                    if (null === $handle) {
                         echo 'Type a valid expression before (“> 39 + 3”).', "\n";
-                    else
+                    } else {
                         echo $dump->visit($compiler->parse($handle)), "\n";
-                  break;
+                    }
+
+                    break;
 
                 case 'q':
                 case 'quit':
-                  break 2;
+                    break 2;
 
                 default:
-                    if(null === $expression)
+                    if (null === $expression) {
                         break;
+                    }
 
                     try {
-
                         echo $visitor->visit($compiler->parse($expression)), "\n";
-                    }
-                    catch ( Compiler\Exception $e ) {
-
+                    } catch (Compiler\Exception $e) {
                         echo $e->getMessage(), "\n";
 
                         break;
                     }
 
                     $handle = $expression;
-                  break;
-            }
 
-        } while(false !== $expression = $readline->readLine('> '));
+                    break;
+            }
+        } while (false !== $expression = $readline->readLine('> '));
 
         return;
     }
@@ -186,16 +196,16 @@ class Calc extends Console\Dispatcher\Kit {
     /**
      * The command usage.
      *
-     * @access  public
      * @return  int
      */
-    public function usage ( ) {
-
-        echo 'Usage   : math:calc <options> [expression]', "\n",
-             'Options :', "\n",
-             $this->makeUsageOptionsList([
-                 'help' => 'This help.'
-             ]), "\n";
+    public function usage()
+    {
+        echo
+            'Usage   : math:calc <options> [expression]', "\n",
+            'Options :', "\n",
+            $this->makeUsageOptionsList([
+                'help' => 'This help.'
+            ]), "\n";
 
         return;
     }

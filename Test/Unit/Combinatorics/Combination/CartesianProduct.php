@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,15 +44,13 @@ use Hoa\Test;
  *
  * Test suite of the cartesian product.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class CartesianProduct extends Test\Unit\Suite {
-
-    public function case_empty ( ) {
-
+class CartesianProduct extends Test\Unit\Suite
+{
+    public function case_empty()
+    {
         $this
             ->given($iterator = new CUT([]))
             ->when($result = iterator_to_array($iterator))
@@ -61,8 +59,8 @@ class CartesianProduct extends Test\Unit\Suite {
                     ->isEqualTo([[null]]);
     }
 
-    public function case_X ( ) {
-
+    public function case_X()
+    {
         $this
             ->given($iterator = new CUT([1, 2, 3]))
             ->when($result = iterator_to_array($iterator))
@@ -75,8 +73,8 @@ class CartesianProduct extends Test\Unit\Suite {
                     ]);
     }
 
-    public function case_X_Y ( ) {
-
+    public function case_X_Y()
+    {
         $this
             ->given($iterator = new CUT([1, 2, 3], [4, 5, 6]))
             ->when($result = iterator_to_array($iterator))
@@ -97,8 +95,8 @@ class CartesianProduct extends Test\Unit\Suite {
                     ]);
     }
 
-    public function case_X_Y_Z ( ) {
-
+    public function case_X_Y_Z()
+    {
         $this
             ->given($iterator = new CUT([1, 2, 3], [4, 5, 6], [7, 8, 9]))
             ->when($result = iterator_to_array($iterator))

@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,17 +44,15 @@ use Hoa\Math;
  *
  * Generic sampler.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-abstract class Sampler implements Core\Parameter\Parameterizable {
-
+abstract class Sampler implements Core\Parameter\Parameterizable
+{
     /**
      * Parameters.
      *
-     * @var \Hoa\Core\Parameter object
+     * @var \Hoa\Core\Parameter
      */
     protected $_parameters = null;
 
@@ -63,12 +61,11 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
     /**
      * Construct an abstract sampler.
      *
-     * @access  public
      * @param   array  $parameters    Parameters.
      * @return  void
      */
-    public function __construct ( Array $parameters = [] ) {
-
+    public function __construct(Array $parameters = [])
+    {
         $this->_parameters = new Core\Parameter(
             __CLASS__,
             [],
@@ -81,17 +78,21 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
         );
         $this->_parameters->setParameters($parameters);
 
-        if(null === $this->_parameters->getParameter('integer.min'))
+        if (null === $this->_parameters->getParameter('integer.min')) {
             $this->_parameters->setParameter('integer.min', PHP_INT_MIN);
+        }
 
-        if(null === $this->_parameters->getParameter('integer.max'))
+        if (null === $this->_parameters->getParameter('integer.max')) {
             $this->_parameters->setParameter('integer.max', PHP_INT_MAX);
+        }
 
-        if(null === $this->_parameters->getParameter('float.min'))
+        if (null === $this->_parameters->getParameter('float.min')) {
             $this->_parameters->setParameter('float.min', PHP_INT_MIN);
+        }
 
-        if(null === $this->_parameters->getParameter('float.max'))
+        if (null === $this->_parameters->getParameter('float.max')) {
             $this->_parameters->setParameter('float.max', PHP_INT_MAX);
+        }
 
         $this->construct();
 
@@ -101,49 +102,52 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
     /**
      * Construct.
      *
-     * @access  public
      * @return  void
      */
-    public function construct ( ) {
-
+    public function construct()
+    {
         return;
     }
 
     /**
      * Get parameters.
      *
-     * @access  public
      * @return  \Hoa\Core\Parameter
      */
-    public function getParameters ( ) {
-
+    public function getParameters()
+    {
         return $this->_parameters;
     }
 
     /**
      * Generate a discrete uniform distribution.
      *
-     * @access  public
      * @param   int    $lower       Lower bound value.
      * @param   int    $upper       Upper bound value.
      * @param   array  &$exclude    Excluded values.
      * @return  int
      */
-    public function getInteger ( $lower = null, $upper = null,
-                                 Array &$exclude = null ) {
-
-        if(null === $lower)
+    public function getInteger(
+        $lower          = null,
+        $upper          = null,
+        Array &$exclude = null
+    ) {
+        if (null === $lower) {
             $lower = $this->_parameters->getParameter('integer.min');
+        }
 
-        if(null === $upper)
+        if (null === $upper) {
             $upper = $this->_parameters->getParameter('integer.max');
+        }
 
-        if(null === $exclude) {
-
-            if($lower > $upper)
+        if (null === $exclude) {
+            if ($lower > $upper) {
                 throw new Math\Exception(
                     'Unexpected values, integer %d should be lower than %d',
-                    0, [$lower, $upper]);
+                    0,
+                    [$lower, $upper]
+                );
+            }
 
             return $this->_getInteger($lower, $upper);
         }
@@ -153,18 +157,23 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
 
         $upper -= count($exclude);
 
-        if($lower > $upper)
+        if ($lower > $upper) {
             throw new Math\Exception(
                 'Unexpected values, integer %d should be lower than %d',
-                1, [$lower, $upper]);
+                1,
+                [$lower, $upper]
+            );
+        }
 
         $sampled = $this->_getInteger($lower, $upper);
 
-        foreach($exclude as $e)
-            if($sampled >= $e)
+        foreach ($exclude as $e) {
+            if ($sampled >= $e) {
                 ++$sampled;
-            else
+            } else {
                 break;
+            }
+        }
 
         return $sampled;
     }
@@ -172,43 +181,44 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
     /**
      * Generate a discrete uniform distribution.
      *
-     * @access  protected
      * @param   int  $lower    Lower bound value.
      * @param   int  $upper    Upper bound value.
      * @return  int
      */
-    abstract protected function _getInteger ( $lower, $upper );
+    abstract protected function _getInteger($lower, $upper);
 
     /**
      * Generate a continuous uniform distribution.
      *
-     * @access  public
      * @param   float   $lower    Lower bound value.
      * @param   float   $upper    Upper bound value.
      * @return  float
      */
-    public function getFloat ( $lower = null, $upper = null ) {
-
-        if(null === $lower)
+    public function getFloat($lower = null, $upper = null)
+    {
+        if (null === $lower) {
             $lower = $this->_parameters->getParameter('float.min');
+        }
             /*
             $lower = true === S_32\BITS
                          ? -3.4028235e38 + 1
                          : -1.7976931348623157e308 + 1;
             */
 
-        if(null === $upper)
+        if (null === $upper) {
             $upper = $this->_parameters->getParameter('float.max');
+        }
             /*
             $upper = true === S_32\BITS
                          ? 3.4028235e38 - 1
                          : 1.7976931348623157e308 - 1;
             */
 
-        if($lower > $upper)
+        if ($lower > $upper) {
             throw new Math\Exception(
                 'Unexpected values, float %f should be lower than %f',
                 2, [$lower, $upper]);
+        }
 
         return $this->_getFloat($lower, $upper);
     }
@@ -216,21 +226,19 @@ abstract class Sampler implements Core\Parameter\Parameterizable {
     /**
      * Generate a continuous uniform distribution.
      *
-     * @access  protected
      * @param   float      $lower    Lower bound value.
      * @param   float      $upper    Upper bound value.
      * @return  float
      */
-    abstract protected function _getFloat ( $lower, $upper );
+    abstract protected function _getFloat($lower, $upper);
 
     /**
      * Get an exclude set.
      *
-     * @access  public
      * @return  array
      */
-    public function getExcludeSet ( ) {
-
+    public function getExcludeSet()
+    {
         return [];
     }
 }

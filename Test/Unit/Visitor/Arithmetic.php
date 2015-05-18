@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2015, Ivan Enderlin. All rights reserved.
+ * Copyright © 2007-2015, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,15 +49,13 @@ use Hoa\Test;
  * Test suite of the hoa://Library/Math/Arithmetic.pp grammar and the
  * Hoa\Math\Visitor\Arithmetic class.
  *
- * @author     Ivan Enderlin <ivan.enderlin@hoa-project.net>
- * @copyright  Copyright © 2007-2015 Ivan Enderlin.
+ * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-
-class Arithmetic extends Test\Unit\Suite {
-
-    public function case_visitor_exhaustively ( ) {
-
+class Arithmetic extends Test\Unit\Suite
+{
+    public function case_visitor_exhaustively()
+    {
         $this
             ->given(
                 $sampler  = new Compiler\Llk\Sampler\BoundedExhaustive(
@@ -74,31 +72,24 @@ class Arithmetic extends Test\Unit\Suite {
                 ),
                 $visitor  = new CUT()
             )
-            ->executeOnFailure(function ( ) use ( &$expression ) {
-
+            ->executeOnFailure(function () use (&$expression) {
                 echo 'Failed expression: ', $expression, '.', "\n";
             })
-            ->when(function ( ) use ( &$sampler, &$compiler, &$visitor ) {
-
-                foreach($sampler as $expression) {
-
+            ->when(function () use (&$sampler, &$compiler, &$visitor) {
+                foreach ($sampler as $expression) {
                     $dump = $expression;
 
                     try {
-
                         $x = (float) $visitor->visit(
                             $compiler->parse($expression)
                         );
-                    }
-                    catch ( \Exception $e ) {
-
+                    } catch (\Exception $e) {
                         continue;
                     }
 
                     eval('$y = (float) ' . $expression . ';');
 
-                    if(is_nan($x) || is_nan($y)) {
-
+                    if (is_nan($x) || is_nan($y)) {
                         $this->boolean(true);
 
                         continue;
