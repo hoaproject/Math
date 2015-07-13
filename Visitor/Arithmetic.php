@@ -217,6 +217,7 @@ class Arithmetic implements Visitor\Visit
                 };
 
                 $children[1]->accept($this, $acc, $eldnah);
+                
                 break;
 
             case '#fakegroup':
