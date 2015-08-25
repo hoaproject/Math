@@ -372,7 +372,14 @@ class Arithmetic implements Visitor\Visit
                 'SQRT_PI' => M_SQRTPI,
                 'SQRT_2'  => M_SQRT2,
                 'SQRT_3'  => M_SQRT3,
-                'LN_PI'   => M_LNPI
+                'LN_PI'   => M_LNPI,
+                'LOG2E'   => M_LOG2E,
+                'LOG10E'  => M_LOG10E,
+                'LN2'     => M_LN2,
+                'INVERSEPI' => M_1_PI,
+                'TWODIVSQRTPI' => M_2_SQRTPI,
+                'INVERSE'  => M_SQRT1_2,
+                'EULER'    => M_EULER
             ]);
         }
 
