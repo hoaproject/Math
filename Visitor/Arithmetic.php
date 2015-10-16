@@ -64,6 +64,13 @@ class Arithmetic implements Visitor\Visit
      */
     protected $_constants = null;
 
+    /**
+     * List of variables supported
+     *
+     * @var \ArrayObject
+     */
+    protected $_variables = null;
+
 
 
     /**
@@ -75,6 +82,7 @@ class Arithmetic implements Visitor\Visit
     {
         $this->initializeConstants();
         $this->initializeFunctions();
+        $this->initializeVariables();
 
         return;
     }
@@ -219,6 +227,15 @@ class Arithmetic implements Visitor\Visit
 
                 break;
 
+            case '#variable':
+                $out = $this->getVariable($children[0]->getValueValue());
+
+                $acc = function () use ($out, $acc) {
+                    return $acc($out);
+                };
+
+                break;
+
             case 'token':
                 $value = $element->getValueValue();
                 $out   = null;
@@ -292,7 +309,7 @@ class Arithmetic implements Visitor\Visit
      *
      * @param   string  $name    Constant name.
      * @return  mixed
-     * @throws  \Hoa\Math\Exception\UnknownFunction
+     * @throws  \Hoa\Math\Exception\UnknownConstant
      */
     public function getConstant($name)
     {
@@ -305,6 +322,36 @@ class Arithmetic implements Visitor\Visit
         }
 
         return $this->_constants[$name];
+    }
+
+    /**
+     * Get variables.
+     *
+     * @return  \ArrayObject
+     */
+    public function getVariables()
+    {
+        return $this->_variables;
+    }
+
+    /**
+     * Get a variable.
+     *
+     * @param   string  $name    Variable name.
+     * @return  mixed
+     * @throws  \Hoa\Math\Exception\UnknownVariable
+     */
+    public function getVariable($name)
+    {
+        if (false === $this->_variables->offsetExists($name)) {
+            throw new Math\Exception\UnknownVariable(
+                'Variable %s does not exist',
+                1,
+                $name
+            );
+        }
+
+        return $this->_variables[$name];
     }
 
     /**
@@ -382,6 +429,22 @@ class Arithmetic implements Visitor\Visit
     }
 
     /**
+     * Initialize variables mapping.
+     *
+     * @return void
+     */
+    protected function initializeVariables()
+    {
+        static $_variables = null;
+
+        if (null === $_variables) {
+            $_variables = new \ArrayObject([]);
+        }
+
+        $this->_variables = $_variables;
+    }
+
+    /**
      * Add a function.
      *
      * @param   string  $name        Function name.
@@ -417,6 +480,20 @@ class Arithmetic implements Visitor\Visit
     public function addConstant($name, $value)
     {
         $this->_constants[$name] = $value;
+
+        return;
+    }
+
+    /**
+     * Add a variable.
+     *
+     * @param   string  $name     Variable name.
+     * @param   mixed   $value    Value.
+     * @return  void
+     */
+    public function addVariable($name, $value)
+    {
+        $this->_variables[$name] = $value;
 
         return;
     }
