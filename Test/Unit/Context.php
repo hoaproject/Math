@@ -36,8 +36,6 @@
 
 namespace Hoa\Math\Test\Unit;
 
-use Hoa\Core;
-use Hoa\Math as LUT;
 use Hoa\Math\Context as CUT;
 use Hoa\Test;
 
@@ -83,7 +81,7 @@ class Context extends Test\Unit\Suite
             ->given(
                 $name     = 'foo',
                 $value    = 42,
-                $callable = function() use ($value) { return $value; },
+                $callable = function () use ($value) { return $value; },
                 $context  = new CUT(),
                 $context->addVariable($name, $callable)
             )
@@ -224,7 +222,7 @@ class Context extends Test\Unit\Suite
         $this
             ->given(
                 $name     = 'foo',
-                $callable = function() {},
+                $callable = function () {},
                 $context  = new CUT(),
                 $context->addFunction($name, $callable)
             )
@@ -240,7 +238,7 @@ class Context extends Test\Unit\Suite
             ->given(
                 $name     = 'foo',
                 $value    = 42,
-                $callable = function() use ($value) { return $value; },
+                $callable = function () use ($value) { return $value; },
                 $context  = new CUT(),
                 $context->addFunction($name, $callable)
             )
