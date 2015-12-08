@@ -36,8 +36,6 @@
 
 namespace Hoa\Math;
 
-use Hoa\Math;
-
 /**
  * Class \Hoa\Math\Context.
  *
@@ -94,7 +92,7 @@ class Context
     public function addConstant($name, $value)
     {
         if (true === $this->_constants->offsetExists($name)) {
-            throw new Math\Exception\AlreadyDefinedConstant(
+            throw new Exception\AlreadyDefinedConstant(
                 'Constant %s is already defined.',
                 0,
                 $name
@@ -116,7 +114,7 @@ class Context
     public function getConstant($name)
     {
         if (false === $this->_constants->offsetExists($name)) {
-            throw new Math\Exception\UnknownConstant(
+            throw new Exception\UnknownConstant(
                 'Constant %s does not exist.',
                 1,
                 $name
@@ -148,7 +146,7 @@ class Context
     {
         if (null === $callable) {
             if (false === function_exists($name)) {
-                throw new Math\Exception\UnknownFunction(
+                throw new Exception\UnknownFunction(
                     'Function %s does not exist, cannot add it.',
                     2,
                     $name
@@ -167,13 +165,13 @@ class Context
      * Get a function.
      *
      * @param   string  $name    Function name.
-     * @return  \Hoa\Core\Consistency\Xcallable
+     * @return  \Hoa\Consistency\Xcallable
      * @throws  \Hoa\Math\Exception\UnknownFunction
      */
     public function getFunction($name)
     {
         if (false === $this->_functions->offsetExists($name)) {
-            throw new Math\Exception\UnknownFunction(
+            throw new Exception\UnknownFunction(
                 'Function %s does not exist.',
                 3,
                 $name
@@ -217,7 +215,7 @@ class Context
     public function getVariable($name)
     {
         if (false === $this->_variables->offsetExists($name)) {
-            throw new Math\Exception\UnknownVariable(
+            throw new Exception\UnknownVariable(
                 'Variable %s does not exist.',
                 4,
                 $name

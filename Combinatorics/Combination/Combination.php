@@ -36,7 +36,7 @@
 
 namespace Hoa\Math\Combinatorics\Combination;
 
-use Hoa\Core;
+use Hoa\Consistency;
 
 /**
  * Class \Hoa\Math\Combinatorics\Combination.
@@ -99,4 +99,4 @@ class Combination
 /**
  * Flex entity.
  */
-Core\Consistency::flexEntity('Hoa\Math\Combinatorics\Combination\Combination');
+Consistency::flexEntity('Hoa\Math\Combinatorics\Combination\Combination');

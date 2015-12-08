@@ -229,7 +229,7 @@ class Context extends Test\Unit\Suite
             ->when($result = $context->getFunction($name))
             ->then
                 ->object($result)
-                    ->isInstanceOf('Hoa\Core\Consistency\Xcallable');
+                    ->isInstanceOf('Hoa\Consistency\Xcallable');
     }
 
     public function case_context_returns_the_right_function_callable()

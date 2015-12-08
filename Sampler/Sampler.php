@@ -36,6 +36,7 @@
 
 namespace Hoa\Math\Sampler;
 
+use Hoa\Consistency;
 use Hoa\Core;
 use Hoa\Math;
 
@@ -246,4 +247,4 @@ abstract class Sampler implements Core\Parameter\Parameterizable
 /**
  * Flex entity.
  */
-Core\Consistency::flexEntity('Hoa\Math\Sampler\Sampler');
+Consistency::flexEntity('Hoa\Math\Sampler\Sampler');

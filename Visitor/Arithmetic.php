@@ -285,7 +285,7 @@ class Arithmetic implements Visitor\Visit
      * Get a function.
      *
      * @param   string  $name    Function name.
-     * @return  \Hoa\Core\Consistency\Xcallable
+     * @return  \Hoa\Consistency\Xcallable
      * @throws  \Hoa\Math\Exception\UnknownFunction
      */
     public function getFunction($name)
