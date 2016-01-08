@@ -39,6 +39,7 @@ namespace Hoa\Math\Sampler;
 use Hoa\Consistency;
 use Hoa\Core;
 use Hoa\Math;
+use Hoa\Zformat;
 
 /**
  * Class \Hoa\Math\Sampler.
@@ -48,12 +49,12 @@ use Hoa\Math;
  * @copyright  Copyright © 2007-2015 Hoa community
  * @license    New BSD License
  */
-abstract class Sampler implements Core\Parameter\Parameterizable
+abstract class Sampler implements Zformat\Parameterizable
 {
     /**
      * Parameters.
      *
-     * @var \Hoa\Core\Parameter
+     * @var \Hoa\Zformat\Parameter
      */
     protected $_parameters = null;
 
@@ -67,7 +68,7 @@ abstract class Sampler implements Core\Parameter\Parameterizable
      */
     public function __construct(Array $parameters = [])
     {
-        $this->_parameters = new Core\Parameter(
+        $this->_parameters = new Zformat\Parameter(
             __CLASS__,
             [],
             [
@@ -113,7 +114,7 @@ abstract class Sampler implements Core\Parameter\Parameterizable
     /**
      * Get parameters.
      *
-     * @return  \Hoa\Core\Parameter
+     * @return  \Hoa\Zformat\Parameter
      */
     public function getParameters()
     {

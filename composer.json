@@ -26,7 +26,8 @@
         "hoa/consistency": "~0.0",
         "hoa/core"       : "~2.0",
         "hoa/exception"  : "~0.0",
-        "hoa/iterator"   : "~1.0"
+        "hoa/iterator"   : "~1.0",
+        "hoa/zformat"    : "~0.0"
     },
     "require-dev": {
         "hoa/test": "~1.0"
