@@ -37,7 +37,6 @@
 namespace Hoa\Math\Sampler;
 
 use Hoa\Consistency;
-use Hoa\Core;
 use Hoa\Math;
 use Hoa\Zformat;
 
