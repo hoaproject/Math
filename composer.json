@@ -27,7 +27,7 @@
         "hoa/exception"  : "~1.0",
         "hoa/iterator"   : "~2.0",
         "hoa/protocol"   : "~1.0",
-        "hoa/zformat"    : "~0.0"
+        "hoa/zformat"    : "~1.0"
     },
     "require-dev": {
         "hoa/test": "~2.0"
