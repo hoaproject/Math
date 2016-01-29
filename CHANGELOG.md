@@ -1,3 +1,10 @@
+# 1.16.01.29
+
+  * Quality: Fix CS. (Ivan Enderlin, 2016-01-29T16:14:01+01:00)
+  * Test: Add a test case for github/36. (Ivan Enderlin, 2016-01-29T16:13:38+01:00)
+  * Arithmetic: Fix division zero condition. (Marc Gratch, 2016-01-28T15:34:24-06:00)
+  * Grammar: Update copyright. (Ivan Enderlin, 2016-01-17T14:18:59+01:00)
+
 # 1.16.01.15
 
   * Composer: New stable library. (Ivan Enderlin, 2016-01-14T22:01:36+01:00)
