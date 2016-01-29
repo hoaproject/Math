@@ -58,7 +58,7 @@ class Arithmetic extends Test\Unit\Suite
     {
         $this
             ->given(
-                $sampler  = new Compiler\Llk\Sampler\BoundedExhaustive(
+                $sampler = new Compiler\Llk\Sampler\BoundedExhaustive(
                     Compiler\Llk\Llk::load(
                         new File\Read('hoa://Library/Math/Test/Unit/Arithmetic.pp')
                     ),
@@ -104,9 +104,9 @@ class Arithmetic extends Test\Unit\Suite
     {
         $this
             ->given(
-                $compiler      = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
-                $visitor       = new CUT(),
-                $variableName  = 'unknown_variable'
+                $compiler     = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
+                $visitor      = new CUT(),
+                $variableName = 'unknown_variable'
             )
             ->then
                 ->object($compiler->parse($variableName . ' * 2'))
