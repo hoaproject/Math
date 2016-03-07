@@ -37,6 +37,7 @@
 namespace Hoa\Math\Visitor;
 
 use Hoa\Math;
+use Hoa\Math\Exception\OutOfBounds;
 use Hoa\Visitor;
 
 /**
@@ -245,18 +246,39 @@ class Arithmetic implements Visitor\Visit
 
             case 'token':
                 $value = $element->getValueValue();
+                $token = $element->getValueToken();
                 $out   = null;
 
-                if ('constant' === $element->getValueToken()) {
+                if ('constant' === $token) {
                     if (defined($value)) {
                         $out = constant($value);
                     } else {
                         $out = $this->getConstant($value);
                     }
-                } elseif ('id' === $element->getValueToken()) {
+                } elseif ('id' === $token) {
                     return $value;
                 } else {
-                    $out = (float) $value;
+                    $number = preg_replace('/^0[xXbB]/', '', $value);
+
+                    switch ($token) {
+                        case 'binary':
+                            $number = bindec($number);
+                            break;
+
+                        case 'hexadecimal':
+                            $number = hexdec($number);
+                            break;
+
+                        case 'octal':
+                            $number = octdec($number);
+                            break;
+                    }
+
+                    if ('hexadecimal' === $token && $number > PHP_INT_MAX) {
+                        throw new OutOfBounds('Number ' . $value . ' is out of bound for the ' . php_uname('m') . ' platform.');
+                    }
+
+                    $out = (float) $number;
                 }
 
                 $acc = function () use ($out, $acc) {

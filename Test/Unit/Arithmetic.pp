@@ -41,15 +41,18 @@
 //
 
 
-%skip   space     [\x20\x09]+
-%token  bracket_  \(
-%token _bracket   \)
-%token  comma     ,
-%token  number    ([1-9]\d*)(\.\d+)?
-%token  plus      \+
-%token  minus     \-
-%token  times     \*
-%token  div       /
+%skip   space        [\x20\x09]+
+%token  bracket_     \(
+%token _bracket      \)
+%token  comma        ,
+%token  hexadecimal  0[xX][1-9a-fA-F][0-9a-fA-F]{0,15}
+%token  octal        0[1-7][0-7]{0,20}
+%token  binary       0[bB]1[01]{0,63}
+%token  number       ([1-9]\d*)(\.\d+)?
+%token  plus         \+
+%token  minus        \-
+%token  times        \*
+%token  div          /
 
 expression:
     primary() ( ::plus:: #addition expression() )?
@@ -70,3 +73,6 @@ term:
 
 number:
     <number>
+  | <hexadecimal>
+  | <octal>
+  | <binary>
