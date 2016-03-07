@@ -44,12 +44,12 @@
 %token  bracket_  \(
 %token _bracket   \)
 %token  comma     ,
+%token  constant  [0-9_]*[A-Z_]+[A-Z0-9_]*
 %token  number    (0|[1-9]\d*)(\.\d+)?([eE][\+\-]?\d+)?
 %token  plus      \+
 %token  minus     \-|−
 %token  times     \*|×
 %token  div       /|÷
-%token  constant  [A-Z_]+[A-Z0-9_]+
 %token  id        \w+
 
 expression:
