@@ -65,4 +65,18 @@ class Issue extends Test\Unit\Suite
             })
                 ->isInstanceOf('RuntimeException');
     }
+
+    public function case_github_43()
+    {
+        $this
+            ->given(
+                $compiler = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
+                $visitor  = new CUT(),
+                $ast      = $compiler->parse('1 / ( 1 / 0 )')
+            )
+            ->exception(function () use ($visitor, $ast) {
+                $visitor->visit($ast);
+            })
+                ->isInstanceOf('RuntimeException');
+    }
 }
