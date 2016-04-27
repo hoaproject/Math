@@ -209,7 +209,7 @@ class Arithmetic implements Visitor\Visit
                         break;
                     } else {
                         $acc = function ($b) use ($a, $acc) {
-                            if (0 === $b) {
+                            if (0.0 === $b) {
                                 throw new \RuntimeException(
                                     'Division by zero is not possible.'
                                 );
