@@ -1,3 +1,9 @@
+# 1.16.05.22
+
+  * Quality: Format a string in a test case. (Ivan Enderlin, 2016-05-22T16:02:13+02:00)
+  * Arithmetic: Throw the “division by zero” exception in all possible cases. (Marc Gratch, 2016-04-27T22:38:03+00:00)
+  * Documentation: Format API documentation. (Ivan Enderlin, 2016-05-11T10:15:54+02:00)
+
 # 1.16.01.29
 
   * Quality: Fix CS. (Ivan Enderlin, 2016-01-29T16:14:01+01:00)
