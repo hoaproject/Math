@@ -40,17 +40,20 @@
 //
 
 
-%skip   space     [\x20\x09]+
-%token  bracket_  \(
-%token _bracket   \)
-%token  comma     ,
-%token  number    (0|[1-9]\d*)(\.\d+)?([eE][\+\-]?\d+)?
-%token  plus      \+
-%token  minus     \-|−
-%token  times     \*|×
-%token  div       /|÷
-%token  constant  [A-Z_]+[A-Z0-9_]+
-%token  id        \w+
+%skip   space        [\x20\x09]+
+%token  bracket_     \(
+%token _bracket      \)
+%token  comma        ,
+%token  hexadecimal  0[xX][0-9a-fA-F]{1,16}
+%token  octal        0[0-7]{1,21}
+%token  binary       0[bB][01]{1,64}
+%token  number       (0|[1-9]\d*)(\.\d+)?([eE][\+\-]?\d+)?
+%token  plus         \+
+%token  minus        \-|−
+%token  times        \*|×
+%token  div          /|÷
+%token  constant     [A-Z_]+[A-Z0-9_]+
+%token  id           \w+
 
 expression:
     primary() ( ::plus:: #addition expression() )?
@@ -73,7 +76,10 @@ term:
   | function()
 
 number:
-    <number>
+      <number>
+    | <hexadecimal>
+    | <octal>
+    | <binary>
 
 constant:
     <constant>

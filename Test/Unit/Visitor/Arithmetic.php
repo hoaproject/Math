@@ -65,7 +65,7 @@ class Arithmetic extends Test\Unit\Suite
                     new Regex\Visitor\Isotropic(
                         new LUT\Sampler\Random()
                     ),
-                    9
+                    7
                 ),
                 $compiler = Compiler\Llk\Llk::load(
                     new File\Read('hoa://Library/Math/Arithmetic.pp')
@@ -75,7 +75,7 @@ class Arithmetic extends Test\Unit\Suite
             ->executeOnFailure(function () use (&$expression) {
                 echo 'Failed expression: ', $expression, '.', "\n";
             })
-            ->when(function () use (&$sampler, &$compiler, &$visitor) {
+            ->when(function () use (&$sampler, &$compiler, &$visitor, &$expression) {
                 foreach ($sampler as $i=> $expression) {
                     try {
                         $x = (float) $visitor->visit(
@@ -95,7 +95,7 @@ class Arithmetic extends Test\Unit\Suite
 
                     $this
                         ->float($x)
-                            ->isNearlyEqualTo($y);
+                            ->isNearlyEqualTo($y, 1.0e-10);
                 }
             });
     }
@@ -222,5 +222,67 @@ class Arithmetic extends Test\Unit\Suite
                     ->call('getFunction')->withArguments('abs')->once
                     ->call('getVariable')->withArguments($variableName)->once
                     ->call('getConstant')->withArguments('PI')->once;
+    }
+
+    public function case_visitor_hexadecimal_number()
+    {
+        $this
+            ->given(
+                $compiler           = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
+                $visitor            = new CUT(),
+                $hexadecimalNumber  = '0x2a'
+            )
+            ->then
+                ->object($compiler->parse($hexadecimalNumber))
+                    ->isInstanceOf('Hoa\Compiler\Llk\TreeNode')
+                ->float($visitor->visit($compiler->parse($hexadecimalNumber)))
+                    ->isEqualTo(hexdec('2a'));
+    }
+
+    public function case_visitor_out_of_bounds_hexadecimal_number()
+    {
+        $this
+            ->given(
+                $compiler           = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
+                $visitor            = new CUT(),
+                $hexadecimalNumber  = '0x9000000000000000'
+            )
+            ->then
+                ->object($compiler->parse($hexadecimalNumber))
+                    ->isInstanceOf('Hoa\Compiler\Llk\TreeNode')
+                ->exception(function () use ($hexadecimalNumber, $compiler, $visitor) {
+                    $visitor->visit($compiler->parse($hexadecimalNumber));
+                })
+                    ->isInstanceOf('Hoa\Math\Exception\OutOfBounds');
+    }
+
+    public function case_visitor_octal_number()
+    {
+        $this
+            ->given(
+                $compiler     = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
+                $visitor      = new CUT(),
+                $octalNumber  = '052'
+            )
+            ->then
+                ->object($compiler->parse($octalNumber))
+                    ->isInstanceOf('Hoa\Compiler\Llk\TreeNode')
+                ->float($visitor->visit($compiler->parse($octalNumber)))
+                    ->isEqualTo(octdec('52'));
+    }
+
+    public function case_visitor_binary_number()
+    {
+        $this
+            ->given(
+                $compiler = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
+                $visitor  = new CUT(),
+                $binary   = '0b101010'
+            )
+            ->then
+                ->object($compiler->parse($binary))
+                    ->isInstanceOf('Hoa\Compiler\Llk\TreeNode')
+                ->float($visitor->visit($compiler->parse($binary)))
+                    ->isEqualTo(bindec('101010'));
     }
 }
