@@ -72,8 +72,8 @@ class Arithmetic implements Visitor\Visit
     /**
      * Set visitor's context
      *
-     * @param \Hoa\Math\Context $context
-     * @return \Hoa\Math\Context
+     * @param   \Hoa\Math\Context $context
+     * @return  \Hoa\Math\Context
      */
     public function setContext(Math\Context $context)
     {
@@ -87,7 +87,7 @@ class Arithmetic implements Visitor\Visit
     /**
      * Get visitor's context
      *
-     * @return \Hoa\Math\Context
+     * @return  \Hoa\Math\Context
      */
     public function getContext()
     {
@@ -328,9 +328,9 @@ class Arithmetic implements Visitor\Visit
     /**
      * Get a variable.
      *
-     * @param  string   $name Variable name.
-     * @return callable
-     * @throws Math\Exception\UnknownVariable
+     * @param   string  $name    Variable name.
+     * @return  callable
+     * @throws  \Hoa\Math\Exception\UnknownVariable
      */
     public function getVariable($name)
     {
@@ -373,8 +373,8 @@ class Arithmetic implements Visitor\Visit
     /**
      * Add a variable.
      *
-     * @param   string   $name     Variable name.
-     * @param   callable $callable Callable.
+     * @param   string    $name        Variable name.
+     * @param   callable  $callable    Callable.
      * @return  void
      */
     public function addVariable($name, callable $callable)
