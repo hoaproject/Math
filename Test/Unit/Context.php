@@ -183,6 +183,7 @@ class Context extends Test\Unit\Suite
                     ->hasKey('min')
                     ->hasKey('pow')
                     ->hasKey('rad2deg')
+                    ->hasKey('round')
                     ->hasKey('sin')
                     ->hasKey('sqrt')
                     ->hasKey('sum')
