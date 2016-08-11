@@ -297,6 +297,7 @@ class Context
                 'min'     => xcallable('min'),
                 'pow'     => xcallable('pow'),
                 'rad2deg' => xcallable('rad2deg'),
+                'round'   => xcallable(function ($value, $precision = 0) { return round($value, $precision); }),
                 'sin'     => xcallable('sin'),
                 'sqrt'    => xcallable('sqrt'),
                 'sum'     => xcallable(function () { return array_sum(func_get_args()); }),
