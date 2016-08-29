@@ -63,7 +63,7 @@ class Issue extends Test\Unit\Suite
             ->exception(function () use ($visitor, $ast) {
                 $visitor->visit($ast);
             })
-                ->isInstanceOf('RuntimeException');
+                ->isInstanceOf(\RuntimeException::class);
     }
 
     public function case_github_43()
@@ -77,6 +77,6 @@ class Issue extends Test\Unit\Suite
             ->exception(function () use ($visitor, $ast) {
                 $visitor->visit($ast);
             })
-                ->isInstanceOf('RuntimeException');
+                ->isInstanceOf(\RuntimeException::class);
     }
 }
