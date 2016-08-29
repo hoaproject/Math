@@ -1,3 +1,9 @@
+# 1.16.08.29
+
+  * Test: Add the Github #47 test case. (Ivan Enderlin, 2016-08-29T15:25:02+02:00)
+  * Arithmetic: Allow constant name of length 1. (Ivan Enderlin, 2016-08-29T15:18:01+02:00)
+  * Arithmetic: Add the `round` function. (Zack Katz, 2016-08-11T14:58:17-06:00)
+
 # 1.16.05.22
 
   * Quality: Format a string in a test case. (Ivan Enderlin, 2016-05-22T16:02:13+02:00)
