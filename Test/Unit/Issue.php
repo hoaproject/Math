@@ -79,4 +79,23 @@ class Issue extends Test\Unit\Suite
             })
                 ->isInstanceOf(\RuntimeException::class);
     }
+
+    public function case_github_47()
+    {
+        $this
+            ->given(
+                $compiler = Compiler\Llk\Llk::load(new File\Read('hoa://Library/Math/Arithmetic.pp')),
+                $visitor  = new CUT()
+            )
+            ->when($ast = $compiler->parse('C'))
+            ->then
+                ->object($ast)
+                    ->isInstanceOf(Compiler\Llk\TreeNode::class)
+                ->string($ast->getId())
+                    ->isEqualTo('token')
+                ->string($ast->getValueToken())
+                    ->isEqualTo('constant')
+                ->string($ast->getValueValue())
+                    ->isEqualTo('C');
+    }
 }
