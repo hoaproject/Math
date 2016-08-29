@@ -49,7 +49,7 @@
 %token  minus     \-|−
 %token  times     \*|×
 %token  div       /|÷
-%token  constant  [A-Z_]+[A-Z0-9_]+
+%token  constant  [A-Z_]+[A-Z0-9_]*
 %token  id        \w+
 
 expression:
