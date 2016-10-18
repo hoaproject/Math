@@ -181,3 +181,10 @@ everything you need to know.
 
 Hoa is under the New BSD License (BSD-3-Clause). Please, see
 [`LICENSE`](https://hoa-project.net/LICENSE) for details.
+
+## Related projects
+
+The following projects are using this library:
+
+  * [PHP Telegram Bot](https://github.com/akalongman/php-telegram-bot/),
+    Telegram bot based on the official Telegram Bot API.
