@@ -34,13 +34,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math\Test\Unit\Sampler\Combinatorics\Combination;
+namespace Hoa\Math\Test\Unit\Combinatorics\Combination;
 
 use Hoa\Math\Combinatorics\Combination\CartesianProduct as CUT;
 use Hoa\Test;
 
 /**
- * Class \Hoa\Math\Test\Unit\Sampler\Combinatorics\Combination\CartesianProduct.
+ * Class \Hoa\Math\Test\Unit\Combinatorics\Combination\CartesianProduct.
  *
  * Test suite of the cartesian product.
  *

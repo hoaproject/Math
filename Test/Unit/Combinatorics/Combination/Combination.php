@@ -34,13 +34,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math\Test\Unit\Sampler\Combinatorics\Combination;
+namespace Hoa\Math\Test\Unit\Combinatorics\Combination;
 
 use Hoa\Math\Combinatorics\Combination as CUT;
 use Hoa\Test;
 
 /**
- * Class \Hoa\Math\Test\Unit\Sampler\Combinatorics\Combination.
+ * Class \Hoa\Math\Test\Unit\Combinatorics\Combination.
  *
  * Test suite of the Γ combination.
  *
