@@ -186,5 +186,8 @@ Hoa is under the New BSD License (BSD-3-Clause). Please, see
 
 The following projects are using this library:
 
+  * [PSIH & PMSIpilot](http://www.psih.fr/en/),
+    PSIH is the leading French integrator of business intelligence solutions for
+    the healthcare sector,
   * [PHP Telegram Bot](https://github.com/akalongman/php-telegram-bot/),
     Telegram bot based on the official Telegram Bot API.
