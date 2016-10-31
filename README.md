@@ -23,7 +23,7 @@
 [![Documentation](https://img.shields.io/badge/documentation-hack_book-ff0066.svg)](https://central.hoa-project.net/Documentation/Library/Math)
 [![Board](https://img.shields.io/badge/organisation-board-ff0066.svg)](https://waffle.io/hoaproject/math)
 
-This library provides tools around mathemetical operations.
+This library provides tools around mathematical operations.
 
 [Learn more](https://central.hoa-project.net/Documentation/Library/Math).
 
