@@ -8,7 +8,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2016, Hoa community. All rights reserved.
+ * Copyright © 2007-2017, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,7 +39,6 @@ namespace Hoa\Math\Test\Unit;
 use Hoa\Compiler;
 use Hoa\File;
 use Hoa\Math\Visitor\Arithmetic as CUT;
-use Hoa\Regex;
 use Hoa\Test;
 
 /**
@@ -47,7 +46,7 @@ use Hoa\Test;
  *
  * Test suite of detected issues.
  *
- * @copyright  Copyright © 2007-2016 Hoa community
+ * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Issue extends Test\Unit\Suite implements Test\Decorrelated
