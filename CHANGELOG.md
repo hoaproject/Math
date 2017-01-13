@@ -1,3 +1,14 @@
+# 1.17.01.13
+
+  * Quality: Happy new year! (Alexis von Glasow, 2017-01-11T23:27:10+01:00)
+  * Documentation: Fix a typo. (Ivan Enderlin, 2016-10-31T08:46:20+01:00)
+  * Documentation: Add PSIH & PMSIpilot as projects. (Ivan Enderlin, 2016-10-27T14:45:07+02:00)
+  * Test: Fix namespaces. (Ivan Enderlin, 2016-10-25T08:04:31+02:00)
+  * Test: Add the `Decorrelated` interface. (Ivan Enderlin, 2016-10-25T08:04:19+02:00)
+  * Documentation: Add a related project. (Ivan Enderlin, 2016-10-18T15:23:32+02:00)
+  * Documentation: New `README.md` file. (Ivan Enderlin, 2016-10-18T15:14:43+02:00)
+  * Documentation: Update `support` properties. (Ivan Enderlin, 2016-10-11T17:05:29+02:00)
+
 # 1.16.08.29
 
   * Test: Add the Github #47 test case. (Ivan Enderlin, 2016-08-29T15:25:02+02:00)
