@@ -262,7 +262,8 @@ class Context
                 'TWO_OVER_PI'      => M_2_PI,
                 'TWO_OVER_SQRT_PI' => M_2_SQRTPI,
                 'ONE_OVER_SQRT_2'  => M_SQRT1_2,
-                'EULER'            => M_EULER
+                'EULER'            => M_EULER,
+                'INFINITE'         => INF
             ]);
         }
 
