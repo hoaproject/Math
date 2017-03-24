@@ -49,6 +49,7 @@
 %token  minus     \-|−
 %token  times     \*|×
 %token  div       /|÷
+%token  indices   \^
 %token  constant  [A-Z_]+[A-Z0-9_]*
 %token  id        \w+
 
@@ -62,7 +63,10 @@ secondary:
     ternary() ( ::times:: #multiplication expression() )?
 
 ternary:
-    term() ( ::div:: #division expression() )?
+    quaternary() ( ::div:: #division expression() )?
+
+quaternary:
+    term() ( ::indices:: #indices expression() )?
 
 term:
     ( ::bracket_:: expression() ::_bracket:: #group )

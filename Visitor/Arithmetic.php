@@ -177,6 +177,17 @@ class Arithmetic implements Visitor\Visit
 
                 break;
 
+            case '#indices':
+                $children[0]->accept($this, $a, $eldnah);
+
+                $acc = function ($b) use ($a, $acc) {
+                    return $acc(pow($a(), $b));
+                };
+
+                $children[1]->accept($this, $acc, $eldnah);
+
+                break;
+
             case '#division':
                 $children[0]->accept($this, $a, $eldnah);
                 $parent = $element->getParent();
