@@ -1,3 +1,7 @@
+# 1.17.05.16
+
+  * Arithmetic: Add more constants. (Julien Bianchi and Matthieu de Laubrie, 2017-01-20T09:54:56+01:00)
+
 # 1.17.01.13
 
   * Quality: Happy new year! (Alexis von Glasow, 2017-01-11T23:27:10+01:00)
