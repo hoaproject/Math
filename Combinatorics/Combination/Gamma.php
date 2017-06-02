@@ -121,8 +121,6 @@ class Gamma implements Iterator
     {
         $this->_n = $n;
         $this->_k = $k;
-
-        return;
     }
 
     /**
@@ -152,7 +150,6 @@ class Gamma implements Iterator
      */
     public function next()
     {
-        return;
     }
 
     /**
@@ -170,8 +167,6 @@ class Gamma implements Iterator
                               : array_fill(0, $this->_n, 0);
         $this->_o[0]    = $this->_k;
         $this->_last    = false;
-
-        return;
     }
 
     /**

@@ -72,8 +72,6 @@ class Random extends Sampler
                 )
             );
         }
-
-        return;
     }
 
     /**

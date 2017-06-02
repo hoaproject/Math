@@ -111,8 +111,6 @@ class CartesianProduct implements Iterator
 
         $this->_max   = count($this->_sets) - 1;
         $this->_break = empty($this->_sets);
-
-        return;
     }
 
     /**
@@ -137,8 +135,6 @@ class CartesianProduct implements Iterator
         foreach ($this->_sets as $set) {
             $this->_current[] = $set->current();
         }
-
-        return;
     }
 
     /**
