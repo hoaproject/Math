@@ -95,8 +95,6 @@ abstract class Sampler implements Zformat\Parameterizable
         }
 
         $this->construct();
-
-        return;
     }
 
     /**
@@ -106,7 +104,6 @@ abstract class Sampler implements Zformat\Parameterizable
      */
     public function construct()
     {
-        return;
     }
 
     /**

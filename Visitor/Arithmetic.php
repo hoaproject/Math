@@ -64,8 +64,6 @@ class Arithmetic implements Visitor\Visit
     public function __construct()
     {
         $this->initializeContext();
-
-        return;
     }
 
     /**
@@ -341,8 +339,6 @@ class Arithmetic implements Visitor\Visit
         if (null === $this->_context) {
             $this->_context = new Math\Context();
         }
-
-        return;
     }
 
     /**

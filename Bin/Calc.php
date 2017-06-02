@@ -189,8 +189,6 @@ class Calc extends Console\Dispatcher\Kit
                     break;
             }
         } while (false !== $expression = $readline->readLine('> '));
-
-        return;
     }
 
     /**
@@ -206,8 +204,6 @@ class Calc extends Console\Dispatcher\Kit
             $this->makeUsageOptionsList([
                 'help' => 'This help.'
             ]), "\n";
-
-        return;
     }
 }
 
