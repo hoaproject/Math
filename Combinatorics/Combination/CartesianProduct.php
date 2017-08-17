@@ -99,7 +99,12 @@ class CartesianProduct implements Iterator
      */
     public function __construct($set)
     {
-        foreach (func_get_args() as $s) {
+        $this->init(func_get_args());
+    }
+
+    public function init ( $input ) {
+
+        foreach($input as $s) {
             if (is_array($s)) {
                 $s = new Iterator\Map($s);
             } else {
