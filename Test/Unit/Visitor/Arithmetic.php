@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * Hoa
  *
@@ -8,7 +9,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,12 +50,11 @@ use Hoa\Test;
  * Test suite of the hoa://Library/Math/Arithmetic.pp grammar and the
  * Hoa\Math\Visitor\Arithmetic class.
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Arithmetic extends Test\Unit\Suite
 {
-    public function case_visitor_exhaustively()
+    public function case_visitor_exhaustively(): void
     {
         $this
             ->given(
@@ -72,10 +72,10 @@ class Arithmetic extends Test\Unit\Suite
                 ),
                 $visitor  = new CUT()
             )
-            ->executeOnFailure(function () use (&$expression) {
+            ->executeOnFailure(function () use (&$expression): void {
                 echo 'Failed expression: ', $expression, '.', "\n";
             })
-            ->when(function () use (&$sampler, &$compiler, &$visitor) {
+            ->when(function () use (&$sampler, &$compiler, &$visitor): void {
                 foreach ($sampler as $i=> $expression) {
                     try {
                         $x = (float) $visitor->visit(
@@ -100,7 +100,7 @@ class Arithmetic extends Test\Unit\Suite
             });
     }
 
-    public function case_visitor_unknown_variable()
+    public function case_visitor_unknown_variable(): void
     {
         $this
             ->given(
@@ -111,13 +111,13 @@ class Arithmetic extends Test\Unit\Suite
             ->then
                 ->object($compiler->parse($variableName . ' * 2'))
                     ->isInstanceOf('Hoa\Compiler\Llk\TreeNode')
-                ->exception(function () use ($variableName, $compiler, $visitor) {
+                ->exception(function () use ($variableName, $compiler, $visitor): void {
                     $visitor->visit($compiler->parse($variableName . ' * 2'));
                 })
                     ->isInstanceOf('Hoa\Math\Exception\UnknownVariable');
     }
 
-    public function case_visitor_variable()
+    public function case_visitor_variable(): void
     {
         $this
             ->given(
@@ -134,7 +134,7 @@ class Arithmetic extends Test\Unit\Suite
                     ->isEqualTo($variableValue * 2);
     }
 
-    public function case_visitor_unknown_constant()
+    public function case_visitor_unknown_constant(): void
     {
         $this
             ->given(
@@ -145,13 +145,13 @@ class Arithmetic extends Test\Unit\Suite
             ->then
                 ->object($compiler->parse($constantName . ' * 2'))
                     ->isInstanceOf('Hoa\Compiler\Llk\TreeNode')
-                ->exception(function () use ($constantName, $compiler, $visitor) {
+                ->exception(function () use ($constantName, $compiler, $visitor): void {
                     $visitor->visit($compiler->parse($constantName . ' * 2'));
                 })
                     ->isInstanceOf('Hoa\Math\Exception\UnknownConstant');
     }
 
-    public function case_visitor_constant()
+    public function case_visitor_constant(): void
     {
         $this
             ->given(
@@ -166,7 +166,7 @@ class Arithmetic extends Test\Unit\Suite
                     ->isEqualTo($constantValue * 2);
     }
 
-    public function case_visitor_unknown_function()
+    public function case_visitor_unknown_function(): void
     {
         $this
             ->given(
@@ -177,13 +177,13 @@ class Arithmetic extends Test\Unit\Suite
             ->then
                 ->object($compiler->parse($functionName . '() * 2'))
                     ->isInstanceOf('Hoa\Compiler\Llk\TreeNode')
-                ->exception(function () use ($functionName, $compiler, $visitor) {
+                ->exception(function () use ($functionName, $compiler, $visitor): void {
                     $visitor->visit($compiler->parse($functionName . '() * 2'));
                 })
                     ->isInstanceOf('Hoa\Math\Exception\UnknownFunction');
     }
 
-    public function case_visitor_function()
+    public function case_visitor_function(): void
     {
         $this
             ->given(
@@ -200,7 +200,7 @@ class Arithmetic extends Test\Unit\Suite
                     ->isEqualTo($functionResult * 2);
     }
 
-    public function case_change_default_context()
+    public function case_change_default_context(): void
     {
         $this
             ->given(
@@ -210,7 +210,9 @@ class Arithmetic extends Test\Unit\Suite
                 $variableName  = 'a_variable',
                 $variableValue = 42
             )
-            ->when($context->addVariable($variableName, function () use ($variableValue) { return $variableValue; }))
+            ->when($context->addVariable($variableName, function () use ($variableValue) {
+                return $variableValue;
+            }))
             ->then
                 ->object($visitor->setContext($context))
                     ->isNotIdenticalTo($context)

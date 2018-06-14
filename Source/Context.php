@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,7 +41,6 @@ namespace Hoa\Math;
 /**
  * Class \Hoa\Math\Context.
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Context
@@ -88,7 +89,7 @@ class Context
      * @return  void
      * @throws  \Hoa\Math\Exception\AlreadyDefinedConstant
      */
-    public function addConstant($name, $value)
+    public function addConstant(string $name, $value): void
     {
         if (true === $this->_constants->offsetExists($name)) {
             throw new Exception\AlreadyDefinedConstant(
@@ -110,7 +111,7 @@ class Context
      * @return  mixed
      * @throws  \Hoa\Math\Exception\UnknownConstant
      */
-    public function getConstant($name)
+    public function getConstant(string $name)
     {
         if (false === $this->_constants->offsetExists($name)) {
             throw new Exception\UnknownConstant(
@@ -128,7 +129,7 @@ class Context
      *
      * @return  \ArrayObject
      */
-    public function getConstants()
+    public function getConstants(): \ArrayObject
     {
         return $this->_constants;
     }
@@ -141,7 +142,7 @@ class Context
      * @return  void
      * @throws  \Hoa\Math\Exception\UnknownFunction
      */
-    public function addFunction($name, $callable = null)
+    public function addFunction(string $name, $callable = null): void
     {
         if (null === $callable) {
             if (false === function_exists($name)) {
@@ -167,7 +168,7 @@ class Context
      * @return  \Hoa\Consistency\Xcallable
      * @throws  \Hoa\Math\Exception\UnknownFunction
      */
-    public function getFunction($name)
+    public function getFunction(string $name): \Hoa\Consistency\Xcallable
     {
         if (false === $this->_functions->offsetExists($name)) {
             throw new Exception\UnknownFunction(
@@ -185,7 +186,7 @@ class Context
      *
      * @return  \ArrayObject
      */
-    public function getFunctions()
+    public function getFunctions(): \ArrayObject
     {
         return $this->_functions;
     }
@@ -197,7 +198,7 @@ class Context
      * @param   callable  $callable    Callable.
      * @return  void
      */
-    public function addVariable($name, callable $callable)
+    public function addVariable(string $name, callable $callable): void
     {
         $this->_variables[$name] = xcallable($callable);
 
@@ -211,7 +212,7 @@ class Context
      * @return  callable
      * @throws  \Hoa\Math\Exception\UnknownVariable
      */
-    public function getVariable($name)
+    public function getVariable(string $name): callable
     {
         if (false === $this->_variables->offsetExists($name)) {
             throw new Exception\UnknownVariable(
@@ -229,7 +230,7 @@ class Context
      *
      * @return \ArrayObject
      */
-    public function getVariables()
+    public function getVariables(): \ArrayObject
     {
         return $this->_variables;
     }
@@ -239,7 +240,7 @@ class Context
      *
      * @return void
      */
-    protected function initializeConstants()
+    protected function initializeConstants(): void
     {
         static $_constants = null;
 
@@ -276,7 +277,7 @@ class Context
      *
      * @return void
      */
-    protected function initializeFunctions()
+    protected function initializeFunctions(): void
     {
         static $_functions = null;
 
@@ -296,20 +297,28 @@ class Context
                 'avg'     => xcallable($average),
                 'ceil'    => xcallable('ceil'),
                 'cos'     => xcallable('cos'),
-                'count'   => xcallable(function () { return count(func_get_args()); }),
+                'count'   => xcallable(function () {
+                    return count(func_get_args());
+                }),
                 'deg2rad' => xcallable('deg2rad'),
                 'exp'     => xcallable('exp'),
                 'floor'   => xcallable('floor'),
                 'ln'      => xcallable('log'),
-                'log'     => xcallable(function ($value, $base = 10) { return log($value, $base); }),
+                'log'     => xcallable(function ($value, $base = 10) {
+                    return log($value, $base);
+                }),
                 'max'     => xcallable('max'),
                 'min'     => xcallable('min'),
                 'pow'     => xcallable('pow'),
                 'rad2deg' => xcallable('rad2deg'),
-                'round'   => xcallable(function ($value, $precision = 0) { return round($value, $precision); }),
+                'round'   => xcallable(function ($value, $precision = 0) {
+                    return round($value, $precision);
+                }),
                 'sin'     => xcallable('sin'),
                 'sqrt'    => xcallable('sqrt'),
-                'sum'     => xcallable(function () { return array_sum(func_get_args()); }),
+                'sum'     => xcallable(function () {
+                    return array_sum(func_get_args());
+                }),
                 'tan'     => xcallable('tan')
             ]);
         }
@@ -324,7 +333,7 @@ class Context
      *
      * @return void
      */
-    protected function initializeVariables()
+    protected function initializeVariables(): void
     {
         if (null === $this->_variables) {
             $this->_variables = new \ArrayObject();
