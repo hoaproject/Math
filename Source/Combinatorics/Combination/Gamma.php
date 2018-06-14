@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -47,7 +49,6 @@ use Hoa\Iterator;
  * This class is identical to \Hoa\Math\Combinatorics\Combination::Gamma with a
  * “yield” keyword.
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Gamma implements Iterator
@@ -117,7 +118,7 @@ class Gamma implements Iterator
      * @param   int  $n    n.
      * @param   int  $k    k.
      */
-    public function __construct($n, $k)
+    public function __construct(int $n, int $k)
     {
         $this->_n = $n;
         $this->_k = $k;
@@ -130,7 +131,7 @@ class Gamma implements Iterator
      *
      * @return  array
      */
-    public function current()
+    public function current(): array
     {
         return $this->_current;
     }
@@ -140,7 +141,7 @@ class Gamma implements Iterator
      *
      * @return  int
      */
-    public function key()
+    public function key(): int
     {
         return $this->_key;
     }
@@ -150,7 +151,7 @@ class Gamma implements Iterator
      *
      * @return  void
      */
-    public function next()
+    public function next(): void
     {
         return;
     }
@@ -160,7 +161,7 @@ class Gamma implements Iterator
      *
      * @return  void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_current = [];
         $this->_tmp     = null;
@@ -179,7 +180,7 @@ class Gamma implements Iterator
      *
      * @return  bool
      */
-    public function valid()
+    public function valid(): bool
     {
         if (true === $this->_last) {
             return false;

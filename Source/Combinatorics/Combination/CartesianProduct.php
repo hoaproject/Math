@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -49,7 +51,6 @@ use Hoa\Iterator;
  *                   (1, a, B), (2, a, B), (1, b, B), (2, b, B)
  *                   (1, a, C), (2, a, C), (1, b, C), (2, b, C) }
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class CartesianProduct implements Iterator
@@ -97,7 +98,7 @@ class CartesianProduct implements Iterator
      * @param   \Traversable  $set    Set.
      * @param   …             …       …
      */
-    public function __construct($set)
+    public function __construct(\Traversable $set)
     {
         foreach (func_get_args() as $s) {
             if (is_array($s)) {
@@ -120,7 +121,7 @@ class CartesianProduct implements Iterator
      *
      * @return  array
      */
-    public function current()
+    public function current(): array
     {
         return $this->_current;
     }
@@ -130,7 +131,7 @@ class CartesianProduct implements Iterator
      *
      * @return  void
      */
-    protected function _current()
+    protected function _current(): void
     {
         $this->_current = [];
 
@@ -146,7 +147,7 @@ class CartesianProduct implements Iterator
      *
      * @return  int
      */
-    public function key()
+    public function key(): int
     {
         return $this->_key;
     }
@@ -156,7 +157,7 @@ class CartesianProduct implements Iterator
      *
      * @return  array
      */
-    public function next()
+    public function next(): array
     {
         for ($i = 0; $i <= $this->_max; ++$i) {
             $this->_sets[$i]->next();
@@ -185,7 +186,7 @@ class CartesianProduct implements Iterator
      *
      * @return  array
      */
-    public function rewind()
+    public function rewind(): array
     {
         $this->_break = empty($this->_sets);
         $this->_key   = 0;
@@ -205,7 +206,7 @@ class CartesianProduct implements Iterator
      *
      * @return  bool
      */
-    public function valid()
+    public function valid(): bool
     {
         return false === $this->_break;
     }

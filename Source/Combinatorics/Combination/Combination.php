@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -43,7 +45,6 @@ use Hoa\Consistency;
  *
  * Some functions related to combinatorics.
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Combination
@@ -60,7 +61,7 @@ class Combination
      *                                inside.
      * @return  array
      */
-    public static function Γ($n, $k, $withoutZero = false)
+    public static function Γ(int $n, int $k, bool $withoutZero = false): array
     {
         if (0 === $n) {
             return [];
