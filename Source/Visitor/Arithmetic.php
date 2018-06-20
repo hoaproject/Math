@@ -42,24 +42,17 @@ use Hoa\Math;
 use Hoa\Visitor;
 
 /**
- * Class \Hoa\Math\Visitor\Arithmetic.
- *
  * Evaluate arithmetical expressions.
- *
- * @license    New BSD License
  */
 class Arithmetic implements Visitor\Visit
 {
     /**
      * Visitor context containing the list of supported functions, constants and variables
-     *
-     * @var \Hoa\Math\Context
      */
     protected $_context = null;
 
     /**
      * Initializes context.
-     *
      */
     public function __construct()
     {
@@ -70,9 +63,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Set visitor's context
-     *
-     * @param   \Hoa\Math\Context $context
-     * @return  \Hoa\Math\Context
      */
     public function setContext(Math\Context $context): Math\Context
     {
@@ -85,8 +75,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get visitor's context
-     *
-     * @return  \Hoa\Math\Context
      */
     public function getContext(): Math\Context
     {
@@ -95,11 +83,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Visit an element.
-     *
-     * @param   \Hoa\Visitor\Element  $element    Element to visit.
-     * @param   mixed                 &$handle    Handle (reference).
-     * @param   mixed                 $eldnah     Handle (not reference).
-     * @return  float
      */
     public function visit(
         Visitor\Element $element,
@@ -272,8 +255,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get functions.
-     *
-     * @return  \ArrayObject
      */
     public function getFunctions(): \ArrayObject
     {
@@ -282,10 +263,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get a function.
-     *
-     * @param   string  $name    Function name.
-     * @return  \Hoa\Consistency\Xcallable
-     * @throws  \Hoa\Math\Exception\UnknownFunction
      */
     public function getFunction(string $name): \Hoa\Consistency\Xcallable
     {
@@ -294,8 +271,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get constants.
-     *
-     * @return  \ArrayObject
      */
     public function getConstants(): \ArrayObject
     {
@@ -304,10 +279,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get a constant.
-     *
-     * @param   string  $name    Constant name.
-     * @return  mixed
-     * @throws  \Hoa\Math\Exception\UnknownFunction
      */
     public function getConstant(string $name)
     {
@@ -316,8 +287,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get variables.
-     *
-     * @return \ArrayObject
      */
     public function getVariables(): \ArrayObject
     {
@@ -326,10 +295,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get a variable.
-     *
-     * @param   string  $name    Variable name.
-     * @return  callable
-     * @throws  \Hoa\Math\Exception\UnknownVariable
      */
     public function getVariable(string $name)
     {
@@ -347,10 +312,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Add a function.
-     *
-     * @param   string  $name        Function name.
-     * @param   mixed   $callable    Callable.
-     * @return  void
      */
     public function addFunction(string $name, $callable = null)
     {
@@ -359,10 +320,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Add a constant.
-     *
-     * @param   string  $name     Constant name.
-     * @param   mixed   $value    Value.
-     * @return  void
      */
     public function addConstant(string $name, $value)
     {
@@ -371,10 +328,6 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Add a variable.
-     *
-     * @param   string    $name        Variable name.
-     * @param   callable  $callable    Callable.
-     * @return  void
      */
     public function addVariable(string $name, callable $callable)
     {
