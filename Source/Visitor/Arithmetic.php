@@ -105,7 +105,7 @@ class Arithmetic implements Visitor\Visit
         Visitor\Element $element,
         &$handle = null,
         $eldnah  = null
-    ): float {
+    ) {
         $type     = $element->getId();
         $children = $element->getChildren();
 
@@ -331,7 +331,7 @@ class Arithmetic implements Visitor\Visit
      * @return  callable
      * @throws  \Hoa\Math\Exception\UnknownVariable
      */
-    public function getVariable(string $name): callable
+    public function getVariable(string $name)
     {
         return $this->_context->getVariable($name);
     }

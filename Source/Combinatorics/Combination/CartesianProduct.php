@@ -98,7 +98,7 @@ class CartesianProduct implements Iterator
      * @param   \Traversable  $set    Set.
      * @param   …             …       …
      */
-    public function __construct(\Traversable $set)
+    public function __construct(array $set)
     {
         foreach (func_get_args() as $s) {
             if (is_array($s)) {
