@@ -212,7 +212,7 @@ class Context
      * @return  callable
      * @throws  \Hoa\Math\Exception\UnknownVariable
      */
-    public function getVariable(string $name): callable
+    public function getVariable(string $name)
     {
         if (false === $this->_variables->offsetExists($name)) {
             throw new Exception\UnknownVariable(
