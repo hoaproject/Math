@@ -39,11 +39,7 @@ declare(strict_types=1);
 namespace Hoa\Math\Exception;
 
 /**
- * Class \Hoa\Math\Exception\UnknownVariable.
- *
  * Extending the \Hoa\Math\Exception class.
- *
- * @license    New BSD License
  */
 class UnknownVariable extends Exception
 {
