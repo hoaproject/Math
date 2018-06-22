@@ -42,11 +42,7 @@ use Hoa\Consistency;
 use Hoa\Exception as HoaException;
 
 /**
- * Class \Hoa\Math\Exception.
- *
  * Extending the \Hoa\Exception\Exception class.
- *
- * @license    New BSD License
  */
 class Exception extends HoaException
 {
