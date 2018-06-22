@@ -39,18 +39,12 @@ declare(strict_types=1);
 namespace Hoa\Math\Sampler;
 
 /**
- * Class \Hoa\Math\Sampler\Random.
- *
  * Random sampler.
- *
- * @license    New BSD License
  */
 class Random extends Sampler
 {
     /**
      * Construct.
-     *
-     * @return  void
      */
     public function construct(): void
     {
@@ -79,10 +73,6 @@ class Random extends Sampler
 
     /**
      * Generate a discrete uniform distribution.
-     *
-     * @param   int  $lower    Lower bound value.
-     * @param   int  $upper    Upper bound value.
-     * @return  int
      */
     protected function _getInteger(int $lower, int $upper): int
     {
@@ -91,10 +81,6 @@ class Random extends Sampler
 
     /**
      * Generate a continuous uniform distribution.
-     *
-     * @param   float      $lower    Lower bound value.
-     * @param   float      $upper    Upper bound value.
-     * @return  float
      */
     protected function _getFloat(float $lower, float $upper): float
     {

@@ -43,18 +43,12 @@ use Hoa\Math;
 use Hoa\Zformat;
 
 /**
- * Class \Hoa\Math\Sampler.
- *
  * Generic sampler.
- *
- * @license    New BSD License
  */
 abstract class Sampler implements Zformat\Parameterizable
 {
     /**
      * Parameters.
-     *
-     * @var \Hoa\Zformat\Parameter
      */
     protected $_parameters = null;
 
@@ -62,8 +56,6 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Construct an abstract sampler.
-     *
-     * @param   array  $parameters    Parameters.
      */
     public function __construct(array $parameters = [])
     {
@@ -102,8 +94,6 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Construct.
-     *
-     * @return  void
      */
     public function construct(): void
     {
@@ -112,8 +102,6 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Get parameters.
-     *
-     * @return  \Hoa\Zformat\Parameter
      */
     public function getParameters(): Zformat\Parameter
     {
@@ -122,11 +110,6 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Generate a discrete uniform distribution.
-     *
-     * @param   int    $lower       Lower bound value.
-     * @param   int    $upper       Upper bound value.
-     * @param   array  &$exclude    Excluded values.
-     * @return  int
      */
     public function getInteger(
         int $lower          = null,
@@ -181,19 +164,11 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Generate a discrete uniform distribution.
-     *
-     * @param   int  $lower    Lower bound value.
-     * @param   int  $upper    Upper bound value.
-     * @return  int
      */
     abstract protected function _getInteger(int $lower, int $upper): int;
 
     /**
      * Generate a continuous uniform distribution.
-     *
-     * @param   float   $lower    Lower bound value.
-     * @param   float   $upper    Upper bound value.
-     * @return  float
      */
     public function getFloat(float $lower = null, float $upper = null): float
     {
@@ -228,10 +203,6 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Generate a continuous uniform distribution.
-     *
-     * @param   float      $lower    Lower bound value.
-     * @param   float      $upper    Upper bound value.
-     * @return  float
      */
     abstract protected function _getFloat(float $lower, float $upper): float;
 
