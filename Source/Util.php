@@ -39,11 +39,7 @@ declare(strict_types=1);
 namespace Hoa\Math;
 
 /**
- * Class \Hoa\Math\Util.
- *
  * Some Math functions.
- *
- * @license    New BSD License
  */
 class Util
 {
