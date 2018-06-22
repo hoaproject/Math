@@ -40,29 +40,21 @@ namespace Hoa\Math;
 
 /**
  * Class \Hoa\Math\Context.
- *
- * @license    New BSD License
  */
 class Context
 {
     /**
      * List of supported functions: identifier => values as callable.
-     *
-     * @var \ArrayObject
      */
     protected $_functions = null;
 
     /**
      * List of supported constants: identifier => values.
-     *
-     * @var \ArrayObject
      */
     protected $_constants = null;
 
     /**
      * List of supported variables: identifier => values as callable.
-     *
-     * @var \ArrayObject
      */
     protected $_variables = null;
 
@@ -70,7 +62,6 @@ class Context
 
     /**
      * Initialize constants and functions.
-     *
      */
     public function __construct()
     {
@@ -83,11 +74,6 @@ class Context
 
     /**
      * Add a constant.
-     *
-     * @param   string  $name     Constant name.
-     * @param   mixed   $value    Value.
-     * @return  void
-     * @throws  \Hoa\Math\Exception\AlreadyDefinedConstant
      */
     public function addConstant(string $name, $value): void
     {
@@ -106,10 +92,6 @@ class Context
 
     /**
      * Get a constant.
-     *
-     * @param   string  $name    Constant name.
-     * @return  mixed
-     * @throws  \Hoa\Math\Exception\UnknownConstant
      */
     public function getConstant(string $name)
     {
@@ -126,8 +108,6 @@ class Context
 
     /**
      * Get constants.
-     *
-     * @return  \ArrayObject
      */
     public function getConstants(): \ArrayObject
     {
@@ -136,11 +116,6 @@ class Context
 
     /**
      * Add a function.
-     *
-     * @param   string  $name        Function name.
-     * @param   mixed   $callable    Callable.
-     * @return  void
-     * @throws  \Hoa\Math\Exception\UnknownFunction
      */
     public function addFunction(string $name, $callable = null): void
     {
@@ -163,10 +138,6 @@ class Context
 
     /**
      * Get a function.
-     *
-     * @param   string  $name    Function name.
-     * @return  \Hoa\Consistency\Xcallable
-     * @throws  \Hoa\Math\Exception\UnknownFunction
      */
     public function getFunction(string $name): \Hoa\Consistency\Xcallable
     {
@@ -183,8 +154,6 @@ class Context
 
     /**
      * Get functions.
-     *
-     * @return  \ArrayObject
      */
     public function getFunctions(): \ArrayObject
     {
@@ -193,10 +162,6 @@ class Context
 
     /**
      * Add a variable.
-     *
-     * @param   string    $name        Variable name.
-     * @param   callable  $callable    Callable.
-     * @return  void
      */
     public function addVariable(string $name, callable $callable): void
     {
@@ -207,10 +172,6 @@ class Context
 
     /**
      * Get a variable.
-     *
-     * @param   string   $name    Variable name.
-     * @return  callable
-     * @throws  \Hoa\Math\Exception\UnknownVariable
      */
     public function getVariable(string $name)
     {
@@ -227,8 +188,6 @@ class Context
 
     /**
      * Get variables.
-     *
-     * @return \ArrayObject
      */
     public function getVariables(): \ArrayObject
     {
@@ -237,8 +196,6 @@ class Context
 
     /**
      * Initialize constants mapping.
-     *
-     * @return void
      */
     protected function initializeConstants(): void
     {
@@ -274,8 +231,6 @@ class Context
 
     /**
      * Initialize functions mapping.
-     *
-     * @return void
      */
     protected function initializeFunctions(): void
     {
@@ -330,8 +285,6 @@ class Context
 
     /**
      * Initialize variables mapping.
-     *
-     * @return void
      */
     protected function initializeVariables(): void
     {
