@@ -41,72 +41,51 @@ namespace Hoa\Math\Combinatorics\Combination;
 use Hoa\Iterator;
 
 /**
- * Class \Hoa\Math\Combinatorics\Combination\Gamma.
- *
  * Gamma^n_k denotes the set of k-uples whose sum of elements is n. For example:
  * Gamma^2_3 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0, 2)}.
  * For any k-uple γ and any α in {1, …, k}, γ_α denotes the α-th element of γ.
  * This class is identical to \Hoa\Math\Combinatorics\Combination::Gamma with a
  * “yield” keyword.
- *
- * @license    New BSD License
  */
 class Gamma implements Iterator
 {
     /**
      * n.
-     *
-     * @var int
      */
     protected $_n       = 0;
 
     /**
      * k.
-     *
-     * @var int
      */
     protected $_k       = 0;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_current = null;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_key     = -1;
 
     /**
      * For iterator.
-     *
-     * @var array
      */
     protected $_tmp     = null;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_i       = 0;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_o       = 0;
 
     /**
      * For iterator.
-     *
-     *
-     * @var bool
      */
     protected $_last    = false;
 
@@ -114,9 +93,6 @@ class Gamma implements Iterator
 
     /**
      * Constructor.
-     *
-     * @param   int  $n    n.
-     * @param   int  $k    k.
      */
     public function __construct(int $n, int $k)
     {
@@ -128,8 +104,6 @@ class Gamma implements Iterator
 
     /**
      * Get current γ.
-     *
-     * @return  array
      */
     public function current(): array
     {
@@ -138,8 +112,6 @@ class Gamma implements Iterator
 
     /**
      * Get current α.
-     *
-     * @return  int
      */
     public function key(): int
     {
@@ -148,8 +120,6 @@ class Gamma implements Iterator
 
     /**
      * Compute γ_{α + 1}.
-     *
-     * @return  void
      */
     public function next(): void
     {
@@ -158,8 +128,6 @@ class Gamma implements Iterator
 
     /**
      * Rewind iterator.
-     *
-     * @return  void
      */
     public function rewind(): void
     {
@@ -177,8 +145,6 @@ class Gamma implements Iterator
 
     /**
      * Compute γ_α.
-     *
-     * @return  bool
      */
     public function valid(): bool
     {
