@@ -41,8 +41,6 @@ namespace Hoa\Math\Combinatorics\Combination;
 use Hoa\Iterator;
 
 /**
- * Class \Hoa\Math\Combinatorics\Combination\CartesianProduct.
- *
  * Cartesian n-ary product iterator:
  *     X = {1, 2}
  *     Y = {a, b}
@@ -50,43 +48,31 @@ use Hoa\Iterator;
  *     X × Y × Z = { (1, a, A), (2, a, A), (1, b, A), (2, b, A)
  *                   (1, a, B), (2, a, B), (1, b, B), (2, b, B)
  *                   (1, a, C), (2, a, C), (1, b, C), (2, b, C) }
- *
- * @license    New BSD License
  */
 class CartesianProduct implements Iterator
 {
     /**
      * All sets.
-     *
-     * @var array
      */
     protected $_sets    = [];
 
     /**
      * Number of sets.
-     *
-     * @var int
      */
     protected $_max     = 0;
 
     /**
      * Key.
-     *
-     * @var int
      */
     protected $_key     = 0;
 
     /**
      * Current (contains the current t-uple).
-     *
-     * @var array
      */
     protected $_current = null;
 
     /**
      * Whether the iterator has reached the end or not.
-     *
-     * @var bool
      */
     protected $_break   = true;
 
@@ -94,9 +80,6 @@ class CartesianProduct implements Iterator
 
     /**
      * Constructor.
-     *
-     * @param   \Traversable  $set    Set.
-     * @param   …             …       …
      */
     public function __construct(array $set)
     {
@@ -118,8 +101,6 @@ class CartesianProduct implements Iterator
 
     /**
      * Get the current value.
-     *
-     * @return  array
      */
     public function current(): array
     {
@@ -128,8 +109,6 @@ class CartesianProduct implements Iterator
 
     /**
      * Prepare the current value.
-     *
-     * @return  void
      */
     protected function _current(): void
     {
@@ -144,8 +123,6 @@ class CartesianProduct implements Iterator
 
     /**
      * Get the current key.
-     *
-     * @return  int
      */
     public function key(): int
     {
@@ -154,8 +131,6 @@ class CartesianProduct implements Iterator
 
     /**
      * Advance the internal collection pointer, and return the current value.
-     *
-     * @return  array
      */
     public function next(): array
     {
@@ -183,8 +158,6 @@ class CartesianProduct implements Iterator
 
     /**
      * Rewind the internal collection pointer, and return the first collection.
-     *
-     * @return  array
      */
     public function rewind(): array
     {
@@ -203,8 +176,6 @@ class CartesianProduct implements Iterator
     /**
      * Check if there is a current element after calls to the rewind() or the
      * next() methods.
-     *
-     * @return  bool
      */
     public function valid(): bool
     {

@@ -41,11 +41,7 @@ namespace Hoa\Math\Combinatorics\Combination;
 use Hoa\Consistency;
 
 /**
- * Class \Hoa\Math\Combinatorics\Combination.
- *
  * Some functions related to combinatorics.
- *
- * @license    New BSD License
  */
 class Combination
 {
@@ -54,12 +50,6 @@ class Combination
      * Γ^3_2 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0,
      * 2)}. For any k-uple γ and any α in {1, …, k}, γ_α denotes the α-th
      * element of γ.
-     *
-     * @param   int   $n              n.
-     * @param   int   $k              k.
-     * @param   bool  $withoutZero    Do not produce solutions with a zero
-     *                                inside.
-     * @return  array
      */
     public static function Γ(int $n, int $k, bool $withoutZero = false): array
     {
