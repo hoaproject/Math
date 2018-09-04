@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -39,73 +41,51 @@ namespace Hoa\Math\Combinatorics\Combination;
 use Hoa\Iterator;
 
 /**
- * Class \Hoa\Math\Combinatorics\Combination\Gamma.
- *
  * Gamma^n_k denotes the set of k-uples whose sum of elements is n. For example:
  * Gamma^2_3 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0, 2)}.
  * For any k-uple γ and any α in {1, …, k}, γ_α denotes the α-th element of γ.
  * This class is identical to \Hoa\Math\Combinatorics\Combination::Gamma with a
  * “yield” keyword.
- *
- * @copyright  Copyright © 2007-2017 Hoa community
- * @license    New BSD License
  */
 class Gamma implements Iterator
 {
     /**
      * n.
-     *
-     * @var int
      */
     protected $_n       = 0;
 
     /**
      * k.
-     *
-     * @var int
      */
     protected $_k       = 0;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_current = null;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_key     = -1;
 
     /**
      * For iterator.
-     *
-     * @var array
      */
     protected $_tmp     = null;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_i       = 0;
 
     /**
      * For iterator.
-     *
-     * @var int
      */
     protected $_o       = 0;
 
     /**
      * For iterator.
-     *
-     *
-     * @var bool
      */
     protected $_last    = false;
 
@@ -113,11 +93,8 @@ class Gamma implements Iterator
 
     /**
      * Constructor.
-     *
-     * @param   int  $n    n.
-     * @param   int  $k    k.
      */
-    public function __construct($n, $k)
+    public function __construct(int $n, int $k)
     {
         $this->_n = $n;
         $this->_k = $k;
@@ -127,40 +104,32 @@ class Gamma implements Iterator
 
     /**
      * Get current γ.
-     *
-     * @return  array
      */
-    public function current()
+    public function current(): array
     {
         return $this->_current;
     }
 
     /**
      * Get current α.
-     *
-     * @return  int
      */
-    public function key()
+    public function key(): int
     {
         return $this->_key;
     }
 
     /**
      * Compute γ_{α + 1}.
-     *
-     * @return  void
      */
-    public function next()
+    public function next(): void
     {
         return;
     }
 
     /**
      * Rewind iterator.
-     *
-     * @return  void
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->_current = [];
         $this->_tmp     = null;
@@ -176,10 +145,8 @@ class Gamma implements Iterator
 
     /**
      * Compute γ_α.
-     *
-     * @return  bool
      */
-    public function valid()
+    public function valid(): bool
     {
         if (true === $this->_last) {
             return false;

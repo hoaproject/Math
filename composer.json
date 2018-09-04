@@ -24,7 +24,7 @@
         "source": "https://central.hoa-project.net/Resource/Library/Math"
     },
     "require": {
-        "php"            : ">=5.5.0",
+        "php"            : ">=7.1",
         "hoa/compiler"   : "~3.0",
         "hoa/consistency": "~1.0",
         "hoa/exception"  : "~1.0",
@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Hoa\\Math\\": "."
+            "Hoa\\Math\\": "Source"
         }
     },
     "extra": {

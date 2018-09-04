@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * Hoa
  *
@@ -8,7 +9,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,12 +45,11 @@ use Hoa\Test;
  *
  * Test suite of the random sampler.
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Random extends Test\Unit\Suite
 {
-    public function case_integer()
+    public function case_integer(): void
     {
         $this
             ->given($sampler = new CUT())
@@ -58,7 +58,7 @@ class Random extends Test\Unit\Suite
                 ->integer($x);
     }
 
-    public function case_bounded_integer()
+    public function case_bounded_integer(): void
     {
         $this
             ->given($sampler = new CUT())
@@ -73,7 +73,7 @@ class Random extends Test\Unit\Suite
                     ->isIdenticalTo(42);
     }
 
-    public function case_optional_bounds_integer()
+    public function case_optional_bounds_integer(): void
     {
         $this
             ->given($sampler = new CUT([
@@ -86,7 +86,7 @@ class Random extends Test\Unit\Suite
                     ->isIdenticalTo(42);
     }
 
-    public function case_excluded_integers()
+    public function case_excluded_integers(): void
     {
         $this
             ->given(
@@ -113,7 +113,7 @@ class Random extends Test\Unit\Suite
                     ->isIdenticalTo(1);
     }
 
-    public function case_uniformity_integer()
+    public function case_uniformity_integer(): void
     {
         $this
             ->given(
@@ -127,8 +127,8 @@ class Random extends Test\Unit\Suite
                     'integer.max' => $upper
                 ])
             )
-            ->when(function () use ($max, &$sum, &$sampler) {
-                for ($i = 0; $i  < $max; ++$i) {
+            ->when(function () use ($max, &$sum, &$sampler): void {
+                for ($i = 0; $i < $max; ++$i) {
                     $sum += $sampler->getInteger();
                 }
             })
@@ -138,7 +138,7 @@ class Random extends Test\Unit\Suite
                     ->isLessThanOrEqualTo(1.5);
     }
 
-    public function case_float()
+    public function case_float(): void
     {
         $this
             ->given($sampler = new CUT())
@@ -147,7 +147,7 @@ class Random extends Test\Unit\Suite
                 ->float($x);
     }
 
-    public function case_bounded_float()
+    public function case_bounded_float(): void
     {
         $this
             ->given($sampler = new CUT())
@@ -161,7 +161,7 @@ class Random extends Test\Unit\Suite
                     ->isIdenticalTo(4.2);
     }
 
-    public function case_optional_bounds_float()
+    public function case_optional_bounds_float(): void
     {
         $this
             ->given($sampler = new CUT([
@@ -174,7 +174,7 @@ class Random extends Test\Unit\Suite
                     ->isIdenticalTo(4.2);
     }
 
-    public function case_uniformity_float()
+    public function case_uniformity_float(): void
     {
         $this
             ->given(
@@ -188,8 +188,8 @@ class Random extends Test\Unit\Suite
                     'float.max' => $upper
                 ])
             )
-            ->when(function () use ($max, &$sum, &$sampler) {
-                for ($i = 0; $i  < $max; ++$i) {
+            ->when(function () use ($max, &$sum, &$sampler): void {
+                for ($i = 0; $i < $max; ++$i) {
                     $sum += $sampler->getFloat();
                 }
             })

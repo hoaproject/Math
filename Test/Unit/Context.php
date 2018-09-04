@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * Hoa
  *
@@ -8,7 +9,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,12 +45,11 @@ use Hoa\Test;
  *
  * Test suite of the Hoa\Math\Context class.
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Context extends Test\Unit\Suite
 {
-    public function case_context_has_no_predefined_variable()
+    public function case_context_has_no_predefined_variable(): void
     {
         $this
             ->given($context = new CUT())
@@ -61,7 +61,7 @@ class Context extends Test\Unit\Suite
                     ->isEmpty();
     }
 
-    public function case_context_exception_when_getting_unknown_variable()
+    public function case_context_exception_when_getting_unknown_variable(): void
     {
         $this
             ->given(
@@ -69,19 +69,21 @@ class Context extends Test\Unit\Suite
                 $context = new CUT()
             )
             ->then
-                ->exception(function () use ($context, $name) {
+                ->exception(function () use ($context, $name): void {
                     $context->getVariable($name);
                 })
                     ->isInstanceOf('Hoa\Math\Exception\UnknownVariable');
     }
 
-    public function case_context_returns_variable_value()
+    public function case_context_returns_variable_value(): void
     {
         $this
             ->given(
                 $name     = 'foo',
                 $value    = 42,
-                $callable = function () use ($value) { return $value; },
+                $callable = function () use ($value) {
+                    return $value;
+                },
                 $context  = new CUT(),
                 $context->addVariable($name, $callable)
             )
@@ -91,7 +93,7 @@ class Context extends Test\Unit\Suite
                     ->isEqualTo($value);
     }
 
-    public function case_context_has_predefined_constants()
+    public function case_context_has_predefined_constants(): void
     {
         $this
             ->given($context = new CUT())
@@ -122,7 +124,7 @@ class Context extends Test\Unit\Suite
                     ]);
     }
 
-    public function case_context_exception_when_getting_unknown_constant()
+    public function case_context_exception_when_getting_unknown_constant(): void
     {
         $this
             ->given(
@@ -130,13 +132,13 @@ class Context extends Test\Unit\Suite
                 $context = new CUT()
             )
             ->then
-                ->exception(function () use ($context, $name) {
+                ->exception(function () use ($context, $name): void {
                     $context->getConstant($name);
                 })
                     ->isInstanceOf('Hoa\Math\Exception\UnknownConstant');
     }
 
-    public function case_context_exception_when_setting_already_defined_constant()
+    public function case_context_exception_when_setting_already_defined_constant(): void
     {
         $this
             ->given(
@@ -144,13 +146,13 @@ class Context extends Test\Unit\Suite
                 $context = new CUT()
             )
             ->then
-                ->exception(function () use ($context, $name) {
+                ->exception(function () use ($context, $name): void {
                     $context->addConstant($name, 42);
                 })
                     ->isInstanceOf('Hoa\Math\Exception\AlreadyDefinedConstant');
     }
 
-    public function case_context_returns_constant_value()
+    public function case_context_returns_constant_value(): void
     {
         $this
             ->given(
@@ -165,7 +167,7 @@ class Context extends Test\Unit\Suite
                     ->isEqualTo($value);
     }
 
-    public function case_context_has_predefined_functions()
+    public function case_context_has_predefined_functions(): void
     {
         $this
             ->given($context = new CUT())
@@ -201,7 +203,7 @@ class Context extends Test\Unit\Suite
                     ->hasKey('tan');
     }
 
-    public function case_context_exception_when_getting_unknown_function()
+    public function case_context_exception_when_getting_unknown_function(): void
     {
         $this
             ->given(
@@ -209,13 +211,13 @@ class Context extends Test\Unit\Suite
                 $context = new CUT()
             )
             ->then
-                ->exception(function () use ($context, $name) {
+                ->exception(function () use ($context, $name): void {
                     $context->getFunction($name);
                 })
                     ->isInstanceOf('Hoa\Math\Exception\UnknownFunction');
     }
 
-    public function case_context_exception_when_setting_unknown_function()
+    public function case_context_exception_when_setting_unknown_function(): void
     {
         $this
             ->given(
@@ -223,18 +225,19 @@ class Context extends Test\Unit\Suite
                 $context = new CUT()
             )
             ->then
-                ->exception(function () use ($context, $name) {
+                ->exception(function () use ($context, $name): void {
                     $context->addFunction($name);
                 })
                     ->isInstanceOf('Hoa\Math\Exception\UnknownFunction');
     }
 
-    public function case_context_returns_function_callable()
+    public function case_context_returns_function_callable(): void
     {
         $this
             ->given(
                 $name     = 'foo',
-                $callable = function () {},
+                $callable = function (): void {
+                },
                 $context  = new CUT(),
                 $context->addFunction($name, $callable)
             )
@@ -244,13 +247,15 @@ class Context extends Test\Unit\Suite
                     ->isInstanceOf('Hoa\Consistency\Xcallable');
     }
 
-    public function case_context_returns_the_right_function_callable()
+    public function case_context_returns_the_right_function_callable(): void
     {
         $this
             ->given(
                 $name     = 'foo',
                 $value    = 42,
-                $callable = function () use ($value) { return $value; },
+                $callable = function () use ($value) {
+                    return $value;
+                },
                 $context  = new CUT(),
                 $context->addFunction($name, $callable)
             )

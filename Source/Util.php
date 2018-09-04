@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -34,69 +36,21 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Hoa\Math\Combinatorics\Combination;
-
-use Hoa\Consistency;
+namespace Hoa\Math;
 
 /**
- * Class \Hoa\Math\Combinatorics\Combination.
- *
- * Some functions related to combinatorics.
- *
- * @copyright  Copyright © 2007-2017 Hoa community
- * @license    New BSD License
+ * Some Math functions.
  */
-class Combination
+class Util
 {
     /**
-     * Γ^n_k denotes the set of k-uples whose sum of elements is n. For example:
-     * Γ^3_2 = {(2, 0, 0), (1, 1, 0), (1, 0, 1), (0, 2, 0), (0, 1, 1), (0, 0,
-     * 2)}. For any k-uple γ and any α in {1, …, k}, γ_α denotes the α-th
-     * element of γ.
-     *
-     * @param   int   $n              n.
-     * @param   int   $k              k.
-     * @param   bool  $withoutZero    Do not produce solutions with a zero
-     *                                inside.
-     * @return  array
+     * @description 'Kronecker delta: δ_i^j = 1 if i = j, 0 if i ≠ j';
+     * @requires    i: integer() and
+     *              j: integer();
+     * @ensures     \pred('\\result === (int) ($i === $j)');
      */
-    public static function Γ($n, $k, $withoutZero = false)
+    public static function δ($i, $j)
     {
-        if (0 === $n) {
-            return [];
-        }
-
-        $out  = [];
-        $tmp  = null;
-        $i    = 0;
-        $o    = array_fill(0, $n, 0);
-        $o[0] = $k;
-
-        while ($k != $o[$i = $n - 1]) {
-            if (false === $withoutZero || !in_array(0, $o)) {
-                $out[] = $o;
-            }
-
-            $tmp   = $o[$i];
-            $o[$i] = 0;
-
-            while ($o[$i] == 0) {
-                --$i;
-            }
-
-            --$o[$i];
-            $o[$i + 1] = $tmp + 1;
-        }
-
-        if (false === $withoutZero || !in_array(0, $o)) {
-            $out[] = $o;
-        }
-
-        return $out;
+        return (int) ($i === $j);
     }
 }
-
-/**
- * Flex entity.
- */
-Consistency::flexEntity('Hoa\Math\Combinatorics\Combination\Combination');

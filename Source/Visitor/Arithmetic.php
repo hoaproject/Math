@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -40,26 +42,17 @@ use Hoa\Math;
 use Hoa\Visitor;
 
 /**
- * Class \Hoa\Math\Visitor\Arithmetic.
- *
  * Evaluate arithmetical expressions.
- *
- * @copyright  Copyright © 2007-2017 Hoa community
- *             Ivan Enderlin, Cédric Dugat.
- * @license    New BSD License
  */
 class Arithmetic implements Visitor\Visit
 {
     /**
      * Visitor context containing the list of supported functions, constants and variables
-     *
-     * @var \Hoa\Math\Context
      */
     protected $_context = null;
 
     /**
      * Initializes context.
-     *
      */
     public function __construct()
     {
@@ -70,11 +63,8 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Set visitor's context
-     *
-     * @param   \Hoa\Math\Context $context
-     * @return  \Hoa\Math\Context
      */
-    public function setContext(Math\Context $context)
+    public function setContext(Math\Context $context): Math\Context
     {
         $old = $this->_context;
 
@@ -85,21 +75,14 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get visitor's context
-     *
-     * @return  \Hoa\Math\Context
      */
-    public function getContext()
+    public function getContext(): Math\Context
     {
         return $this->_context;
     }
 
     /**
      * Visit an element.
-     *
-     * @param   \Hoa\Visitor\Element  $element    Element to visit.
-     * @param   mixed                 &$handle    Handle (reference).
-     * @param   mixed                 $eldnah     Handle (not reference).
-     * @return  float
      */
     public function visit(
         Visitor\Element $element,
@@ -181,7 +164,7 @@ class Arithmetic implements Visitor\Visit
                 $children[0]->accept($this, $a, $eldnah);
                 $parent = $element->getParent();
 
-                if (null  === $parent ||
+                if (null === $parent ||
                     $type === $parent->getId()) {
                     $acc = function ($b) use ($a, $acc) {
                         if (0.0 === $b) {
@@ -272,71 +255,53 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Get functions.
-     *
-     * @return  \ArrayObject
      */
-    public function getFunctions()
+    public function getFunctions(): \ArrayObject
     {
         return $this->_context->getFunctions();
     }
 
     /**
      * Get a function.
-     *
-     * @param   string  $name    Function name.
-     * @return  \Hoa\Consistency\Xcallable
-     * @throws  \Hoa\Math\Exception\UnknownFunction
      */
-    public function getFunction($name)
+    public function getFunction(string $name): \Hoa\Consistency\Xcallable
     {
         return $this->_context->getFunction($name);
     }
 
     /**
      * Get constants.
-     *
-     * @return  \ArrayObject
      */
-    public function getConstants()
+    public function getConstants(): \ArrayObject
     {
         return $this->_context->getConstants();
     }
 
     /**
      * Get a constant.
-     *
-     * @param   string  $name    Constant name.
-     * @return  mixed
-     * @throws  \Hoa\Math\Exception\UnknownFunction
      */
-    public function getConstant($name)
+    public function getConstant(string $name)
     {
         return $this->_context->getConstant($name);
     }
 
     /**
      * Get variables.
-     *
-     * @return \ArrayObject
      */
-    public function getVariables()
+    public function getVariables(): \ArrayObject
     {
         return $this->_context->getVariables();
     }
 
     /**
      * Get a variable.
-     *
-     * @param   string  $name    Variable name.
-     * @return  callable
-     * @throws  \Hoa\Math\Exception\UnknownVariable
      */
-    public function getVariable($name)
+    public function getVariable(string $name)
     {
         return $this->_context->getVariable($name);
     }
 
-    protected function initializeContext()
+    protected function initializeContext(): void
     {
         if (null === $this->_context) {
             $this->_context = new Math\Context();
@@ -347,36 +312,24 @@ class Arithmetic implements Visitor\Visit
 
     /**
      * Add a function.
-     *
-     * @param   string  $name        Function name.
-     * @param   mixed   $callable    Callable.
-     * @return  void
      */
-    public function addFunction($name, $callable = null)
+    public function addFunction(string $name, $callable = null)
     {
         return $this->_context->addFunction($name, $callable);
     }
 
     /**
      * Add a constant.
-     *
-     * @param   string  $name     Constant name.
-     * @param   mixed   $value    Value.
-     * @return  void
      */
-    public function addConstant($name, $value)
+    public function addConstant(string $name, $value)
     {
         return $this->_context->addConstant($name, $value);
     }
 
     /**
      * Add a variable.
-     *
-     * @param   string    $name        Variable name.
-     * @param   callable  $callable    Callable.
-     * @return  void
      */
-    public function addVariable($name, callable $callable)
+    public function addVariable(string $name, callable $callable)
     {
         return $this->_context->addVariable($name, $callable);
     }

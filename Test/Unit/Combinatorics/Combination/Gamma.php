@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * Hoa
  *
@@ -8,7 +9,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -44,12 +45,11 @@ use Hoa\Test;
  *
  * Test suite of the Γ iterator.
  *
- * @copyright  Copyright © 2007-2017 Hoa community
  * @license    New BSD License
  */
 class Gamma extends Test\Unit\Suite
 {
-    public function case_empty()
+    public function case_empty(): void
     {
         $this
             ->given(
@@ -63,7 +63,7 @@ class Gamma extends Test\Unit\Suite
                     ->isEmpty();
     }
 
-    public function case_n2_k3()
+    public function case_n2_k3(): void
     {
         $this
             ->given(
@@ -82,7 +82,7 @@ class Gamma extends Test\Unit\Suite
                     ]);
     }
 
-    public function case_n3_k2()
+    public function case_n3_k2(): void
     {
         $this
             ->given(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -41,19 +43,12 @@ use Hoa\Math;
 use Hoa\Zformat;
 
 /**
- * Class \Hoa\Math\Sampler.
- *
  * Generic sampler.
- *
- * @copyright  Copyright © 2007-2017 Hoa community
- * @license    New BSD License
  */
 abstract class Sampler implements Zformat\Parameterizable
 {
     /**
      * Parameters.
-     *
-     * @var \Hoa\Zformat\Parameter
      */
     protected $_parameters = null;
 
@@ -61,8 +56,6 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Construct an abstract sampler.
-     *
-     * @param   array  $parameters    Parameters.
      */
     public function __construct(array $parameters = [])
     {
@@ -101,37 +94,28 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Construct.
-     *
-     * @return  void
      */
-    public function construct()
+    public function construct(): void
     {
         return;
     }
 
     /**
      * Get parameters.
-     *
-     * @return  \Hoa\Zformat\Parameter
      */
-    public function getParameters()
+    public function getParameters(): Zformat\Parameter
     {
         return $this->_parameters;
     }
 
     /**
      * Generate a discrete uniform distribution.
-     *
-     * @param   int    $lower       Lower bound value.
-     * @param   int    $upper       Upper bound value.
-     * @param   array  &$exclude    Excluded values.
-     * @return  int
      */
     public function getInteger(
-        $lower          = null,
-        $upper          = null,
+        int $lower          = null,
+        int $upper          = null,
         array &$exclude = null
-    ) {
+    ): int {
         if (null === $lower) {
             $lower = $this->_parameters->getParameter('integer.min');
         }
@@ -180,44 +164,38 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Generate a discrete uniform distribution.
-     *
-     * @param   int  $lower    Lower bound value.
-     * @param   int  $upper    Upper bound value.
-     * @return  int
      */
-    abstract protected function _getInteger($lower, $upper);
+    abstract protected function _getInteger(int $lower, int $upper): int;
 
     /**
      * Generate a continuous uniform distribution.
-     *
-     * @param   float   $lower    Lower bound value.
-     * @param   float   $upper    Upper bound value.
-     * @return  float
      */
-    public function getFloat($lower = null, $upper = null)
+    public function getFloat(float $lower = null, float $upper = null): float
     {
         if (null === $lower) {
             $lower = $this->_parameters->getParameter('float.min');
         }
-            /*
-            $lower = true === S_32\BITS
-                         ? -3.4028235e38 + 1
-                         : -1.7976931348623157e308 + 1;
-            */
+        /*
+        $lower = true === S_32\BITS
+                     ? -3.4028235e38 + 1
+                     : -1.7976931348623157e308 + 1;
+        */
 
         if (null === $upper) {
             $upper = $this->_parameters->getParameter('float.max');
         }
-            /*
-            $upper = true === S_32\BITS
-                         ? 3.4028235e38 - 1
-                         : 1.7976931348623157e308 - 1;
-            */
+        /*
+        $upper = true === S_32\BITS
+                     ? 3.4028235e38 - 1
+                     : 1.7976931348623157e308 - 1;
+        */
 
         if ($lower > $upper) {
             throw new Math\Exception(
                 'Unexpected values, float %f should be lower than %f',
-                2, [$lower, $upper]);
+                2,
+                [$lower, $upper]
+            );
         }
 
         return $this->_getFloat($lower, $upper);
@@ -225,19 +203,15 @@ abstract class Sampler implements Zformat\Parameterizable
 
     /**
      * Generate a continuous uniform distribution.
-     *
-     * @param   float      $lower    Lower bound value.
-     * @param   float      $upper    Upper bound value.
-     * @return  float
      */
-    abstract protected function _getFloat($lower, $upper);
+    abstract protected function _getFloat(float $lower, float $upper): float;
 
     /**
      * Get an exclude set.
      *
      * @return  array
      */
-    public function getExcludeSet()
+    public function getExcludeSet(): array
     {
         return [];
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Hoa
  *
@@ -8,7 +10,7 @@
  *
  * New BSD License
  *
- * Copyright © 2007-2017, Hoa community. All rights reserved.
+ * Copyright © 2007-2018, Hoa community. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -37,21 +39,14 @@
 namespace Hoa\Math\Sampler;
 
 /**
- * Class \Hoa\Math\Sampler\Random.
- *
  * Random sampler.
- *
- * @copyright  Copyright © 2007-2017 Hoa community
- * @license    New BSD License
  */
 class Random extends Sampler
 {
     /**
      * Construct.
-     *
-     * @return  void
      */
-    public function construct()
+    public function construct(): void
     {
         if (null === $this->_parameters->getParameter('integer.min')) {
             $this->_parameters->setParameter(
@@ -78,24 +73,16 @@ class Random extends Sampler
 
     /**
      * Generate a discrete uniform distribution.
-     *
-     * @param   int  $lower    Lower bound value.
-     * @param   int  $upper    Upper bound value.
-     * @return  int
      */
-    protected function _getInteger($lower, $upper)
+    protected function _getInteger(int $lower, int $upper): int
     {
         return mt_rand($lower, $upper);
     }
 
     /**
      * Generate a continuous uniform distribution.
-     *
-     * @param   float      $lower    Lower bound value.
-     * @param   float      $upper    Upper bound value.
-     * @return  float
      */
-    protected function _getFloat($lower, $upper)
+    protected function _getFloat(float $lower, float $upper): float
     {
         return $lower + lcg_value() * abs($upper - $lower);
     }
